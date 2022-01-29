@@ -1,0 +1,156 @@
+body{
+    width: 100%;height: auto;
+}
+
+/*start nav*/
+.nav{
+    font-size: 16px;
+    height:50px;
+}
+.logo{
+    width: 70px;
+    margin-left:20px;
+}
+.dropdown-content img{
+    width: 450px;
+    margin-left: 10%;
+    margin-top: 100px;
+}
+.dropdown-content li {
+    list-style: none;
+    color: cadetblue;
+}
+.container-fluid{
+    padding: 10px ;
+}
+.nav p {
+    color: black;
+    margin-left: 20px;
+}
+
+.content_menu{
+    background-color:white;
+    position:fixed;
+    z-index: 1;
+    top: 070px;
+    left: 0;
+    width: 0;
+    height:400px;
+    overflow-x: hidden;
+    transition: 2.5s;
+    
+}
+.navbar-nav li a p:hover{
+    color: #2C72C6;
+}
+
+.dropdown-content li a:hover{
+    text-decoration: none;
+}
+/*end nav*/
+ 
+
+/*dropdown*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 960px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 50px 15px;
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .navbar {
+    margin-bottom: 0px !important;
+
+}
+.navbar-default {
+    position: sticky !important;
+    z-index: 1;
+    top: 0;
+}
+   
+  /* end menu*/
+ /*slide*/ 
+ .col-md-12{
+	width:100% !important;
+ }
+  /*end slide*/
+  .container {
+      text-align: center;
+      margin-top: 100px;
+  }
+.container h2{
+    font-weight: bold;
+    margin: 150px 0;
+    display: inline-block;
+    padding :0 40px;
+    border-bottom: 1px solid rgb(141, 132, 132);
+    cursor: pointer;
+    color: gray;
+} 
+.container div{
+    font-size:18px;
+    
+}
+.container div li{
+    list-style-type: none;
+}
+.container #process{
+    color: #2C72C6;
+    border-bottom: 2px solid #2C72C6;
+} 
+
+#detailing-content{
+    display: none;
+}
+
+
+.footer{
+    padding: 30px 50px;
+    border-top:2px solid #2C72C6;
+    margin-top: 100px;
+}
+.footer .col-md-7{
+    width: 200px;
+    margin-bottom: 50px;
+}
+.footer .content1{
+    margin-bottom: 100px;
+}
+.footer .content1 ul li{
+    list-style-type:none;
+    color: #2C72C6;
+    margin-bottom: 10px;
+ 
+}
+.content1 ul li a{
+    color: black;
+    text-decoration:none;
+    font-weight: 500;
+}
+.content1 ul li a:hover{
+    color: #2C72C6;
+}
+.footer .content2{
+    width: 80%;
+    border-top: 1px solid gray;
+    margin: auto;
+    padding-top: 50px;
+}
+.footer .content2 li{
+    list-style-type: none;
+}
+
+
+
+
