@@ -1,3 +1,10 @@
+<%-- 
+    Document   : login
+    Created on : Feb 2, 2022, 6:40:05 PM
+    Author     : Administrator
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -10,22 +17,20 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/signup.css" rel="stylesheet" type="text/css"  /> 
-        <script src="js/bCar.js"></script>
     </head>
     <body>
         
         <form class="sign" action="signup" method="post">
             <br>
-            <img style="margin-bottom: 50px;" class="icon" src="images/logosignup.png" />
+            <img style="margin-bottom: 50px;" class="icon" src="images/logologin.png" />
             <br>
-            <input name="acc" type="text"  placeholder="Tên tài khoản" /> 
+            <input name="acc" type="text"  placeholder="Account?" /> 
             <br>
-            <input id="pass" name="password" type="password"  placeholder="Mật khẩu" />
-            <input id="repass" name="repassword" type="password"  placeholder="Nhập lại mật khẩu" />
-
+            <input name="password" type="password"  placeholder="Password?" />
             <br>
-            <input onclick="submit()" class="submit" type="submit"  value="Tạo tài khoản" />
+            <input class="submit" type="submit"  value="Login" />
             
         </form>
     </body>
 </html>
+

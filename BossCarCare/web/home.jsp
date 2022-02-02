@@ -42,9 +42,10 @@
 
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="signup.html"><span class="glyphicon glyphicon-user" ></span> <p>Sign Up</p></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> <p>Login</p></a></li>
+                <li><a href="signup.jsp"><span class="glyphicon glyphicon-user" ></span> <p><%= request.getAttribute("signup") == null ? "Sign up" : request.getAttribute("signup") %>  </p></a></li>
+                <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> <p>Login</p></a></li>
               </ul>
+                  
             </div>
 
           </nav>

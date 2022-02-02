@@ -22,3 +22,12 @@ function dichvu_leave() {
     document.getElementById('dichvu_content').style.width="0";
 
 }
+function submit(){
+    var pass = document.getElementById('pass').value;
+    var repass = document.getElementById('repass').value;
+    alert("pass");
+    if(pass !==(repass)){
+        alert('hello');
+        document.getElementById('repass').style.borderBottom = '1px solid red';
+    }
+}
