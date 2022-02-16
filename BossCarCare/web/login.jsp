@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : Feb 2, 2022, 6:40:05 PM
-    Author     : Administrator
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -11,26 +5,37 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html lang="en">
     <head>
         <title>Sign up</title>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/signup.css" rel="stylesheet" type="text/css"  /> 
+        <script src="js/bCar.js"></script>
     </head>
     <body>
         
         <form class="sign" action="signup" method="post">
+            <img style="margin-bottom: 50px;" class="icon" src="images/logoBossCarCare1.png" />
+            <h2 style="color: #078749;font-family: sans-serif;text-align: center">ĐĂNG NHẬP TÀI KHOẢN</h2> 
             <br>
-            <img style="margin-bottom: 50px;" class="icon" src="images/logologin.png" />
-            <br>
-            <input name="acc" type="text"  placeholder="Account?" /> 
-            <br>
-            <input name="password" type="password"  placeholder="Password?" />
-            <br>
-            <input class="submit" type="submit"  value="Login" />
+            <table style="margin-left: 20%">
+                <tr>
+                    <td><input name="acc" type="text"  placeholder="Tên tài khoản" value="<%= request.getAttribute("acc") != null ? request.getAttribute("acc"):"" %>" /> </td>
+                </tr>
+                <tr>
+                    <td><input id="pass" name="password" type="password"  placeholder="Mật khẩu" value="<%= request.getAttribute("pass") != null ? request.getAttribute("pass"):"" %>" /></td>
+                    <td ><p style="color: red; margin-left: 50px"> <%= request.getAttribute("pass_error") != null ? request.getAttribute("pass_error"):"" %> </p></td>
+                    
+                </tr>
+                <tr>
+                    <td><input onclick="submit()" class="submit" type="submit"  value="Đăng nhập" /></td>
+                    <td><a href="signup.jsp" style="color: blue;text-decoration: none;font-size: 12px">chưa có tài khoản</a></td>
+                </tr>
+            </table>           
+            
             
         </form>
     </body>
 </html>
-

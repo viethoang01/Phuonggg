@@ -1,6 +1,25 @@
 body{
     width: 100%;height: auto;
+     font: 400 15px/1.8 Lato, sans-serif;
 }
+button{
+   border: 1px solid blue;
+   padding: 0px 100px;
+   background-color: white;
+   
+}
+button p{
+    color: blue;
+    margin-top: 15px;
+    font-size: 14px;
+}
+button:hover{
+    background-color: blue;
+    
+}
+button:hover p{
+        color: white;
+    }
 
 /*start nav*/
 .nav{
@@ -57,6 +76,7 @@ body{
   }
   
   .dropdown-content {
+   
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -102,8 +122,8 @@ body{
     font-size:18px;
     
 }
-.container div li{
-    list-style-type: none;
+.container div ul{
+    text-align: left;
 }
 .container #process{
     color: #2C72C6;
@@ -113,6 +133,9 @@ body{
 #detailing-content{
     display: none;
 }
+
+
+
 
 
 .footer{
@@ -150,6 +173,20 @@ body{
 .footer .content2 li{
     list-style-type: none;
 }
+
+.col-md-2 img{
+    width: 150px;
+    height: 100px;
+    
+}
+.col-md-2 p{
+    text-align: left;
+    font-size: 14px;
+}
+
+
+
+
 
 
 
