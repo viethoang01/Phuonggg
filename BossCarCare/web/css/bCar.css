@@ -1,102 +1,94 @@
 body{
-    width: 100%;height: auto;
-     font: 400 15px/1.8 Lato, sans-serif;
-}
-button{
-   border: 1px solid blue;
-   padding: 0px 100px;
-   background-color: white;
    
+    width: 100%;height: auto;
+    font-family: 'Be Vietnam Pro'!important;
 }
-button p{
-    color: blue;
-    margin-top: 15px;
-    font-size: 14px;
-}
-button:hover{
-    background-color: blue;
+input{
     
+    outline: none;
 }
-button:hover p{
-        color: white;
-    }
+
+h3{
+    text-transform: uppercase;
+}
+.class_btn{
+    margin-top: 10px;
+}
+#btn_spring{
+    background-color: blue;
+    letter-spacing: 2px;
+     color: white;
+     font-weight: bold;
+     padding: 15px 70px;
+     font-size: 12px;
+     transition: ease-in 0.3s;
+}
+#btn_spring:hover{
+    text-decoration: none;
+    box-shadow: inset 234px 0 0 white;
+    color: blue;
+}
+.row .col-md-3 a{
+    text-decoration: none;
+    font-size: 15px;
+    font-family: 'Be Vietnam Pro';
+}
+
+
+
+ #btn_thuexe{
+    color: blue;
+    margin-top: 37px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid blue;
+    transition: ease 1s;
+    padding: 15px 120px;
+    margin-right: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+#btn_thuexe:hover{
+    background-color: blue;
+    color: white;
+}
+
 
 /*start nav*/
-.nav{
-    font-size: 16px;
-    height:50px;
-}
 .logo{
     width: 70px;
     margin-left:20px;
 }
-.dropdown-content img{
-    width: 450px;
-    margin-left: 10%;
-    margin-top: 100px;
+.nav_left .col-md-7,.nav_right{
+    padding: 5px 0;
 }
-.dropdown-content li {
-    list-style: none;
-    color: cadetblue;
+.nav_left .col-md-7{
+    padding: 15px 0;
 }
-.container-fluid{
-    padding: 10px ;
-}
-.nav p {
+.col-md-3 a{
     color: black;
-    margin-left: 20px;
 }
-
-.content_menu{
-    background-color:white;
-    position:fixed;
-    z-index: 1;
-    top: 070px;
-    left: 0;
-    width: 0;
-    height:400px;
-    overflow-x: hidden;
-    transition: 2.5s;
+col-md-3 a:hover{
+    color: red;
+    text-decoration: none;
     
 }
-.navbar-nav li a p:hover{
-    color: #2C72C6;
-}
 
-.dropdown-content li a:hover{
-    text-decoration: none;
-}
 /*end nav*/
  
 
 /*dropdown*/
-.dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-   
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 960px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 50px 15px;
-    z-index: 1;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  .navbar {
-    margin-bottom: 0px !important;
 
-}
-.navbar-default {
+.header_top {
     position: sticky !important;
     z-index: 1;
     top: 0;
+    background-color: white;
+    padding: 10px;
+    
+}
+.navbar{
+    margin-bottom: 0 !important;
 }
    
   /* end menu*/
@@ -109,7 +101,7 @@ button:hover p{
       text-align: center;
       margin-top: 100px;
   }
-.container h2{
+.container .header{
     font-weight: bold;
     margin: 150px 0;
     display: inline-block;
@@ -117,7 +109,9 @@ button:hover p{
     border-bottom: 1px solid rgb(141, 132, 132);
     cursor: pointer;
     color: gray;
+    font-family: 'Be Vietnam Pro';
 } 
+
 .container div{
     font-size:18px;
     
@@ -134,8 +128,15 @@ button:hover p{
     display: none;
 }
 
-
-
+.name_car_h1{
+    margin-bottom: 50px;
+}
+.info_car_div .text_right{
+    text-align: right;
+}
+#process-content{
+    height: 600px;
+}
 
 
 .footer{
@@ -154,7 +155,7 @@ button:hover p{
     list-style-type:none;
     color: #2C72C6;
     margin-bottom: 10px;
- 
+    font-family: 'Be Vietnam Pro';
 }
 .content1 ul li a{
     color: black;
@@ -177,15 +178,134 @@ button:hover p{
 .col-md-2 img{
     width: 150px;
     height: 100px;
-    
+    transition: ease 0.3s;
 }
 .col-md-2 p{
     text-align: left;
     font-size: 14px;
 }
 
+.col-md-2 img:hover{
+    width: 170px;
+    height: 120px;
+    
+}
 
+/*thuexe.jsp*/
+/*slide*/
+* {box-sizing: border-box}
+.mySlides1 {
+    display: none;
+    height: 200px;
+    
+}
 
+.mySlides1 {
+    padding-left: 50px;
+    margin-left: 50px;
+}
+
+.mySlides1 a img{
+    transition: ease 0.1s;
+    width: 90%;
+}
+.mySlides1 a img:hover{
+    width: 100%;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  margin-top: 50px; 
+  position: relative;
+  margin: auto;
+  margin-bottom: 50px;
+  border-bottom: 1px dotted gray; 
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a grey background color */
+.prev:hover, .next:hover {
+  background-color: #f1f1f1;
+  color: black;
+}
+/*slide end*/
+
+.table_info_customer{
+
+    margin-bottom: 100px;
+    
+}
+.table_info_customer h3{
+    text-align: center;
+}
+.info_customer{
+    margin: auto;
+}
+.info_customer tr td select{
+    padding: 10px 750px 10px 0;
+}
+.info_customer tr td input{
+    padding: 10px 210px 10px 15px;
+}
+.info_customer tr .code_gioithieu input{
+    padding: 10px 683px 10px 15px;
+    margin-bottom: 20px;
+}
+.info_customer .thuexe_btn_thuexe{
+    
+}
+.img_xethue{
+    width: 90%;
+    
+    transition: ease 0.3s;
+}
+.img_xethue:hover{
+    width: 100%;
+    
+}
+.choosecar{
+    height: 350px;
+}
+
+/*end thuexe.jsp*/
+/*login*/
+.table_info_customer form .login tr td input{
+    margin-bottom: 10px;
+    border: 1px solid #ced1e0;
+    border-radius: 5px;
+}
+.table_info_customer form .login tr td .icon{
+    margin-bottom: 50px;
+}
+
+.table_info_customer form .login tr td h5{
+    font-weight: bold;
+}
+.table_info_customer form .login tr td h8{
+    font-size: 12px;
+}
+/*end login*/
 
 
 
