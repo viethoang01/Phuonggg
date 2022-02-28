@@ -210,7 +210,7 @@
                         
                     </div>
                         <form action="thuexe" method="get">
-                            <button class="" id="btn_thuexe" value="<%= car.getId()%>" name="getcar_id">THUÊ XE</button>
+                            <button class="" id="btn_thuexe" value="<%= car.getId()%>" name="getcar_id">THUÊ XE<%= car.getId()%></button>
                         </form>
                 </div>
 

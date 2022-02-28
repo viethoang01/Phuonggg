@@ -45,6 +45,7 @@
 
         <!-- nav end-->
         <%Car car = (Car) request.getAttribute("choosed_car_info");%>
+        
         <%
             String infoCar = "";
             String checkInfo = car.getInfo();
@@ -58,6 +59,12 @@
                 case "7 cho":
                     infoCar = "7 Chỗ";
                     break;
+                case "sendan":
+                    infoCar = "SENDAN";
+                    break;
+                case "SUV":
+                    infoCar = "SUV";
+                    break;    
             }
         %>
         <%ArrayList<Car> listcar = (ArrayList<Car>) request.getAttribute("listcar");%>
@@ -69,7 +76,7 @@
                 <%for (int idx2 = idx3; idx2 < listcar.size(); idx2++){%>
                 <div class="col-md-3" style="height: 300px;">
                     <a  href="thuexe?getcar_id=<%=listcar.get(idx2).getId()%>" >
-                <img src="<%=listcar.get(idx2).getImg()%>"></a>
+                    <img src="<%=listcar.get(idx2).getImg()%>"></a>
                 </div>
                 <%count++;%>    
                 <%if(idx2==listcar.size()-1)idx2=-1;%>  <!--cuoi list hiển thị lại -->

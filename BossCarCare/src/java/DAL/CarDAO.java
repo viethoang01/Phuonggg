@@ -24,7 +24,7 @@ public class CarDAO extends BaseDAO<Car>{
     public ArrayList<Car> getAll() {
         ArrayList<Car> list = new ArrayList<>();
        try {
-           String sql = "select c.name,info,img,price,[current],color,cc.name as[cateName]\n" +
+           String sql = "select c.id, c.name,info,img,price,[current],color,cc.name as[cateName]\n" +
                         "from Cars c left join Categories cc \n" +
                         "on categoryid = cc.id ";
            PreparedStatement statement = connection.prepareStatement(sql);
@@ -32,6 +32,7 @@ public class CarDAO extends BaseDAO<Car>{
            while(rs.next())
            {
                Car s = new Car();
+               s.setId(rs.getInt("id"));
                s.setName(rs.getString("name"));
                s.setInfo(rs.getString("info"));
                s.setImg(rs.getString("img"));
@@ -46,6 +47,34 @@ public class CarDAO extends BaseDAO<Car>{
        }
        return list;
     }
+    public Car getCar(String id){
+        try{
+            String sql = "select c.id,c.name,info,img,price,[current],color,cc.name as[cateName]\n" +
+                        "from Cars c left join Categories cc \n" +
+                        "on categoryid = cc.id  where c.id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, id);
+            ResultSet rs = statement.executeQuery();
+            
+            while (rs.next()) {
+                Car s = new Car();
+                s.setId(rs.getInt("id"));
+               s.setName(rs.getString("name"));
+               s.setInfo(rs.getString("info"));
+               s.setImg(rs.getString("img"));
+               s.setPrice(rs.getDouble("price"));
+               s.setCurrent(!rs.getString("current").equals('0'));// chưa thuê 0 = false
+               s.setColor(rs.getString("color"));
+               s.setNameCat(rs.getString("cateName"));
+               return s;
+            }
+            
+        }catch(SQLException ex){
+            
+        }
+        return null;
+    }
+    
     
     public void SignupAcc(String name,String password){
         try{

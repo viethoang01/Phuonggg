@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Car;
 
 /**
  *
@@ -35,7 +36,7 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         CarDAO cd = new CarDAO();
-        ArrayList list = cd.getAll();
+        ArrayList<Car> list = cd.getAll();
         request.setAttribute("listcar", list);
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }

@@ -8,19 +8,21 @@ package controll;
 import DAL.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
+import model.Car;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ThuexeServlet", urlPatterns = {"/thuexe"})
+public class ThuexeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +41,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet ThuexeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ThuexeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +62,20 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String id = (request.getParameter("getcar_id"));
+        CarDAO dao = new CarDAO();
+        Car car = dao.getCar(id);
+        
+        ArrayList<Car> list = dao.getAll();
+        if(car == null){
+           request.getRequestDispatcher("home").forward(request, response);
+    
+        }else{
+        
+        request.setAttribute("choosed_car_info", car);
+        request.setAttribute("listcar", list);
+        request.getRequestDispatcher("thuexe.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -74,38 +89,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String pass = request.getParameter("password");
-        boolean checkEmail = email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-        boolean checkPass = pass.trim() != null ;
-        if(!checkEmail){
-            request.setAttribute("emailerrinput", "border: 1px solid red");
-            request.setAttribute("emailValue", email);
-            request.setAttribute("emailerr", "display: block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }if(!checkPass){
-            request.setAttribute("passValue", pass);
-            request.setAttribute("passerrinput", "border: 1px solid red");
-            
-            request.setAttribute("passerr", "display: block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-        CarDAO dao = new CarDAO();
-        Account acc = dao.getAcc(email, pass);
-        if(acc == null){
-            request.setAttribute("emailerrinput", "border: 1px solid red");
-            request.setAttribute("emailValue", email);
-            
-            request.setAttribute("passerrinput", "border: 1px solid red");
-            request.setAttribute("passValue", pass);
-            request.setAttribute("loginerr", "display: block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }else{
-            response.sendRedirect("home");
-        }
-            
-        
-                
+        processRequest(request, response);
     }
 
     /**

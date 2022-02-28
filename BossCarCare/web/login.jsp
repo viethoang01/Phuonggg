@@ -14,18 +14,15 @@ and open the template in the editor.
         <link href='https://fonts.googleapis.com/css?family=Be Vietnam Pro' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+        </script>
         <style>
-            #effect_input:link{
-                border: <%=request.getAttribute("inputborder")%>;
-            }
-            #effect_input:hover{
-                border: <%=request.getAttribute("inputborder")%>;
-            }
             
         </style>
+
     </head>
-    <body>
+    <body >
         <nav class="navbar  header_top row" >
             <div class="container-fluid">
                 <div class="nav_left col-md-9 row">
@@ -47,58 +44,56 @@ and open the template in the editor.
             </div>
 
         </nav>
-        
-        
-        <div class="table_info_customer" style="margin-left: 4%">
-            <form  action="login" method="post">
-            
-            
-           
-            <table class="info_customer login">
-                <tr>
-                    <td>
-                        <img  class="icon" src="images/logoBossCarCare1.png" />
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>
-                        <h3>ĐĂNG NHẬP TÀI KHOẢN</h3> 
-                    </td>
-                </tr>
-                <tr>
-                    <td><input id="effect_input" name="email" type="text"  placeholder="Email" value="<%= request.getAttribute("acc") != null ? request.getAttribute("acc"):"" %>" /> </td>
-                </tr>
-                
-                <tr>
-                    <td><input id="effect_input" name="password" type="password"  placeholder="Mật khẩu" value="<%= request.getAttribute("pass") != null ? request.getAttribute("pass"):"" %>" /><span></span></td>
-                    
-                    
-                </tr>
-                <tr>
-                    <td>
-                        <p style="color: red; margin-left: 50px"> <%= request.getAttribute("errorLogin") != null ? request.getAttribute("errorLogin"):"" %> </p>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                        <td>
-                            <input type="checkbox" name="checkRemember"><span>Ghi nhớ tài khoản.</span>
-                        </td>
-                    </tr>
-                <tr>
-                    <td class="thuexe_btn_thuexe" ><button class="btn_thuexe btn  btn-block" type="submit" id="btn_thuexe">Đăng nhập</button></td>
-                    
-                </tr>
-                <tr>
-                    <td>
-                        <td><a href="signup.jsp" style="color: blue;text-decoration: none;font-size: 12px">chưa có tài khoản</a></td>
-                    </td>
-                </tr>
-            </table>           
-            
-            
-        </form>
+
+
+
+
+        <div class="row">
+            <div class="col-md-offset-2 col-md-5 login_form">
+                <img src="images/logoBossCarCare2.png">
+            </div>
+            <div class="col-md-5">
+                <div class="wrapper">
+                    <header>Login Form</header>
+                    <form action="login"  method="post">
+                        <div class="field email">
+                            <div class="input-area">
+                                    <input style="<%=request.getAttribute("emailerrinput")%>"  name="email" type="text" placeholder="Email Address" value="<%=request.getAttribute("emailValue") != null ? request.getAttribute("emailValue") : ""%>">
+                                <i class="icon fas fa-envelope"></i>
+                                <i class="error error-icon fas fa-exclamation-circle"></i>
+                            </div>
+                            <div style="<%=request.getAttribute("emailerr")%>" class="error error-txt">Email không phù hợp</div>
+                        </div>
+                        <div class="field password">
+                            <div class="input-area">
+                                <input style="<%=request.getAttribute("passerrinput")%>" name="password"  type="password" placeholder="Password" value="<%=request.getAttribute("passValue") != null ? request.getAttribute("passValue") : ""%>">
+                                <i class="icon fas fa-lock"></i>
+                                <i  class="error error-icon fas fa-exclamation-circle"></i>
+                            </div>
+                            <div style="<%=request.getAttribute("passerr")%>"  class="error error-txt">Password không phù hợp</div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <div class="">
+                                    re<span><input style="height: auto; mar" type="checkbox"></span><span>re</span>
+                                </div>
+                                <div class="col-md-11">
+                                    <p>Remember me</p>
+                                </div>
+                            </div>
+                            <div class="col-md-offset-3 col-md-6"></div>
+                        </div>
+                        <div style="color: red;display:  none; <%=request.getAttribute("loginerr")%>">Thông tin tài khoản không chính xác</div>
+                        <input type="submit" value="Login">
+                        
+                    </form>
+                    <div class="sign-txt">Not yet member? <a href="signup.jsp">Signup now</a></div>
+                </div>
+            </div>
         </div>
+
+
+
     </body>
 </html>
