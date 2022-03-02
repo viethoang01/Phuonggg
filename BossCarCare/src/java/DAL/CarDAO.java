@@ -88,6 +88,26 @@ public class CarDAO extends BaseDAO<Car>{
             
         }
     }
+    public ArrayList<Account> ListAcc(){
+        ArrayList<Account> list = new ArrayList<>();
+        try{
+            String sql = "select * from Account";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            
+            while (rs.next()) {
+                Account account = new Account();
+                account.setId(rs.getInt("id"));
+                account.setName(rs.getString("name"));
+                account.setPassword(rs.getString("password"));
+                list.add(account);
+            }
+            return list;
+        }catch(SQLException ex){
+            
+        }
+        return null;
+    }
     public Account getAcc(String name,String password){
         try{
             String sql = "select * from Account where name = ? and password = ?";

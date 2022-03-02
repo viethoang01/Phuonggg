@@ -11,9 +11,12 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Car;
 
 /**
@@ -37,7 +40,40 @@ public class HomeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         CarDAO cd = new CarDAO();
         ArrayList<Car> list = cd.getAll();
-        request.setAttribute("listcar", list);
+        request.setAttribute("listcar", list); // get list car
+        String email = "";
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("user");
+        Cookie[] cookie = request.getCookies();
+        if (cookie != null
+                ) {
+            for (Cookie cookie1 : cookie) {
+                if (cookie1.getName().equals("email")) {
+                    
+                        email = cookie1.getValue();
+                    
+                }
+
+            }
+            
+        }
+       if(acc == null){
+           request.getRequestDispatcher("home.jsp").forward(request, response);
+       }
+        if(email.equals("") && acc.getName() != null){
+            email = acc.getName();
+            request.setAttribute("style_circle", "display: block");  // hiển thị circle 
+                char HeaderOfEmail = 0;                                 //  lấy ký tự là chữ đầu tiên cho vào circle
+                for (int i = 0; i < email.toCharArray().length; i++) {
+                    if (Character.isLetter(email.toCharArray()[i])) {
+                        HeaderOfEmail = email.toCharArray()[i];
+                        break;
+                    }
+
+                }
+            
+            request.setAttribute("HeaderOfEmail", HeaderOfEmail);
+        }
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 

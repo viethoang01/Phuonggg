@@ -11,7 +11,7 @@ package controll;
  */
 public class Test {
     public static void main(String[] args) {
-        if("hoangnvhe151236@fpt.edu.vn".matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+        if(Character.isUpperCase('H')){
             System.out.println("loi");
         }
     }

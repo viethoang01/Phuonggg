@@ -8,11 +8,14 @@ package controll;
 import DAL.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Account;
 
 /**
@@ -39,7 +42,7 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet LoginServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
@@ -74,38 +77,64 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String pass = request.getParameter("password");
-        boolean checkEmail = email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-        boolean checkPass = pass.trim() != null ;
-        if(!checkEmail){
-            request.setAttribute("emailerrinput", "border: 1px solid red");
-            request.setAttribute("emailValue", email);
-            request.setAttribute("emailerr", "display: block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }if(!checkPass){
-            request.setAttribute("passValue", pass);
-            request.setAttribute("passerrinput", "border: 1px solid red");
-            
-            request.setAttribute("passerr", "display: block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
         CarDAO dao = new CarDAO();
-        Account acc = dao.getAcc(email, pass);
-        if(acc == null){
-            request.setAttribute("emailerrinput", "border: 1px solid red");
-            request.setAttribute("emailValue", email);
-            
-            request.setAttribute("passerrinput", "border: 1px solid red");
-            request.setAttribute("passValue", pass);
-            request.setAttribute("loginerr", "display: block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }else{
-            response.sendRedirect("home");
+        String email = request.getParameter("email_login").trim();
+        String pass = request.getParameter("pass_login").trim();
+        boolean checkEmail = email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+        request.setAttribute("email_login_value", email);
+        ArrayList<Account> list = dao.ListAcc();
+        boolean valiableEmail = false, valiablePass = false;
+        Account acc = null;
+        for (Account account : list) {
+            if (account.getName().equals(email)) {
+                valiableEmail = true;
+                if (account.getPassword().equals(pass)) {
+                    valiablePass = true;
+                    acc = account;
+                     
+                }
+                break;
+            }
         }
+        if (!checkEmail) {
+            request.setAttribute("email_err1", "block");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        if (!valiableEmail) {
+            request.setAttribute("email_err2", "block");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        if (!valiablePass) {
+            request.setAttribute("pass_err_login", "block");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        String remember = request.getParameter("remember");
+        if (remember != null) {
+            Cookie c_email = new Cookie("email", email);
+            Cookie c_pass = new Cookie("password", pass);
+
+            response.addCookie(c_pass);
+            response.addCookie(c_email);
+
+            c_email.setMaxAge(60);
+            c_pass.setMaxAge(60);
+
+        } 
             
-        
-                
+//        request.setAttribute("style_circle", "display: block");  // hiển thị circle 
+//        char HeaderOfEmail = 0;                                 //  lấy ký tự là chữ đầu tiên cho vào circle
+//        for (int i = 0; i < email.toCharArray().length; i++) {
+//            if (Character.isLetter(email.toCharArray()[i])) {
+//                HeaderOfEmail = email.toCharArray()[i];
+//                break;
+//            }
+//
+//        }
+//        request.setAttribute("HeaderOfEmail", HeaderOfEmail);
+        HttpSession session = request.getSession();
+        session.setAttribute("user", acc);
+        response.sendRedirect("home");
+
     }
 
     /**

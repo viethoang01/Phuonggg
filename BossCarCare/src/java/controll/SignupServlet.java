@@ -9,11 +9,14 @@ package controll;
 import DAL.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import org.apache.catalina.User;
 
 /**
  *
@@ -71,46 +74,60 @@ public class SignupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         CarDAO dao = new CarDAO();
-        String email = request.getParameter("email");
-        String pass = request.getParameter("password");
-        String repass = request.getParameter("repassword");
+        String email = request.getParameter("email").trim();
+        String pass = request.getParameter("password").trim();
+        String repass = request.getParameter("repassword").trim();
+        request.setAttribute("email_value", email);
         if(!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+            request.setAttribute("email_err", "block");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
+        ArrayList<Account> list = dao.ListAcc();
+        boolean valiableEmail = false;
+        for (Account account : list) {
+            if(account.getName().equals(email)){
+                valiableEmail = true;
+            }
+        }
+        if(valiableEmail){
+            request.setAttribute("email_err_block", "block");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
+        if(pass.length() < 8){
+            request.setAttribute("pass_err", "block");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
         
-        char arr[] = email.toCharArray();
-        boolean check = false,check2 = false,check3 = false;
+        char arr[] = pass.toCharArray();
+        boolean check = false,check2 = false,check3 = false,check4 = false;
         
         for (int i = 0; i < arr.length; i++) {
-            if(Character.toUpperCase(arr[i]) == arr[i]){
+            if(Character.isUpperCase(arr[i])){
                 check = true;
-            }if(Character.toLowerCase(arr[i]) == arr[i]){
+            }if(Character.isLowerCase(arr[i])){
                 check2 = true;
             }
             
             if(Character.isDigit(arr[i])){
                 check3= true;
             }
+            if(Character.isLetter(arr[i])){
+                check4= true;
+            }
              
         }
-        if(arr.length < 8 || !check ||!check2 ||!check3){
+        if(!check ||!check2 ||!check3 || !check4){
+            request.setAttribute("pass_err", "block");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
         if(!repass.equals(pass)){
+            request.setAttribute("repass_err", "block");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
         dao.SignupAcc(email, pass);
-        char HeaderOfEmail = 0;
-        for (int i = 0; i < email.toCharArray().length; i++) {
-            if(Character.isLetter(email.toCharArray()[i])){
-                HeaderOfEmail = email.toCharArray()[i];
-                break;
-            }
-            
-        }
-        request.setAttribute("style_circle", "display: block");        
-        request.setAttribute("HeaderOfEmail", HeaderOfEmail);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        
+        
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /** 

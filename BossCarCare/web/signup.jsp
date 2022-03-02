@@ -57,14 +57,16 @@ and open the template in the editor.
                         <p class='msg'>Welcome</p>
                         <div class='form'>
                             <form action="signup" method="post" name="signup">
-                                <input name="email" oninput="inputEmail()" type="text" placeholder='Email' class='text' id='email' required >
-                                <span id='email_err' style="color: red;display: none" class="glyphicon glyphicon-remove">Lỗi Email</span><br>
-                                <input type="password" placeholder='Password' class='password' name="password">
-                                <span id='pass_err' style="color: red;display: none" class="glyphicon glyphicon-remove">Pass word không format</span>
+                                <input id='email' name="email" value="${email_value}" type="text" placeholder='Email' class='text'  required >
+                                <span id='email_err' style="color: red;display: none;display: ${email_err}" class="glyphicon glyphicon-remove">Lỗi Email</span>
+                                <span id='' style="color: red;display: none;display: ${email_err_block};" class="glyphicon glyphicon-remove">Email đã được đăng ký</span><br>
+                                <input name="password" type="password"   placeholder='Password' class='password' >
+                                <span id='pass_err' style="color: red;display: none;display: ${pass_err}" class="glyphicon glyphicon-remove">Password không đúng format</span>
                                 <br>
                                 <input  type="password" placeholder='Repassword' id='repass' class='password' name="repassword">
-                                <span id='repass_err' style="color: red;display: none" class="glyphicon glyphicon-remove">RePass word không trùng</span><br>
+                                <span id='repass_err' style="color: red;display: none;display: ${repass_err}" class="glyphicon glyphicon-remove">RePassword không trùng</span><br>
                                 <ul style="margin-bottom: 50px;">
+                                    Mật khẩu bao gồm
                                     <li>Ít nhất 8 ký tự</li>
                                     <li>Chữ hoa & chữ thường</li>
                                     <li>Ít nhất 1 số</li>

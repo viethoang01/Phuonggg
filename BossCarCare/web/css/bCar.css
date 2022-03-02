@@ -457,7 +457,7 @@ end from login*/
 
 /**form**/
 .form_login{
-    padding-top: 50px;
+    padding-top: 20px;
 }
 .form_login .col-md-4{
     padding-top: 100px;
@@ -516,6 +516,10 @@ end from login*/
   outline: none;
   margin-bottom: 20px;
   margin-top: 20px;
+}
+.login .form ul li{
+    font-size: 10px;
+    font-style: oblique;
 }
 .login .form .password::placeholder {
   color: #D3D3D3;

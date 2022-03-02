@@ -49,24 +49,27 @@ and open the template in the editor.
             </div>
             <div class="col-md-5 form_container">
 
-                <form>
+                
                     <section class='login' id='login'>
                         <div class='head'>
                             <h1 class='company'>Login</h1>
                         </div>
                         <p class='msg'>Welcome back</p>
                         <div class='form'>
-                            <form action="signup" method="post">
-                                <input type="text" placeholder='Email' class='text' id='username' required><br>
-                                <input type="password" placeholder='Password' class='password'><br>
-                                <input type="checkbox" class='password' style="margin-bottom: 50px;">Remember me<br>
+                            <form action="login" method="post">
+                                <input name="email_login" value="${email_login_value}" type="text" placeholder='Email' class='text' id='username' required><br>
+                                <span  style="color: red;display: none;display: ${email_err1}" class="glyphicon glyphicon-remove">Email không đúng format</span>
+                                <span  style="color: red;display: none;display: ${email_err2}" class="glyphicon glyphicon-remove">Email chưa được đăng ký</span>
+                                <input name="pass_login" type="password" placeholder='Password' class='password'><br>
+                                <span style="color: red;display: none;display: ${pass_err_login}" class="glyphicon glyphicon-remove">Sai password</span>
+                                <input name="remember" type="checkbox" class='password' style="margin-bottom: 50px;">Remember me<br>
                                 
-                                <button  type="submit" class='btn-login' id='do-login'>Sign up</button>
+                                <button  type="submit" class='btn-login' id='do-login'>Login</button>
                                 <a href="signup.jsp" class='forgot'>Sign up?</a>
                             </form>
                         </div>
                     </section>
-                    </form>
+                   
             </div>
             <div class="col-md-1"></div>
         </div>

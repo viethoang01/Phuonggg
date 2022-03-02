@@ -21,7 +21,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
-    <body>
+    <body id="home">
         <nav class="navbar  header_top row" >
             <div class="container-fluid">
                 <div class="nav_left col-md-9 row">
@@ -37,8 +37,8 @@
                     </div>
                 </div>
                 <div class="nav_right col-md-3 ">
-                    <div class=" class_btn"> <a href="login.jsp" id="btn_spring">TÀI KHOẢN</a></div>
-                    <div class=" circle" style="<%=request.getAttribute("style_circle")%>"><h6><%=request.getAttribute("HeaderOfEmail")%></h6></div>
+                    <div class=" class_btn"> <a href="login.jsp" id="btn_spring" title="Logout">TÀI KHOẢN</a></div>
+                    <a href="login.jsp"  title="Logout"><div class=" circle" style="display: none;${style_circle}"><h6>${HeaderOfEmail}</h6></div></a>
                 </div>
 
             </div>
@@ -81,7 +81,7 @@
         </div>
         -->
         <!--Nội dung Slider-->
-        <div class="row" id="home">
+        <div class="row" >
             <div class="col-md-12">
                 <!--Bắt đầu slider-->
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -211,7 +211,7 @@
                         
                     </div>
                         <form action="thuexe" method="get">
-                            <button class="" id="btn_thuexe" value="<%= car.getId()%>" name="getcar_id">THUÊ XE<%= car.getId()%></button>
+                            <button class="" id="btn_thuexe" value="<%= car.getId()%>" name="getcar_id">THUÊ XE</button>
                         </form>
                 </div>
 
