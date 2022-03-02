@@ -5,6 +5,7 @@
  */
 package DAL;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -78,7 +79,7 @@ public class CarDAO extends BaseDAO<Car>{
     
     public void SignupAcc(String name,String password){
         try{
-            String sql = "insert into Account values ('?','?')";
+            String sql = "insert into Account values (?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
             statement.setString(2, password);
@@ -106,6 +107,29 @@ public class CarDAO extends BaseDAO<Car>{
             
         }
         return null;
+    }
+    
+    public void InsertRental(int id, int Accid, String donvi, String namecustomer, String CMND, String phone, String email, String code_gioithieu, Date start_date_of_hire, Date end_date_of_hire, int totalmoney){
+        try{
+            String sql = "insert into CarRentalInvoice values\n" +
+"(?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.setInt(2, Accid);
+            statement.setString(3, donvi);
+            statement.setString(4, namecustomer);
+           
+            statement.setString(5, CMND);
+            statement.setString(6, phone);
+            statement.setString(7, email);
+            statement.setString(8, code_gioithieu);
+            statement.setDate(9, start_date_of_hire);
+            statement.setDate(10, end_date_of_hire);
+            statement.setInt(11, totalmoney);
+            statement.executeUpdate();
+        }catch(SQLException ex){
+            
+        }
     }
     
 }

@@ -6,6 +6,7 @@
 
 package controll;
 
+import DAL.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -69,7 +70,47 @@ public class SignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        CarDAO dao = new CarDAO();
+        String email = request.getParameter("email");
+        String pass = request.getParameter("password");
+        String repass = request.getParameter("repassword");
+        if(!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
+        
+        char arr[] = email.toCharArray();
+        boolean check = false,check2 = false,check3 = false;
+        
+        for (int i = 0; i < arr.length; i++) {
+            if(Character.toUpperCase(arr[i]) == arr[i]){
+                check = true;
+            }if(Character.toLowerCase(arr[i]) == arr[i]){
+                check2 = true;
+            }
+            
+            if(Character.isDigit(arr[i])){
+                check3= true;
+            }
+             
+        }
+        if(arr.length < 8 || !check ||!check2 ||!check3){
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
+        if(!repass.equals(pass)){
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
+        dao.SignupAcc(email, pass);
+        char HeaderOfEmail = 0;
+        for (int i = 0; i < email.toCharArray().length; i++) {
+            if(Character.isLetter(email.toCharArray()[i])){
+                HeaderOfEmail = email.toCharArray()[i];
+                break;
+            }
+            
+        }
+        request.setAttribute("style_circle", "display: block");        
+        request.setAttribute("HeaderOfEmail", HeaderOfEmail);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     /** 

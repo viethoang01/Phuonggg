@@ -1,10 +1,27 @@
 body{
-   
+
     width: 100%;height: auto;
     font-family: 'Be Vietnam Pro'!important;
 }
+.circle {
+  width: 30px;
+  height: 30px;
+  line-height: 500px;
+  border-radius: 50%;
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  background: darkblue;
+  float: right;
+  display: none;
+}
+.circle h6{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 input{
-    
+
     outline: none;
 }
 
@@ -17,11 +34,11 @@ h3{
 #btn_spring{
     background-color: blue;
     letter-spacing: 2px;
-     color: white;
-     font-weight: bold;
-     padding: 15px 70px;
-     font-size: 12px;
-     transition: ease-in 0.3s;
+    color: white;
+    font-weight: bold;
+    padding: 15px 70px;
+    font-size: 12px;
+    transition: ease-in 0.3s;
 }
 #btn_spring:hover{
     text-decoration: none;
@@ -36,7 +53,7 @@ h3{
 
 
 
- #btn_thuexe{
+#btn_thuexe{
     color: blue;
     margin-top: 37px;
     font-size: 12px;
@@ -71,11 +88,11 @@ h3{
 col-md-3 a:hover{
     color: red;
     text-decoration: none;
-    
+
 }
 
 /*end nav*/
- 
+
 
 /*dropdown*/
 
@@ -85,23 +102,23 @@ col-md-3 a:hover{
     top: 0;
     background-color: white;
     padding: 10px;
-    
+
 }
 .navbar{
     margin-bottom: 0 !important;
-    
+
 }
-   
-  /* end menu*/
- /*slide*/ 
- .col-md-12{
-	width:100% !important;
- }
-  /*end slide*/
-  .container {
-      text-align: center;
-      margin-top: 100px;
-  }
+
+/* end menu*/
+/*slide*/ 
+.col-md-12{
+    width:100% !important;
+}
+/*end slide*/
+.container {
+    text-align: center;
+    margin-top: 100px;
+}
 .container .header{
     font-weight: bold;
     margin: 150px 0;
@@ -115,7 +132,7 @@ col-md-3 a:hover{
 
 .container div{
     font-size:18px;
-    
+
 }
 .container div ul{
     text-align: left;
@@ -189,7 +206,7 @@ col-md-3 a:hover{
 .col-md-2 img:hover{
     width: 170px;
     height: 120px;
-    
+
 }
 
 /*thuexe.jsp*/
@@ -198,7 +215,7 @@ col-md-3 a:hover{
 .mySlides1 {
     display: none;
     height: 200px;
-    
+
 }
 
 .mySlides1 {
@@ -216,46 +233,46 @@ col-md-3 a:hover{
 
 /* Slideshow container */
 .slideshow-container {
-  margin-top: 50px; 
-  position: relative;
-  margin: auto;
-  margin-bottom: 50px;
-  border-bottom: 1px dotted gray; 
+    margin-top: 50px; 
+    position: relative;
+    margin: auto;
+    margin-bottom: 50px;
+    border-bottom: 1px dotted gray; 
 }
 
 /* Next & previous buttons */
 .prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: black;
-  font-weight: bold;
-  font-size: 20px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
 }
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+    right: 0;
+    border-radius: 3px 0 0 3px;
 }
 
 /* On hover, add a grey background color */
 .prev:hover, .next:hover {
-  background-color: #f1f1f1;
-  color: black;
+    background-color: #f1f1f1;
+    color: black;
 }
 /*slide end*/
 
 .table_info_customer{
 
     margin-bottom: 100px;
-    
+
 }
 .table_info_customer h3{
     text-align: center;
@@ -274,16 +291,16 @@ col-md-3 a:hover{
     margin-bottom: 20px;
 }
 .info_customer .thuexe_btn_thuexe{
-    
+
 }
 .img_xethue{
     width: 90%;
-    
+
     transition: ease 0.3s;
 }
 .img_xethue:hover{
     width: 100%;
-    
+
 }
 .choosecar{
     height: 350px;
@@ -295,6 +312,7 @@ col-md-3 a:hover{
     margin-bottom: 10px;
     border: 1px solid #ced1e0;
     border-radius: 5px;
+    
 }
 .table_info_customer form .login tr td .icon{
     margin-bottom: 50px;
@@ -308,7 +326,7 @@ col-md-3 a:hover{
 }
 /*end login*/
 
-/*form login*/
+/*form login
 
 *{
   margin: 0;
@@ -435,7 +453,112 @@ form input[type="submit"]{
 form input[type="submit"]:hover{
   background: #2c52ed;
 }
-/*end from login*/
+end from login*/
 
+/**form**/
+.form_login{
+    padding-top: 50px;
+}
+.form_login .col-md-4{
+    padding-top: 100px;
+    
+}
+.form_container .login{
+    width: 80%;
+}
+.login {
+   
+  color: white;
+   background: #136a8a;
+  background: 
+    -webkit-linear-gradient(to right, #267871, #136a8a);
+  background: 
+    linear-gradient(to right, #267871, #136a8a);
+  margin: auto;
+  box-shadow: 
+    0px 2px 10px rgba(0,0,0,0.2), 
+    0px 10px 20px rgba(0,0,0,0.3), 
+    0px 30px 60px 1px rgba(0,0,0,0.5);
+  border-radius: 8px;
+  padding: 50px;
+}
+.login .head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login .head .company {
+  font-size: 2.2em;
+}
+.login .msg {
+  text-align: center;
+}
+.login .form input[type=text].text {
+  border: none;
+  background: none;
+  box-shadow: 0px 2px 0px 0px white;
+  width: 100%;
+  color: white;
+  font-size: 1em;
+  outline: none;
+  margin-top: 20px;
+}
+.login .form .text::placeholder {
+  color: #D3D3D3;
+}
+.login .form input[type=password].password {
+  border: none;
+  background: none;
+  box-shadow: 0px 2px 0px 0px white;
+  width: 100%;
+  color: white;
+  font-size: 1em;
+  outline: none;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.login .form .password::placeholder {
+  color: #D3D3D3;
+}
+.login .form .btn-login {
+  background: none;
+  text-decoration: none;
+  color: white;
+  box-shadow: 0px 0px 0px 2px white;
+  border-radius: 3px;
+  padding: 5px 2em;
+  transition: 0.5s;
+}
+.login .form .btn-login:hover {
+  background: white;
+  color: dimgray;
+  transition: 0.5s;
+}
+.login .forgot {
+  text-decoration: none;
+  color: white;
+  float: right;
+}
+footer {
+  position: absolute;
+  color: #136a8a;
+  bottom: 10px;
+  padding-left: 20px;
+}
+footer p {
+  display: inline;
+}
+footer a {
+  color: green;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+footer .heart {
+  color: #B22222;
+  font-size: 1.5em
+}
+/**end form**/
 
 

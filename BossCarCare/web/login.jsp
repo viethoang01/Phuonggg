@@ -8,21 +8,18 @@ and open the template in the editor.
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>Sign Up</title>
         <link href="css/bCar.css" rel="stylesheet" type="text/css" />
-        <script src="js/bCar.js"></script>
+        <script src="js/script.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Be Vietnam Pro' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-        </script>
-        <style>
-            
-        </style>
-
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
-    <body >
+    <body style="background: #ABCDEF;
+  font-family: Assistant, sans-serif;
+  
+  min-height: 90vh;">
         <nav class="navbar  header_top row" >
             <div class="container-fluid">
                 <div class="nav_left col-md-9 row">
@@ -46,54 +43,32 @@ and open the template in the editor.
         </nav>
 
 
-
-
-        <div class="row">
-            <div class="col-md-offset-2 col-md-5 login_form">
+        <div class="row form_login" >
+            <div class="col-md-offset-2 col-md-4">
                 <img src="images/logoBossCarCare2.png">
             </div>
-            <div class="col-md-5">
-                <div class="wrapper">
-                    <header>Login Form</header>
-                    <form action="login"  method="post">
-                        <div class="field email">
-                            <div class="input-area">
-                                    <input style="<%=request.getAttribute("emailerrinput")%>"  name="email" type="text" placeholder="Email Address" value="<%=request.getAttribute("emailValue") != null ? request.getAttribute("emailValue") : ""%>">
-                                <i class="icon fas fa-envelope"></i>
-                                <i class="error error-icon fas fa-exclamation-circle"></i>
-                            </div>
-                            <div style="<%=request.getAttribute("emailerr")%>" class="error error-txt">Email không phù hợp</div>
+            <div class="col-md-5 form_container">
+
+                <form>
+                    <section class='login' id='login'>
+                        <div class='head'>
+                            <h1 class='company'>Login</h1>
                         </div>
-                        <div class="field password">
-                            <div class="input-area">
-                                <input style="<%=request.getAttribute("passerrinput")%>" name="password"  type="password" placeholder="Password" value="<%=request.getAttribute("passValue") != null ? request.getAttribute("passValue") : ""%>">
-                                <i class="icon fas fa-lock"></i>
-                                <i  class="error error-icon fas fa-exclamation-circle"></i>
-                            </div>
-                            <div style="<%=request.getAttribute("passerr")%>"  class="error error-txt">Password không phù hợp</div>
+                        <p class='msg'>Welcome back</p>
+                        <div class='form'>
+                            <form action="signup" method="post">
+                                <input type="text" placeholder='Email' class='text' id='username' required><br>
+                                <input type="password" placeholder='Password' class='password'><br>
+                                <input type="checkbox" class='password' style="margin-bottom: 50px;">Remember me<br>
+                                
+                                <button  type="submit" class='btn-login' id='do-login'>Sign up</button>
+                                <a href="signup.jsp" class='forgot'>Sign up?</a>
+                            </form>
                         </div>
-                        
-                        <div class="row">
-                            <div class="col-md-3 ">
-                                <div class="">
-                                    re<span><input style="height: auto; mar" type="checkbox"></span><span>re</span>
-                                </div>
-                                <div class="col-md-11">
-                                    <p>Remember me</p>
-                                </div>
-                            </div>
-                            <div class="col-md-offset-3 col-md-6"></div>
-                        </div>
-                        <div style="color: red;display:  none; <%=request.getAttribute("loginerr")%>">Thông tin tài khoản không chính xác</div>
-                        <input type="submit" value="Login">
-                        
+                    </section>
                     </form>
-                    <div class="sign-txt">Not yet member? <a href="signup.jsp">Signup now</a></div>
-                </div>
             </div>
+            <div class="col-md-1"></div>
         </div>
-
-
-
     </body>
 </html>

@@ -10,13 +10,16 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sign Up</title>
         <link href="css/bCar.css" rel="stylesheet" type="text/css" />
-        <script src="js/bCar.js"></script>
+        <script src="js/script.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Be Vietnam Pro' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
-    <body>
+    <body style="background: #ABCDEF;
+  font-family: Assistant, sans-serif;
+  
+  min-height: 90vh;">
         <nav class="navbar  header_top row" >
             <div class="container-fluid">
                 <div class="nav_left col-md-9 row">
@@ -38,67 +41,42 @@ and open the template in the editor.
             </div>
 
         </nav>
-        
-        
-        <div class="table_info_customer" style="margin-left: 4%">
-            <form  action="signup" method="post">
-            
-            
-           
-            <table class="info_customer login">
-                <tr>
-                    <td>
-                        <img  class="icon" src="images/logoBossCarCare1.png" />
-                    </td>
-                </tr>
+
+
+        <div class="row form_login" >
+            <div class="col-md-offset-2 col-md-4">
+                <img src="images/logoBossCarCare2.png">
+            </div>
+            <div class="col-md-5 form_container">
+
                 
-                <tr>
-                    <td>
-                        <h3>Tạo TÀI KHOẢN</h3> 
-                    </td>
-                </tr>
-                <tr>
-                    <td><input name="acc" type="text"  placeholder="Tên tài khoản" value="<%= request.getAttribute("acc") != null ? request.getAttribute("acc"):"" %>" /> </td>
-                </tr>
-                <tr>
-                    <td><input id="pass" name="password" type="password"  placeholder="Mật khẩu" value="<%= request.getAttribute("pass") != null ? request.getAttribute("pass"):"" %>" /><span></span></td>
-                    <td ><p style="color: red; margin-left: 50px"> <%= request.getAttribute("pass_error") != null ? request.getAttribute("pass_error"):"" %> </p></td>
-                    
-                </tr>
-                <tr>
-                    <td><input id="pass" name="password" type="password"  placeholder="Nhập lại mật khẩu" value="<%= request.getAttribute("pass") != null ? request.getAttribute("pass"):"" %>" /><span></span></td>
-                    <td ><p style="color: red; margin-left: 50px"> <%= request.getAttribute("pass_error") != null ? request.getAttribute("pass_error"):"" %> </p></td>
-                    
-                </tr>
-                <tr>
-                    <td>
-                        <br>
-                        <h5>Mật khẩu bao gồm</h5>
-                        <h8><span class="glyphicon glyphicon-ok-sign"></span> Ít nhất 8 ký tự</h8><br>
-                        <h8><span class="glyphicon glyphicon-ok-sign"></span> Chữ hoa & chữ thường</h8><br>
-                        <h8><span class="glyphicon glyphicon-ok-sign"></span> Ít nhất 1 số</h8><br>
-                    </td>
-                </tr>  
-                <tr>
-                    <td >
-                        <br>
-                        <h8>Bằng việc bấm nút Đăng ký bên dưới, tôi xác nhận đã đọc,hiểu</h8><br>
-                        <h8> và đồng ý với các <a href="#">Điều kiện và Điều khoản</a> của Boss Car Care.</h8>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="thuexe_btn_thuexe" ><button class="btn_thuexe btn  btn-block" type="submit" id="btn_thuexe">Đăng ký</button></td>
-                    
-                </tr>
-                <tr>
-                    <td>
-                        <td><a href="login.jsp" style="color: blue;text-decoration: none;font-size: 12px">đã có tài khoản</a></td>
-                    </td>
-                </tr>
-            </table>           
-            
-            
-        </form>
+                    <section class='login' id='login'>
+                        <div class='head'>
+                            <h1 class='company'>SIGN UP </h1>
+                        </div>
+                        <p class='msg'>Welcome</p>
+                        <div class='form'>
+                            <form action="signup" method="post" name="signup">
+                                <input name="email" oninput="inputEmail()" type="text" placeholder='Email' class='text' id='email' required >
+                                <span id='email_err' style="color: red;display: none" class="glyphicon glyphicon-remove">Lỗi Email</span><br>
+                                <input type="password" placeholder='Password' class='password' name="password">
+                                <span id='pass_err' style="color: red;display: none" class="glyphicon glyphicon-remove">Pass word không format</span>
+                                <br>
+                                <input  type="password" placeholder='Repassword' id='repass' class='password' name="repassword">
+                                <span id='repass_err' style="color: red;display: none" class="glyphicon glyphicon-remove">RePass word không trùng</span><br>
+                                <ul style="margin-bottom: 50px;">
+                                    <li>Ít nhất 8 ký tự</li>
+                                    <li>Chữ hoa & chữ thường</li>
+                                    <li>Ít nhất 1 số</li>
+                                </ul>
+                                <button type ="submit" onclick="signup(document.signup.email,document.signup.password,document.signup.repassword)" class='btn-login' id='do-signup'>Sign up</button>
+                                <a href="login.jsp" class='forgot'>Login?</a>
+                            </form>
+                        </div>
+                    </section>
+               
+            </div>
+            <div class="col-md-1"></div>
         </div>
     </body>
 </html>

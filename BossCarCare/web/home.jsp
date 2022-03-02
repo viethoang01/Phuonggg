@@ -31,13 +31,14 @@
                     <div class="col-md-7 row">
                         <div class="col-md-3"><a href="#dichvu">Dịch vụ</a></div>
                         <div class="col-md-3"><a href="#congcu">Công cụ</a></div>
-                        <div class="col-md-3"><a href="#banggia">Bảng giá</a></div>
                         <div class="col-md-3"><a href="#tintuc">Tin tức</a></div>
+                        <div class="col-md-3"><a href="#banggia">Bảng giá</a></div>
+                        
                     </div>
                 </div>
-                <div class="nav_right col-md-3">
-                    <div class="class_btn"> <a href="login.jsp" id="btn_spring">TÀI KHOẢN</a></div>
-
+                <div class="nav_right col-md-3 ">
+                    <div class=" class_btn"> <a href="login.jsp" id="btn_spring">TÀI KHOẢN</a></div>
+                    <div class=" circle" style="<%=request.getAttribute("style_circle")%>"><h6><%=request.getAttribute("HeaderOfEmail")%></h6></div>
                 </div>
 
             </div>
