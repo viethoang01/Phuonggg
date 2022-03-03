@@ -108,12 +108,12 @@ public class CarDAO extends BaseDAO<Car>{
         }
         return null;
     }
-    public Account getAcc(String name,String password){
+    public Account getAcc(String name){
         try{
-            String sql = "select * from Account where name = ? and password = ?";
+            String sql = "select * from Account where name = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
-            statement.setString(2, password);
+          
             ResultSet rs = statement.executeQuery();
             Account account = new Account();
             while (rs.next()) {
@@ -129,23 +129,24 @@ public class CarDAO extends BaseDAO<Car>{
         return null;
     }
     
-    public void InsertRental(int id, int Accid, String donvi, String namecustomer, String CMND, String phone, String email, String code_gioithieu, Date start_date_of_hire, Date end_date_of_hire, int totalmoney){
+    public void InsertRental(String Carid, String Accid,String songaythue, String donvi, String namecustomer, String CMND, String phone, String email, String code_gioithieu, String start_date_of_hire, String end_date_of_hire, String totalmoney){
         try{
             String sql = "insert into CarRentalInvoice values\n" +
 "(?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, id);
-            statement.setInt(2, Accid);
-            statement.setString(3, donvi);
-            statement.setString(4, namecustomer);
+            statement.setString(1, Carid);
+            statement.setString(2, Accid);
+            statement.setString(3, songaythue);
+            statement.setString(4, donvi);
+            statement.setString(5, namecustomer);
            
-            statement.setString(5, CMND);
-            statement.setString(6, phone);
-            statement.setString(7, email);
-            statement.setString(8, code_gioithieu);
-            statement.setDate(9, start_date_of_hire);
-            statement.setDate(10, end_date_of_hire);
-            statement.setInt(11, totalmoney);
+            statement.setString(6, CMND);
+            statement.setString(7, phone);
+            statement.setString(8, email);
+            statement.setString(9, code_gioithieu);
+            statement.setString(10, start_date_of_hire);
+            statement.setString(11, end_date_of_hire);
+            statement.setString(12, totalmoney);
             statement.executeUpdate();
         }catch(SQLException ex){
             

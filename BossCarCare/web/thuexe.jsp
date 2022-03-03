@@ -91,6 +91,7 @@
             <%}%>
             <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
             <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+            <i style="color: red; display: none;display: ${msg}">Hãy điền đầy đủ thông tin của quý khách</i>
         </div>
         <!--slide end-->
         
@@ -98,8 +99,10 @@
         
         
         
-        
+         
         <form action="thuexe" method="post">
+           
+            <input name="car_id_choose" type="hidden" value="<%=car.getId()%>">
             <div style="margin-top: 20px;" class="row choosecar">
                 <div class=" col-md-offset-1 col-md-5" style="width: 40%"><img class="img_xethue" src="<%=car.getImg()%>"></div>
                 <div class=" col-md-6"><h1 style="margin-bottom: 50px;"><%=car.getNameCat()%> <%=car.getName()%></h1>
@@ -108,31 +111,43 @@
                             <h5>Dòng xe</h5>
                             <p><%=infoCar%></p>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-3" style="text-align: right">
                             <h5>Giá/ngày</h5>
                             <p><%=car.getPrice()%> VND</p>
                         </div>
+                        <div class="col-md-3"></div>
                     </div>
-                    <h5>Thuê theo</h5>
-                    <div class="">
+                        
+                    
+                    
 
-                        <div class="">
-                            <span>
-                                <select>
-                                    <option>Ngày</option>
-                                    <option>Tháng</option>
-                                    <option>Năm</option>
-                                </select>
-                            </span>
-                            <input type="text" placeholder="Số lượng" name="thoiluongthue">
-
-                        </div>
+                        <div class="row" style="margin-top: 20px">
+                        <div class="col-md-4">
+                            <h5>Thuê theo</h5>
+                            <select name="donvithue" >
+                                <option name="donvithue" value="ngay" ${checkngay}>Ngày</option>
+                                <option name="donvithue" value="thang"${checkthang}>Tháng</option>
+                                <option name="donvithue" value="nam"${checknam}>Năm</option> 
+                            </select>
+                         <input style="width: 100px ;border-color: ${thoiluongthue_err}" type="number" placeholder="Thời lượng" min="1" max="5" name="thoiluongthue" value="${thoiluongthue}">
+                           <i style="color: red;display: none;display: ${thoiluongthuexeblock}" >Hãy điền lại thông tin </i>
+                        </div> 
+                         <div class="col-md-5" style="text-align: right">
+                             <h5>Ngày bắt đầu thuê xe</h5>
+                             <input name="startday" type="date" value="${startday}" min="<%=java.time.LocalDate.now()%>">
+                             <span> <i style="color: red;display: none;display: ${startdayblock}" class="glyphicon glyphicon-remove">Hãy điền lại thông tin</i></span>
+                             
+                         </div>
+                        <div class="col-md-3"></div>
                     </div>
-
+                    
+                                                   
                 </div>
             </div>
+                             
             <div class="table_info_customer">
                 <h3>Thông tin khách hàng</h3>
+                
                 <table class="info_customer">
                     <tr>
                         <td><h5>Quý khách là ai? <span style="color: blue">*</span></h5></td>
@@ -140,43 +155,51 @@
                     </tr>
                     <tr > 
                         <td colspan="2">
-                            <select>
-                                <option name="customer_type">Cá Nhân</option>
-                                <option name="customer_type">Doanh Nghiệp</option>
+                            <select name="customer_type" >
+                                <option name="customer_type" value="canhan" ${checkcanhan}>Cá Nhân</option>
+                                <option name="customer_type" value="doanhnghiep" ${checkdoanhnghiep}>Doanh Nghiệp</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td><h5>Họ tên cá nhân <span style="color: blue">*</span></h5></td>
-                        <td><h5>CMND/CCCD <span style="color: blue">*</span></h5></td>
+                        <td><h5>Họ tên cá nhân <span style="color: blue">*<i style="color: red;display: none;display: ${nameblock}" >Hãy điền lại họ và tên </i></span></h5></td>
+                        <td><h5>CMND/CCCD <span style="color: blue">*<i style="color: red;display: none;display: ${CMNDblock}" >Hãy điền lại CMND/CCCD </i></span></h5></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <input type="text" name="name_customer" value="${name_customer}" >
+                        </td>
+                        <td><input type="text" name="CMND_customer" value="${CMND_customer}" ></td>
+                    </tr>
+                   
+                    <tr>
+                        <td><h5>Số điện thoại <span style="color: blue">*<i style="color: red;display: none;display: ${phoneblock}" >Hãy điền lại số điện thoại </i></span></h5></td>
+                        <td><h5>Email <span style="color: blue">*<i style="color: red;display: none;display: ${emailblock}" >Hãy điền lại email </i></span></h5></td>
                     </tr>
                     <tr>
-                        <td><input type="text" name="name_customer"></td>
-                        <td><input type="text" name="id_customer"></td>
-                    </tr>
-                    <tr>
-                        <td><h5>Số điện thoại <span style="color: blue">*</span></h5></td>
-                        <td><h5>Email <span style="color: blue">*</span></h5></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="name_customer"></td>
-                        <td><input type="text" name="id_customer"></td>
+                        <td><input type="text" name="phone_customer" value="${phone_customer}" style=" border-color:${phone_customer_err}"></td>
+                        <td><input type="text" name="email_customer" value="${email_customer}" style=" border-color:${email_customer_err}"></td>
                     </tr>
                     <tr>
                         <td><h5>Mã giới thiệu</h5></td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="code_gioithieu"><input type="text" name="gioithieu_code_customer" placeholder="Nhập mã người giới thiệu"></td>
+                        <td colspan="2" class="code_gioithieu"><input type="text" name="gioithieu_code_customer" placeholder="Nhập mã người giới thiệu" value="${gioithieu_code_customer}">
+                        </td>
 
                     </tr>
                     <tr>
                         <td>
-                            <input type="checkbox" name="check1"><span>Tôi cam kết các thông tin đã cung cấp tại đây hoàn toàn chính xác.</span>
+                            <input type="checkbox" name="check1" ${check1} style=" border-color:${check1_err}" value="sure"><span> Tôi cam kết các thông tin đã cung cấp tại đây hoàn toàn chính xác.</span>
+                            <i style="color: red;display: none;display: ${check1block}" >Hãy xác nhận lại</i>
                         </td>
                     </tr>
                     <tr>
-                        <td class="thuexe_btn_thuexe" colspan="2"><button class="btn_thuexe" type="submit" id="btn_thuexe">Thuê Xe</button></td>
+                        <td class="thuexe_btn_thuexe" colspan="2"><button class="btn_thuexe" type="submit" id="btn_thuexe">Thuê Xe</button><i style="color: red; display: none;display: ${msg}">Hãy điền đầy đủ thông tin của quý khách</i></td>
+                        
                     </tr>
+                    
                 </table>
             </div> 
         </form>

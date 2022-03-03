@@ -8,23 +8,18 @@ package controll;
 import DAL.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Account;
-import model.Car;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "XacnhanServlet", urlPatterns = {"/xacnhan"})
+public class XacnhanServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,48 +33,7 @@ public class HomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        CarDAO cd = new CarDAO();
-        ArrayList<Car> list = cd.getAll();
-        request.setAttribute("listcar", list); // get list car
-        String email = "";
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("user");
-        Cookie[] cookie = request.getCookies();
-        if (cookie != null) {
-            for (Cookie cookie1 : cookie) {
-                if (cookie1.getName().equals("email")) {
-                    
-                        email = cookie1.getValue();
-                    
-                }
-
-            }
-            
-        }
-        if(email.equals("") && acc == null){                       //  mặc định
-            request.getRequestDispatcher("home.jsp").forward(request, response);
-        }
-         
-        if(email.equals("")){
-            if(acc != null){
-                email = acc.getName();
-                
-            }
-        }
-        if(!email.equals("")){
-            request.setAttribute("style_circle", "display: block");  // hiển thị circle 
-                char HeaderOfEmail = 0;                                 //  lấy ký tự là chữ đầu tiên cho vào circle
-                for (int i = 0; i < email.toCharArray().length; i++) {
-                    if (Character.isLetter(email.toCharArray()[i])) {
-                        HeaderOfEmail = email.toCharArray()[i];
-                        break;
-                    }
-
-                }
-            
-            request.setAttribute("HeaderOfEmail", HeaderOfEmail);
-            request.getRequestDispatcher("home.jsp").forward(request, response);
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -108,7 +62,23 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String Carid =(String) request.getAttribute("Carid");
+        String Accid =(String) request.getAttribute("Accid");
+        String thoiluongthue =(String) request.getAttribute("thoiluongthue");
+        String customer_type =(String) request.getAttribute("customer_type");
+        String name_customer =(String) request.getAttribute("name_customer");
+        String CMND_customer =(String) request.getAttribute("CMND_customer");
+        String phone_customer =(String) request.getAttribute("phone_customer");
+        String email_customer =(String) request.getAttribute("email_customer");
+        String gioithieu_code_customer =(String) request.getAttribute("gioithieu_code_customer");
+        String startdayString =(String) request.getAttribute("startdayString");
+        String endday =(String) request.getAttribute("endday");
+        double totalmoney =(double) request.getAttribute("totalmoney");
+        
+        CarDAO dao = new CarDAO();
+        dao.InsertRental
+        (Carid, Accid, thoiluongthue, customer_type, name_customer, CMND_customer, phone_customer, email_customer, gioithieu_code_customer, startdayString, endday, String.valueOf(totalmoney));
+        response.sendRedirect("home");
     }
 
     /**

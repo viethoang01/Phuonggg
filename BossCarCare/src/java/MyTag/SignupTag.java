@@ -14,9 +14,5 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class SignupTag extends TagSupport{
 
-    @Override
-    public int doStartTag() throws JspException {
-        
-    }
-    
+   
 }

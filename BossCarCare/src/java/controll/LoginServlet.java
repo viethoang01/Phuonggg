@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Car;
 
 /**
  *
@@ -133,7 +134,13 @@ public class LoginServlet extends HttpServlet {
 //        request.setAttribute("HeaderOfEmail", HeaderOfEmail);
         HttpSession session = request.getSession();
         session.setAttribute("user", acc);
-        response.sendRedirect("home");
+        if(session.getAttribute("loginReturn").equals("1")){
+            
+            request.setAttribute("Accid", acc.getId());
+            response.sendRedirect("xacnhan.jsp");
+        }else{
+            response.sendRedirect("home"); 
+        }
 
     }
 
