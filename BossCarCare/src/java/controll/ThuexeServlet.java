@@ -26,7 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Bill;
 import model.Car;
+import model.CarRentalInvoice;
 
 /**
  *
@@ -62,21 +64,54 @@ public class ThuexeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
         String id = (request.getParameter("getcar_id"));    // get Car id
         CarDAO dao = new CarDAO();
         Car car = dao.getCar(id);
-
-        ArrayList<Car> list = dao.getAll();
-        if (car == null) {
-            request.getRequestDispatcher("home").forward(request, response);
-
-        } else {
-
-            request.setAttribute("choosed_car_info", car);
-            request.setAttribute("listcar", list);
-            request.getRequestDispatcher("thuexe.jsp").forward(request, response);
+        
+        HttpSession session = request.getSession();
+        Object obj1 = session.getAttribute("billid");
+        if(obj1 != null){                           // xac nhan lại- thue xe
+            Object obj2 = session.getAttribute("bill");
+            if(obj2 != null){
+                Bill bill = (Bill) obj2;
+                request.setAttribute("customer_type", bill.getDonvi());
+                request.setAttribute("name_customer", bill.getNameCustomer());
+                request.setAttribute("CMND_customer", bill.getCMND());
+                request.setAttribute("phone_customer", bill.getPhone());
+                request.setAttribute("email_customer", bill.getEmail());
+                request.setAttribute("gioithieu_code_customer", bill.getCode_inv());
+                if (bill.getDonvi().equals("canhan")) {
+                    request.setAttribute("checkcanhan", "selected");
+                } else {
+                    request.setAttribute("checkdoanhnghiep", "selected");
+                }
+                
+                request.setAttribute("check1", "checked");
+                request.setAttribute("Carid", bill.getCarId());                // get thông tin khách hàng nhập trước đó
+                String startday = java.time.LocalDate.parse(bill.getStartday()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                String endday = java.time.LocalDate.parse(bill.getEndday()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate sd = java.time.LocalDate.parse(startday);
+                LocalDate ed = java.time.LocalDate.parse(endday);
+                request.setAttribute("startday", sd);
+                String thoiluongthue = String.valueOf(sd.getDayOfMonth()-ed.getDayOfMonth());
+                request.setAttribute("thoiluongthue", thoiluongthue);
+            }
+            
+        } else{
+            response.getWriter().print("bill null thuexe");
         }
+            ArrayList<Car> list = dao.getAll();
+            if (car == null) {
+                request.getRequestDispatcher("home").forward(request, response);
+
+            } else {
+
+                request.setAttribute("choosed_car_info", car);
+                request.setAttribute("listcar", list);
+                request.getRequestDispatcher("thuexe.jsp").forward(request, response);
+            }
+        
     }
 
     /**
@@ -107,12 +142,25 @@ public class ThuexeServlet extends HttpServlet {
         request.setAttribute("Carid", Carid);                // get thông tin khách hàng nhập trước đó
 
         request.setAttribute("thoiluongthue", thoiluongthue);
-        if (!startday.equals("")) {
-            request.setAttribute("startday", java.time.LocalDate.parse(startday));
-            request.setAttribute("startdayString", startday);
+        if (startday != null) {
+            try {
+                //            startday = java.time.LocalDate.parse(startday).format(DateTimeFormatter.ofPattern("dd-mm-yyyy"));
+                String startday12 = java.time.LocalDate.parse(startday).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//       
+                Date startday1 =new SimpleDateFormat("dd/MM/yyyy").parse(startday12);
+                request.setAttribute("startday", startday1);
+                request.setAttribute("startdayString", startday);
+//                response.getWriter().print(startday1);
+//                response.getWriter().print("hello2");
+            } catch (ParseException ex) {
+                Logger.getLogger(ThuexeServlet.class.getName()).log(Level.SEVERE, null, ex);
+                response.getWriter().print("hello");
+            }
         }
-        String endday = java.time.LocalDate.parse(startday).plusDays(Integer.parseInt(thoiluongthue)).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        request.setAttribute("endday", endday);
+//        }else{
+//            response.getWriter().print(startday != null);
+//        }
+        
         request.setAttribute("customer_type", customer_type);
         request.setAttribute("name_customer", name_customer);
         request.setAttribute("CMND_customer", CMND_customer);
@@ -127,26 +175,30 @@ public class ThuexeServlet extends HttpServlet {
         if (check1 != null) {
             request.setAttribute("check1", "checked");
         }
+        String songaythue = "";
         switch (donvithue) {
             case "ngay":
                 request.setAttribute("checkngay", "selected");
+                songaythue =(thoiluongthue);
                 break;
             case "thang":
                 request.setAttribute("checkthang", "selected");
+                songaythue = String.valueOf(Integer.parseInt(thoiluongthue)*30);
                 break;
             case "nam":
                 request.setAttribute("checknam", "selected");
+                songaythue = String.valueOf(Integer.parseInt(thoiluongthue)*30*12);
                 break;
 
         }
-
+        String endday = java.time.LocalDate.parse(startday).plusDays(Integer.parseInt(songaythue)).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        request.setAttribute("endday", endday);
         CarDAO dao = new CarDAO();
         Car car = dao.getCar((Carid));
         
         request.setAttribute("choosed_car_info", car);  // get car được chọn trước đó
         request.setAttribute("listcar", dao.getAll()); // get all car
-        double  totalmoney =  car.getPrice();
-        request.setAttribute("totalmoney", totalmoney);
+        
         if (name_customer.equals("") || CMND_customer.equals("") || phone_customer.equals("") // all must not null (something can not)
                 || email_customer.equals("") || check1 == null) {
             request.setAttribute("msg", "block");
@@ -220,28 +272,38 @@ public class ThuexeServlet extends HttpServlet {
             if (checkB || checkC || checkD || checkE || checkF || checkG || checkH || checkI) {
                 request.getRequestDispatcher("thuexe.jsp").forward(request, response);
             } else {
+                String totalmoney =String.valueOf(car.getPrice()*Integer.parseInt(songaythue));  
+                startday = java.time.LocalDate.parse(startday).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+                String carPriceString = String.valueOf(car.getPrice());
+                
+                Bill bill = new Bill("", Carid, thoiluongthue, customer_type, name_customer, CMND_customer, email_customer, phone_customer, gioithieu_code_customer, startday, endday, carPriceString, totalmoney);
                 int Accid = 0;
                 Account acc = null;
                 HttpSession session = request.getSession();
-                acc =(Account) session.getAttribute("user");
+                acc =(Account) session.getAttribute("user");   // get account từ session
+                
                 if(acc == null){
                     Cookie[] cookie = request.getCookies();
                     if (cookie != null) {
                         for (Cookie cookie1 : cookie) {
                             if (cookie1.getName().equals("email")) {
-                                acc = dao.getAcc(cookie1.getValue());
-                                request.setAttribute("Accid", acc.getId());
+                                acc = dao.getAcc(cookie1.getValue());    //get account by email
+                                request.setAttribute("Accid", acc.getId()); // set id Account 
+                                bill.setAccId(String.valueOf(acc.getId()));  // set id account into phiếu thuê xe
+                                session.setAttribute("bill", bill);              //set CRI into session để đẩy vào xác nhận
                             }
 
                         }
 
                     }
                 }
+                 session.setAttribute("bill", bill);              //set CRI into session để đẩy vào xacnhan xử lý (set trong trường hợp acc vẫn chưa tồn tại)
                 if(acc == null){
+                   
                     session.setAttribute("loginReturn", "1");
                     response.sendRedirect("login.jsp");
                 }else{
-                    response.sendRedirect("xacnhan.html");
+                    response.sendRedirect("xacnhan");
                 }
                 
             }

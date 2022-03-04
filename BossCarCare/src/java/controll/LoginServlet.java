@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Bill;
 import model.Car;
+import model.CarRentalInvoice;
 
 /**
  *
@@ -136,8 +138,16 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("user", acc);
         if(session.getAttribute("loginReturn").equals("1")){
             
-            request.setAttribute("Accid", acc.getId());
-            response.sendRedirect("xacnhan.jsp");
+           Object obj =  session.getAttribute("bill");
+           if(obj != null){
+                Bill bill =(Bill) obj;
+                bill.setAccId(String.valueOf(acc.getId()));         // set account id 
+                session.setAttribute("bill", bill);
+                response.sendRedirect("xacnhan");
+           }else{
+               response.getWriter().print("bill null");
+           }
+            
         }else{
             response.sendRedirect("home"); 
         }

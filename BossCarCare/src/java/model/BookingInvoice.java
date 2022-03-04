@@ -12,13 +12,13 @@ import java.sql.Date;
  * @author Administrator
  */
 public class BookingInvoice {
-    private int id,Accid;
+    private String id,Accid;
     private String donvi,namecustomer,CMND,phone,email,code_gioithieu;
-    private Date date_of_booking, date_maintenance;
+    private String date_of_booking, date_maintenance;
 
     public BookingInvoice() {
     }
-    public BookingInvoice(int Accid, String donvi, String namecustomer, String CMND, String phone, String email, String code_gioithieu){
+    public BookingInvoice(String Accid, String donvi, String namecustomer, String CMND, String phone, String email, String code_gioithieu){
         this.Accid = Accid;
         this.donvi = donvi;
         this.namecustomer = namecustomer;
@@ -27,7 +27,7 @@ public class BookingInvoice {
         this.email = email;
         this.code_gioithieu = code_gioithieu;  
     }
-    public BookingInvoice(int id, int Accid, String donvi, String namecustomer, String CMND, String phone, String email, String code_gioithieu, Date date_of_booking, Date date_maintenance) {
+    public BookingInvoice(String id, String Accid, String donvi, String namecustomer, String CMND, String phone, String email, String code_gioithieu, String date_of_booking, String date_maintenance) {
         this.id = id;
         this.Accid = Accid;
         this.donvi = donvi;
@@ -40,19 +40,19 @@ public class BookingInvoice {
         this.date_maintenance = date_maintenance;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getAccid() {
+    public String getAccid() {
         return Accid;
     }
 
-    public void setAccid(int Accid) {
+    public void setAccid(String Accid) {
         this.Accid = Accid;
     }
 
@@ -104,20 +104,21 @@ public class BookingInvoice {
         this.code_gioithieu = code_gioithieu;
     }
 
-    public Date getDate_of_booking() {
+    public String getDate_of_booking() {
         return date_of_booking;
     }
 
-    public void setDate_of_booking(Date date_of_booking) {
+    public void setDate_of_booking(String date_of_booking) {
         this.date_of_booking = date_of_booking;
     }
 
-    public Date getDate_maintenance() {
+    public String getDate_maintenance() {
         return date_maintenance;
     }
 
-    public void setDate_maintenance(Date date_maintenance) {
+    public void setDate_maintenance(String date_maintenance) {
         this.date_maintenance = date_maintenance;
     }
-    
+
+   
 }

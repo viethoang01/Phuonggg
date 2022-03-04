@@ -13,6 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Bill;
+import model.CarRentalInvoice;
 
 /**
  *
@@ -48,7 +51,34 @@ public class XacnhanServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        response.getWriter().print("doget");
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("bill");
+        session.setAttribute("billid", "billid");
+        if(obj != null){
+            Bill bill = (Bill) obj;
+            
+
+            request.setAttribute("Carid", bill.getCarId());
+            request.setAttribute("Accid", bill.getAccId());
+            request.setAttribute("songaythue", bill.getThoiluong());
+            request.setAttribute("donvithue", bill.getDonvi());
+            request.setAttribute("name_customer", bill.getNameCustomer());
+            request.setAttribute("CMND_customer", bill.getCMND());
+            request.setAttribute("phone_customer", bill.getPhone());
+            request.setAttribute("email_customer", bill.getEmail());
+            request.setAttribute("gioithieu_code_customer", bill.getCode_inv());
+            request.setAttribute("startdayString", bill.getStartday());
+            request.setAttribute("endday", bill.getEndday());
+            request.setAttribute("totalmoney", bill.getTotal());
+            request.setAttribute("price", bill.getPrice());
+            request.getRequestDispatcher("xacnhan.jsp").forward(request, response);
+        }
+        else{
+            response.getWriter().print("CRI null");
+        
+        }
     }
 
     /**
@@ -62,23 +92,22 @@ public class XacnhanServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String Carid =(String) request.getAttribute("Carid");
-        String Accid =(String) request.getAttribute("Accid");
-        String thoiluongthue =(String) request.getAttribute("thoiluongthue");
-        String customer_type =(String) request.getAttribute("customer_type");
-        String name_customer =(String) request.getAttribute("name_customer");
-        String CMND_customer =(String) request.getAttribute("CMND_customer");
-        String phone_customer =(String) request.getAttribute("phone_customer");
-        String email_customer =(String) request.getAttribute("email_customer");
-        String gioithieu_code_customer =(String) request.getAttribute("gioithieu_code_customer");
-        String startdayString =(String) request.getAttribute("startdayString");
-        String endday =(String) request.getAttribute("endday");
-        double totalmoney =(double) request.getAttribute("totalmoney");
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("bill");
+        if(obj != null){
+            Bill bill = (Bill) obj;
+            CarRentalInvoice CRI = new CarRentalInvoice();
+            CRI.addBill(bill.getAccId(), bill);     // 1 acc có thể có nhiều bill
+            
+            CarDAO dao = new CarDAO();
+            dao.InsertRental
+            (bill.getCarId(), bill.getAccId(), bill.getThoiluong(), bill.getDonvi(), bill.getNameCustomer(),bill.getCMND(), bill.getPhone(), bill.getEmail(), bill.getCode_inv(), bill.getStartday(), bill.getEndday(), bill.getTotal());
+             response.sendRedirect("home");
+        }else{
+            response.getWriter().print("Bill null");
+        }
         
-        CarDAO dao = new CarDAO();
-        dao.InsertRental
-        (Carid, Accid, thoiluongthue, customer_type, name_customer, CMND_customer, phone_customer, email_customer, gioithieu_code_customer, startdayString, endday, String.valueOf(totalmoney));
-        response.sendRedirect("home");
+        
     }
 
     /**

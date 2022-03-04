@@ -6,75 +6,37 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Administrator
  */
-public class CarRentalInvoice extends BookingInvoice{
-    private int id,Carid;
-    private Date date_of_hire,start_date_of_hire,end_date_of_hire;
-    private int totalmoney;
+public class CarRentalInvoice {
+    private Map<String,ArrayList<Bill>> bills;
 
     public CarRentalInvoice() {
+        bills =  new HashMap<>();
     }
 
-    public CarRentalInvoice(int id,int Carid, int Accid, String donvi, String namecustomer, String CMND, String phone, String email, String code_gioithieu, Date date_of_hire, Date start_date_of_hire, Date end_date_of_hire, int totalmoney) {
-        super(Accid, donvi, namecustomer, CMND, phone, email, code_gioithieu);
-        this.id = id;
-        this.Carid = Carid;
-        this.date_of_hire = date_of_hire;
-        this.start_date_of_hire = start_date_of_hire;
-        this.end_date_of_hire = end_date_of_hire;
-        this.totalmoney = totalmoney;
+    public void addBill(String accId,Bill bill) {
+        ArrayList<Bill> listBill = new ArrayList<>();
+        listBill.add(bill);
+        if(bills.get(accId) != null){
+            bills.replace(accId, listBill);
+        }else{
+            bills.put(accId, listBill);
+        }
     }
 
-    public int getId() {
-        return id;
+    public Map<String, ArrayList<Bill>> getBill() {
+        return bills;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getCarid() {
-        return Carid;
-    }
-
-    public void setCarid(int Carid) {
-        this.Carid = Carid;
-    }
-
-    public Date getDate_of_hire() {
-        return date_of_hire;
-    }
-
-    public void setDate_of_hire(Date date_of_hire) {
-        this.date_of_hire = date_of_hire;
-    }
-
-    public Date getStart_date_of_hire() {
-        return start_date_of_hire;
-    }
-
-    public void setStart_date_of_hire(Date start_date_of_hire) {
-        this.start_date_of_hire = start_date_of_hire;
-    }
-
-    public Date getEnd_date_of_hire() {
-        return end_date_of_hire;
-    }
-
-    public void setEnd_date_of_hire(Date end_date_of_hire) {
-        this.end_date_of_hire = end_date_of_hire;
-    }
-
-    public int getTotalmoney() {
-        return totalmoney;
-    }
-
-    public void setTotalmoney(int totalmoney) {
-        this.totalmoney = totalmoney;
-    }
     
+   
+   
     
 }

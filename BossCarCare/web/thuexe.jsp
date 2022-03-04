@@ -134,7 +134,7 @@
                         </div> 
                          <div class="col-md-5" style="text-align: right">
                              <h5>Ngày bắt đầu thuê xe</h5>
-                             <input name="startday" type="date" value="${startday}" min="<%=java.time.LocalDate.now()%>">
+                             <input name="startday" type="date" value="12/12/2022" min="<%=java.time.LocalDate.now()%>">
                              <span> <i style="color: red;display: none;display: ${startdayblock}" class="glyphicon glyphicon-remove">Hãy điền lại thông tin</i></span>
                              
                          </div>
