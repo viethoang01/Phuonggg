@@ -81,30 +81,51 @@ form.onsubmit = (e) => {
     if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
         window.location.href = form.getAttribute("action"); //redirecting user to the specified url which is inside action attribute of form tag
     }
+}
+
+
+var slideIndex = [1, 1];
+var slideId = ["mySlides1", "mySlides2"]
+showSlides(1, 0);
+showSlides(1, 1);
+
+function plusSlides(n, no) {
+    showSlides(slideIndex[no] += n, no);
+}
+
+function showSlides(n, no) {
+    var i;
+    var x = document.getElementsByClassName(slideId[no]);
+    if (n > x.length) {
+        slideIndex[no] = 1;
     }
-
-
-    var slideIndex = [1, 1];
-    var slideId = ["mySlides1", "mySlides2"]
-    showSlides(1, 0);
-    showSlides(1, 1);
-
-    function plusSlides(n, no) {
-        showSlides(slideIndex[no] += n, no);
+    if (n < 1) {
+        slideIndex[no] = x.length;
     }
-
-    function showSlides(n, no) {
-        var i;
-        var x = document.getElementsByClassName(slideId[no]);
-        if (n > x.length) {
-            slideIndex[no] = 1;
-        }
-        if (n < 1) {
-            slideIndex[no] = x.length;
-        }
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        x[slideIndex[no] - 1].style.display = "block";
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
     }
+    x[slideIndex[no] - 1].style.display = "block";
+}
 
+function enterNumber() {
+    var input = document.getElementById('enterNumber').value;
+    if (isNaN(input) || input.length > 11) {
+        document.getElementById('enterNumber').value = input.substring(input.length-1,0);
+    } 
+    
+}
+function  enterText(){
+    var input = document.getElementById('enterText').value;
+    var splitInput = Array.from(input);
+    for (let i = 0; i < splitInput.length; i++) {
+        if(!isNaN(splitInput[i]) && splitInput[i] !== ' '){
+            document.getElementById('enterText').value = input.substring(splitInput.length-1,0);
+        }
+        var char = splitInput[i]+splitInput[i-1]
+        if(char === "  "){
+            document.getElementById('enterText').value = input.substring(splitInput.length-1,0);
+        }
+    }
+    
+}

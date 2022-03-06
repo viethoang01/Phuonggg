@@ -7,12 +7,9 @@ package controll;
 
 import DAL.CarDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +25,6 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Bill;
 import model.Car;
-import model.CarRentalInvoice;
 
 /**
  *
@@ -70,6 +66,13 @@ public class ThuexeServlet extends HttpServlet {
         Car car = dao.getCar(id);
         
         HttpSession session = request.getSession();
+        Object objUser = session.getAttribute("user");
+        if(objUser !=null){
+            Account acc = (Account) objUser;
+            request.setAttribute("nav_user", "display: block");  // hiển thị nav user
+            request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe   
+            request.setAttribute("email_user", acc.getName());
+        }
         Object obj1 = session.getAttribute("billid");
         if(obj1 != null){                           // xac nhan lại- thue xe
             Object obj2 = session.getAttribute("bill");
@@ -89,28 +92,41 @@ public class ThuexeServlet extends HttpServlet {
                 
                 request.setAttribute("check1", "checked");
                 request.setAttribute("Carid", bill.getCarId());                // get thông tin khách hàng nhập trước đó
-                String startday = java.time.LocalDate.parse(bill.getStartday()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                String endday = java.time.LocalDate.parse(bill.getEndday()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                
+                Date startdayDate=null,enddayDate=null;
+                try {
+                    startdayDate = new SimpleDateFormat("MM/dd/yyyy").parse(bill.getStartday());
+                    enddayDate = new SimpleDateFormat("MM/dd/yyyy").parse(bill.getEndday());
+                } catch (ParseException ex) {
+                    Logger.getLogger(ThuexeServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String startday = formatter.format(startdayDate);
+                String endday = formatter.format(enddayDate);
+                
+                request.setAttribute("startday", startday);
                 LocalDate sd = java.time.LocalDate.parse(startday);
                 LocalDate ed = java.time.LocalDate.parse(endday);
                 request.setAttribute("startday", sd);
-                String thoiluongthue = String.valueOf(sd.getDayOfMonth()-ed.getDayOfMonth());
+                String thoiluongthue = String.valueOf(ed.getDayOfMonth()-sd.getDayOfMonth());
                 request.setAttribute("thoiluongthue", thoiluongthue);
+                session.removeAttribute("billid");
             }
             
         } else{
             response.getWriter().print("bill null thuexe");
         }
-            ArrayList<Car> list = dao.getAll();
-            if (car == null) {
+            
+        ArrayList<Car> list = dao.getAll();
+        if (car == null) {
                 request.getRequestDispatcher("home").forward(request, response);
 
-            } else {
+        } else {
 
-                request.setAttribute("choosed_car_info", car);
-                request.setAttribute("listcar", list);
-                request.getRequestDispatcher("thuexe.jsp").forward(request, response);
-            }
+            request.setAttribute("choosed_car_info", car);
+            request.setAttribute("listcar", list);
+            request.getRequestDispatcher("thuexe.jsp").forward(request, response);
+        }
         
     }
 
@@ -143,23 +159,11 @@ public class ThuexeServlet extends HttpServlet {
 
         request.setAttribute("thoiluongthue", thoiluongthue);
         if (startday != null) {
-            try {
-                //            startday = java.time.LocalDate.parse(startday).format(DateTimeFormatter.ofPattern("dd-mm-yyyy"));
-                String startday12 = java.time.LocalDate.parse(startday).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-//       
-                Date startday1 =new SimpleDateFormat("dd/MM/yyyy").parse(startday12);
-                request.setAttribute("startday", startday1);
-                request.setAttribute("startdayString", startday);
-//                response.getWriter().print(startday1);
-//                response.getWriter().print("hello2");
-            } catch (ParseException ex) {
-                Logger.getLogger(ThuexeServlet.class.getName()).log(Level.SEVERE, null, ex);
-                response.getWriter().print("hello");
-            }
+            
+            request.setAttribute("startday", startday);
+//            response.getWriter().print("<p></p>");
         }
-//        }else{
-//            response.getWriter().print(startday != null);
-//        }
+
         
         request.setAttribute("customer_type", customer_type);
         request.setAttribute("name_customer", name_customer);
@@ -182,6 +186,7 @@ public class ThuexeServlet extends HttpServlet {
                 songaythue =(thoiluongthue);
                 break;
             case "thang":
+                
                 request.setAttribute("checkthang", "selected");
                 songaythue = String.valueOf(Integer.parseInt(thoiluongthue)*30);
                 break;
@@ -191,8 +196,11 @@ public class ThuexeServlet extends HttpServlet {
                 break;
 
         }
-        String endday = java.time.LocalDate.parse(startday).plusDays(Integer.parseInt(songaythue)).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        request.setAttribute("endday", endday);
+        String endday = "";
+        if(!songaythue.equals("")){
+            endday = java.time.LocalDate.parse(startday).plusDays(Integer.parseInt(songaythue)).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            request.setAttribute("endday", endday);
+        }
         CarDAO dao = new CarDAO();
         Car car = dao.getCar((Carid));
         
@@ -272,7 +280,7 @@ public class ThuexeServlet extends HttpServlet {
             if (checkB || checkC || checkD || checkE || checkF || checkG || checkH || checkI) {
                 request.getRequestDispatcher("thuexe.jsp").forward(request, response);
             } else {
-                String totalmoney =String.valueOf(car.getPrice()*Integer.parseInt(songaythue));  
+                String totalmoney =String.valueOf((int)car.getPrice()*Integer.parseInt(songaythue));  
                 startday = java.time.LocalDate.parse(startday).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
                 String carPriceString = String.valueOf(car.getPrice());
                 

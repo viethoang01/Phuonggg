@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Bill;
 import model.CarRentalInvoice;
 
@@ -54,6 +55,14 @@ public class XacnhanServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.getWriter().print("doget");
         HttpSession session = request.getSession();
+        Object objUser = session.getAttribute("user");
+        if(objUser !=null){
+            Account acc = (Account) objUser;
+            request.setAttribute("nav_user", "display: block");  // hiển thị nav user
+            request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe   
+            request.setAttribute("email_user", acc.getName());
+        }
+        
         Object obj = session.getAttribute("bill");
         session.setAttribute("billid", "billid");
         if(obj != null){
@@ -76,7 +85,7 @@ public class XacnhanServlet extends HttpServlet {
             request.getRequestDispatcher("xacnhan.jsp").forward(request, response);
         }
         else{
-            response.getWriter().print("CRI null");
+            request.getRequestDispatcher("EmptyPage.html").forward(request, response);
         
         }
     }
@@ -102,9 +111,10 @@ public class XacnhanServlet extends HttpServlet {
             CarDAO dao = new CarDAO();
             dao.InsertRental
             (bill.getCarId(), bill.getAccId(), bill.getThoiluong(), bill.getDonvi(), bill.getNameCustomer(),bill.getCMND(), bill.getPhone(), bill.getEmail(), bill.getCode_inv(), bill.getStartday(), bill.getEndday(), bill.getTotal());
-             response.sendRedirect("home");
+            session.removeAttribute("loginReturn");
+            response.sendRedirect("home");
         }else{
-            response.getWriter().print("Bill null");
+            request.getRequestDispatcher("EmptyPage.html").forward(request, response);
         }
         
         

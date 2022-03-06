@@ -131,8 +131,8 @@ public class CarDAO extends BaseDAO<Car>{
     
     public void InsertRental(String Carid, String Accid,String songaythue, String donvi, String namecustomer, String CMND, String phone, String email, String code_gioithieu, String start_date_of_hire, String end_date_of_hire, String totalmoney){
         try{
-            String sql = "insert into CarRentalInvoice values\n" +
-"(?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into CarRentalInvoice (Carid,Accid,songaythue,donvi, namecustomer, CMND, phone, email, code_gioithieu,start_date_of_hire,end_date_of_hire,totalmoney) values\n" +
+                            "(?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, Carid);
             statement.setString(2, Accid);
@@ -152,5 +152,7 @@ public class CarDAO extends BaseDAO<Car>{
             
         }
     }
+    
+    
     
 }

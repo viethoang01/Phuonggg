@@ -85,12 +85,19 @@ public class LoginServlet extends HttpServlet {
         String pass = request.getParameter("pass_login").trim();
         boolean checkEmail = email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
         request.setAttribute("email_login_value", email);
+        if (!checkEmail) {
+            request.setAttribute("email_err1", "block");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        if(pass.trim().equals("")){
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
         ArrayList<Account> list = dao.ListAcc();
-        boolean valiableEmail = false, valiablePass = false;
+        boolean valiablePass = false;
         Account acc = null;
         for (Account account : list) {
             if (account.getName().equals(email)) {
-                valiableEmail = true;
+               
                 if (account.getPassword().equals(pass)) {
                     valiablePass = true;
                     acc = account;
@@ -99,29 +106,19 @@ public class LoginServlet extends HttpServlet {
                 break;
             }
         }
-        if (!checkEmail) {
-            request.setAttribute("email_err1", "block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-        if (!valiableEmail) {
-            request.setAttribute("email_err2", "block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
+        
+        
         if (!valiablePass) {
-            request.setAttribute("pass_err_login", "block");
+            request.setAttribute("acc_err", "block");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         String remember = request.getParameter("remember");
         if (remember != null) {
             Cookie c_email = new Cookie("email", email);
-            Cookie c_pass = new Cookie("password", pass);
-
-            response.addCookie(c_pass);
             response.addCookie(c_email);
 
             c_email.setMaxAge(60);
-            c_pass.setMaxAge(60);
-
+            
         } 
             
 //        request.setAttribute("style_circle", "display: block");  // hiển thị circle 
@@ -136,18 +133,21 @@ public class LoginServlet extends HttpServlet {
 //        request.setAttribute("HeaderOfEmail", HeaderOfEmail);
         HttpSession session = request.getSession();
         session.setAttribute("user", acc);
-        if(session.getAttribute("loginReturn").equals("1")){
-            
-           Object obj =  session.getAttribute("bill");
-           if(obj != null){
-                Bill bill =(Bill) obj;
-                bill.setAccId(String.valueOf(acc.getId()));         // set account id 
-                session.setAttribute("bill", bill);
-                response.sendRedirect("xacnhan");
-           }else{
-               response.getWriter().print("bill null");
-           }
-            
+        Object objLogin = session.getAttribute("loginReturn");
+        if(objLogin != null){
+            if(((String) objLogin).equals("1")){
+
+               Object obj =  session.getAttribute("bill");
+               if(obj != null){
+                    Bill bill =(Bill) obj;
+                    bill.setAccId(String.valueOf(acc.getId()));         // set account id 
+                    session.setAttribute("bill", bill);
+                    response.sendRedirect("xacnhan");
+               }else{
+                   response.getWriter().print("bill null");
+               }
+
+            }
         }else{
             response.sendRedirect("home"); 
         }

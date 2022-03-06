@@ -20,8 +20,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <nav class="navbar  header_top row" >
-            <div class="container-fluid">
+        <nav class="navbar  header_top row" style="padding-left: 0;padding-right: 0;margin-left: 0;margin-right: 0;border-radius: 0">
+            <div class="container-fluid" style="padding-left: 0;padding-right: 0;box-sizing: border-box">
                 <div class="nav_left col-md-9 row">
                     <div class="navbar-header col-md-5">
                         <a class="navbar-brand" href="home"><img class="logo" title="Boss Car Care" src="images/logoBossCarCare2.png" alt="logoBossCarCare"></a>
@@ -34,7 +34,16 @@
                     </div>
                 </div>
                 <div class="nav_right col-md-3">
-                    <div class="class_btn"> <a href="login.jsp" id="btn_spring">TÀI KHOẢN</a></div>
+                    <div style="display: block; ${nav_btn_taikhoan}" class=" class_btn"> <a href="login.jsp" id="btn_spring" title="Login">TÀI KHOẢN</a></div>
+                    <div class="dropdown" style="display: none;${nav_user}">
+                        <button style="background-color: white;color: black;border: none" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"> ${email_user}</span>
+                        </button>
+                        <ul class="dropdown-menu" >
+                            <li style="padding: 10px 2px;"><a  href="#">Hóa đơn đã xác nhận</a></li>
+                            <li style="padding: 10px 2px;"><a href="#">Hóa đơn chưa xác nhận</a></li>
+                            <li style="padding: 10px 2px;"><a href="logout">Đăng xuất</a></li>
+                        </ul>
+                    </div>
 
                 </div>
 
@@ -134,7 +143,7 @@
                         </div> 
                          <div class="col-md-5" style="text-align: right">
                              <h5>Ngày bắt đầu thuê xe</h5>
-                             <input name="startday" type="date" value="12/12/2022" min="<%=java.time.LocalDate.now()%>">
+                             <input name="startday" type="date" value="${startday}" min="<%=java.time.LocalDate.now()%>">
                              <span> <i style="color: red;display: none;display: ${startdayblock}" class="glyphicon glyphicon-remove">Hãy điền lại thông tin</i></span>
                              
                          </div>

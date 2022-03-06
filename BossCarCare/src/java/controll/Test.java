@@ -18,19 +18,26 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class Test {
+
     public static void main(String[] args) {
         try {
-            char[] s = "Hoang Viet1".toCharArray();
-            boolean check1 = false;
-            for (int i = 0; i < s.length-1; i++) {
-                if(Character.isLetter(s[i])&& s[i+1] == ' '){
-                    check1 = true;
-                }
-                
-            }
-            LocalDate date = java.time.LocalDate.now();            
-            Date startday1 =new SimpleDateFormat("dd/MM/yyyy").parse("12/2/2022");
-            System.out.println(startday1);
+            //        try {
+//
+//            LocalDate date = java.time.LocalDate.now();
+//            Date startday1 = new SimpleDateFormat("dd/MM/yyyy").parse("12/2/2022");
+//
+//        } catch (ParseException ex) {
+//            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        LocalDate date = java.time.LocalDate.now();
+//        String startday = java.time.LocalDate.parse("05--02").format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+//        System.out.println(startday);
+            
+            Date startday1 = new SimpleDateFormat("MM/dd/yyyy").parse("03/05/2022");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            String strDate = formatter.format(startday1);
+            System.out.println("Date Format with MM/dd/yyyy : " + strDate);
+            
         } catch (ParseException ex) {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -15,6 +15,7 @@ body{
   float: right;
   display: none;
 }
+*{font-family: muli,Mulish,source sans pro,sans-serif;}
 .circle h6{
     font-weight: bold;
     text-transform: uppercase;
@@ -95,7 +96,9 @@ col-md-3 a:hover{
 
 
 /*dropdown*/
-
+.dropdown-menu li a{
+    padding: 20px 2px;
+}
 .header_top {
     position: sticky !important;
     z-index: 1;
@@ -564,5 +567,41 @@ footer .heart {
   font-size: 1.5em
 }
 /**end form**/
+/**baoduong*/
+.circle_label{
+    width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  font-size: 15px;
+  color: white;
+  text-align: center;
+  background: grey;
+  float: left;
+  font-style: normal;
+  margin-right: 20px;
+}
+.col-md-6 .header_label{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.containerNone h4{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.containerNone  .row .col-md-6 div{
+    padding: 10px 1px;
+}
+.containerNone  .row .col-md-6 div input[type=text],input[type=email],input[type=time],input[type=date]{
+    width: 100%;
+    padding: 7px 20px;
+    border: 1px solid #f1f1f1;
+    border-radius: 3px;
+    font-size: 17px;
+}
 
+.containerNone .btn_xacnhanyeucau{
+    margin-left: 33%;
+}
+/**end bao duong*/
 

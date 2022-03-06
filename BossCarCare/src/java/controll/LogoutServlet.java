@@ -5,10 +5,8 @@
  */
 package controll;
 
-import DAL.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -16,15 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
-import model.Car;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/logout"})
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,46 +34,17 @@ public class HomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        CarDAO cd = new CarDAO();
-        ArrayList<Car> list = cd.getAll();
-        request.setAttribute("listcar", list); // get list car
-        String email = "";
-        HttpSession session = request.getSession();
-        Object objAcc = session.getAttribute("user");
-        Account acc = null;
-        if(objAcc != null){
-            acc = (Account) objAcc;
-          
-                email = acc.getName();
- 
-        }
-        if(email.equals("")){
-            Cookie[] cookie = request.getCookies();
-            if (cookie != null) {
-                for (Cookie cookie1 : cookie) {
-                    if (cookie1.getName().equals("email")) {
-
-                            email = cookie1.getValue();
-                            
-                            Account accountgetbycookie = cd.getAcc(email);
-                            session.setAttribute("user",accountgetbycookie);
-                    }
-
-                }
-
-            }
-        }
-        if(email.equals("") && acc == null){                       //  mặc định
-            request.getRequestDispatcher("home.jsp").forward(request, response);
-        }
-       
-        if(!email.equals("")){
-            request.setAttribute("nav_user", "display: block");  // hiển thị nav user
-            request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
-                
-            
-            request.setAttribute("email_user", email);
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet LogoutServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -93,7 +60,14 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        session.invalidate();
+        Cookie cookie = new Cookie("email", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        request.setAttribute("nav_user", "display: none");  // hiển thị circle
+        request.setAttribute("nav_btn_taikhoan", "display: block");  // hiển thị circle
+        response.sendRedirect("login.jsp");
     }
 
     /**

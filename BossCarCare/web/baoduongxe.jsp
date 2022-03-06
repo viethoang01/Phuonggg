@@ -1,6 +1,6 @@
 <%-- 
-    Document   : xacnhan
-    Created on : Mar 4, 2022, 1:14:34 AM
+    Document   : baoduongxe
+    Created on : Mar 5, 2022, 11:14:12 PM
     Author     : Administrator
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Hóa đơn thuê xe</title>
+        <title>JSP Page</title>
         <link href="css/bCar.css" rel="stylesheet" type="text/css" />
         <script src="js/bCar.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Be Vietnam Pro' rel='stylesheet'>
@@ -17,7 +17,28 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
-    <body>
+    <style>
+        body{
+            background-image: url("images/baohanhBG.jpg") ;
+
+        }
+        .containerNone ,.footer{
+            background-color: white;
+
+        }
+        .containerNone{
+            margin: 20px 150px;
+            padding: 50px;
+        }
+        .footer{
+            margin-top: 0;
+        }
+        .row{
+            margin-right: 0;
+        }
+
+    </style>
+    <body >
         <nav class="navbar  header_top row" style="padding-left: 0;padding-right: 0;margin-left: 0;margin-right: 0;border-radius: 0">
             <div class="container-fluid" style="padding-left: 0;padding-right: 0;box-sizing: border-box">
                 <div class="nav_left col-md-9 row">
@@ -49,53 +70,95 @@
 
         </nav>
 
+        <div class="containerNone">
+            <h4>ĐẶT DỊCH VỤ</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="header_label"><i class="circle_label">1</i><span>Thông tin khách hàng</span></label><br>
+                    <label>Họ và tên<span style="color: blue">*</span></label>
+                    <div>
+
+                        <input oninput="enterText()"  id="enterText" name="namecustomer" value="${namecustomer}" type="text" placeholder="Nhập họ và tên">
+                    </div>
+                    <label>Số điện thoại<span style="color: blue">*</span></label>
+
+                    <div>
+
+                        <input oninput ="enterNumber()" id="enterNumber" name="phone" value="${phone}" type="text" placeholder="Tối thiểu 10 chữ số">
+                    </div>
+                    <label>Email<span style="color: blue">*</span></label>
+                    <div>
+
+                        <input name="email" value="${email}" type="email" placeholder="vidu@gmail.com">
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <label class="header_label"><i class="circle_label">2</i><span>Thông tin xe</span></label><br>
+                    <label>Mẫu xe<span style="color: blue">*</span></label>
+                    <div>
+
+                        <input name="mauxe" value="${mauxe}" type="text" placeholder="Nhập mẫu xe">
+                    </div>
+                    <label>Số Km<span style="color: blue">*</span></label>
+                    <div>
+
+                        <input oninput ="enterNumber()" id="enterNumber" name="km" value="${km}" type="text" placeholder="Nhập số km trên phương tiện của quý khách">
+                    </div>
+                    <label>Biển số xe<span style="color: blue">*</span></label>
+                    <div>
+
+                        <input name="biensoxe" value="${biensoxe}" type="text" placeholder="Nhập biển số xe">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 input_checkbox_baoduong" >
+                    <label class="header_label"><i class="circle_label">3</i><span>Dịch vụ</span></label><br>
+                    <label>Dịch vụ<span style="color: blue">*</span></label>
+                    <div>
+
+                        <input name="baoduong" value="${baoduong}" type="checkbox" > Bảo dưỡng
+                    </div>
 
 
-        <div class="container">
-            <form action="xacnhan" method="post">
-                <h2>Thông tin hóa đơn thuê xe</h2>
-                <table border="1">
-                    <thead>
-                        <tr>
+                    <div>
 
-                            <th>Car ID</th>
-                            <th>Đơn vị</th>
-                            <th>Tên khách hàng</th>
-                            <th>CMND/CCCD</th>
-                            <th>Số điện thoại</th>
-                            <th>Email</th>
-                            <th>Mã giới thiệu(nếu có)</th>
-                            <th>Thời lượng thuê/ngày</th>
-                            <th>Ngày bắt đầu thuê</th>
-                            <th>Ngày kết thúc thuê</th>
-                            <th>Giá thuê xe/ngày</th>
-                            <th>Tổng tiền</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>${Carid}</td> 
-                            <td>${donvithue}</td>
-                            <td>${name_customer}</td>
-                            <td>${CMND_customer}</td>
-                            <td>${phone_customer}</td>
-                            <td>${email_customer}</td>
-                            <td>${gioithieu_code_customer}</td>
-                            <td>${songaythue}</td>
-                            <td>${startdayString}</td>
-                            <td>${endday}</td>
-                            <td>${price}</td>
-                            <td>${totalmoney}</td>
-                        </tr>
+                        <input name="suachuachung" value="${suachuachung}" type="checkbox"> Sửa chữa chung
+                    </div>
 
-                    </tbody>
-                </table>
-                <button class="btn_thuexe" id="btn_thuexe">Xác nhận</button>
-                <a href="thuexe?getcar_id=${Carid}">Kiểm tra lại thông tin</a>
-            </form>
-            
-        </div>
+                    <div>
+
+                        <input name="dongson" value="${dongson}" type="checkbox" > Đồng sơn
+                    </div>
+                    <div>
+
+                        <input name="suachuakhac" value="${suachuakhac}" type="checkbox" > Sửa chữa khác
+                    </div>
+
+                </div>
+                <div class="col-md-6 ">
+                    <label class="header_label"><i class="circle_label">4</i><span>Thời gian</span></label><br>
+                    <label>Thời gian<span style="color: blue">*</span></label><br>
+
+                    <div class="col-md-6">
+
+                        <input name="ngay" value="${ngay}" type="date" placeholder="ngày">
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <input name="gio" value="${gio}" type="time">
+                    </div>
+
+                </div>
+            </div>
+            <div class="btn_xacnhanyeucau">
+                <button id="btn_thuexe" class="btn_thuexe">Gửi yêu cầu</button>
+            </div>
+
+        </div>              
+
 
 
 
@@ -145,6 +208,9 @@
                     <li class="col-md-4"><strong>Mail:</strong> hoangnvliu@gmail.com</li>
                 </ul>
             </div>
-        </div>
+        </div>     
+        <script>
+            
+        </script>
     </body>
 </html>
