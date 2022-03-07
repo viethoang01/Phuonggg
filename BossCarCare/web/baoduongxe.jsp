@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     </head>
     <style>
         body{
@@ -69,97 +70,100 @@
             </div>
 
         </nav>
+        <form autocomplete="off" action="baoduong" method="post">
+            <div class="containerNone">
+                <h4>ĐẶT DỊCH VỤ</h4>
+                <i class="dadichvu_err" id="dadichvu_err" style="display: none;color: red;display: ${datdichvu_err}">Quý khách chưa nhập đầy đủ thông tin</i>
 
-        <div class="containerNone">
-            <h4>ĐẶT DỊCH VỤ</h4>
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="header_label"><i class="circle_label">1</i><span>Thông tin khách hàng</span></label><br>
-                    <label>Họ và tên<span style="color: blue">*</span></label>
-                    <div>
-
-                        <input oninput="enterText()"  id="enterText" name="namecustomer" value="${namecustomer}" type="text" placeholder="Nhập họ và tên">
-                    </div>
-                    <label>Số điện thoại<span style="color: blue">*</span></label>
-
-                    <div>
-
-                        <input oninput ="enterNumber()" id="enterNumber" name="phone" value="${phone}" type="text" placeholder="Tối thiểu 10 chữ số">
-                    </div>
-                    <label>Email<span style="color: blue">*</span></label>
-                    <div>
-
-                        <input name="email" value="${email}" type="email" placeholder="vidu@gmail.com">
-                    </div>
-
-                </div>
-                <div class="col-md-6">
-                    <label class="header_label"><i class="circle_label">2</i><span>Thông tin xe</span></label><br>
-                    <label>Mẫu xe<span style="color: blue">*</span></label>
-                    <div>
-
-                        <input name="mauxe" value="${mauxe}" type="text" placeholder="Nhập mẫu xe">
-                    </div>
-                    <label>Số Km<span style="color: blue">*</span></label>
-                    <div>
-
-                        <input oninput ="enterNumber()" id="enterNumber" name="km" value="${km}" type="text" placeholder="Nhập số km trên phương tiện của quý khách">
-                    </div>
-                    <label>Biển số xe<span style="color: blue">*</span></label>
-                    <div>
-
-                        <input name="biensoxe" value="${biensoxe}" type="text" placeholder="Nhập biển số xe">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 input_checkbox_baoduong" >
-                    <label class="header_label"><i class="circle_label">3</i><span>Dịch vụ</span></label><br>
-                    <label>Dịch vụ<span style="color: blue">*</span></label>
-                    <div>
-
-                        <input name="baoduong" value="${baoduong}" type="checkbox" > Bảo dưỡng
-                    </div>
-
-
-                    <div>
-
-                        <input name="suachuachung" value="${suachuachung}" type="checkbox"> Sửa chữa chung
-                    </div>
-
-                    <div>
-
-                        <input name="dongson" value="${dongson}" type="checkbox" > Đồng sơn
-                    </div>
-                    <div>
-
-                        <input name="suachuakhac" value="${suachuakhac}" type="checkbox" > Sửa chữa khác
-                    </div>
-
-                </div>
-                <div class="col-md-6 ">
-                    <label class="header_label"><i class="circle_label">4</i><span>Thời gian</span></label><br>
-                    <label>Thời gian<span style="color: blue">*</span></label><br>
-
+                <div class="row">
                     <div class="col-md-6">
+                        <label class="header_label"><i class="circle_label">1</i><span>Thông tin khách hàng</span></label><br>
+                        <label>Họ và tên<span style="color: blue">*</span></label>
+                        <div>
 
-                        <input name="ngay" value="${ngay}" type="date" placeholder="ngày">
+                            <input style="border-color: ${namecustomer_err}" oninput="enterText()"  id="enterText" name="namecustomer" value="${namecustomer}"  type="text" placeholder="Nhập họ và tên">
+                        </div>
+                        <label>Số điện thoại<span style="color: blue">*</span></label>
+
+                        <div>
+
+                            <input style="border-color: ${phone_err}" oninput ="enterNumber()" id="enterNumber" name="phone" value="${phone}" type="text" placeholder="Tối thiểu 10 chữ số">
+                        </div>
+                        <label>Email<span style="color: blue">*</span></label>
+                        <div>
+
+                            <input style="border-color: ${email_err}" onchange ="enterEmail()" id="enterEmail"name="email"  value="${email}" type="email" placeholder="vidu@gmail.com">
+                        </div>
+
                     </div>
-
                     <div class="col-md-6">
+                        <label class="header_label"><i class="circle_label">2</i><span>Thông tin xe</span></label><br>
+                        <label>Mẫu xe<span style="color: blue">*</span></label>
+                        <div>
 
-                        <input name="gio" value="${gio}" type="time">
+                            <input style="border-color: ${mauxe_err}" id="mauxe" name="mauxe" value="${mauxe}" type="text" placeholder="Nhập mẫu xe">
+                        </div>
+                        <label>Số Km<span style="color: blue"></span></label>
+                        <div>
+
+                            <input style="border-color: ${km_err}" oninput ="enterNumber2()" id="enterNumber2" name="km" value="${km}" type="text" placeholder="Nhập số km trên phương tiện của quý khách">
+                        </div>
+                        <label>Biển số xe<span style="color: blue">*</span></label>
+                        <div>
+
+                            <input style="border-color: ${enterBiensoxe_err}" oninput ="enterBiensoxe()" id="enterBiensoxe" name="biensoxe" value="${biensoxe}" type="text" placeholder="Nhập biển số xe">
+                        </div>
                     </div>
-
                 </div>
-            </div>
-            <div class="btn_xacnhanyeucau">
-                <button id="btn_thuexe" class="btn_thuexe">Gửi yêu cầu</button>
-            </div>
+                <div class="row">
+                    <div class="col-md-6 input_checkbox_baoduong" >
+                        <label class="header_label"><i class="circle_label">3</i><span>Dịch vụ</span></label><br>
+                        <label>Dịch vụ<span style="color: blue">*</span></label><i  style="color: red;display: none; display: ${dichvu_err}">Sử dụng ít nhất một dịch vụ</i>
+                        <div>
 
-        </div>              
+                            <input id="baoduong" name="baoduong" value="baoduong" ${baoduong} type="checkbox" > Bảo dưỡng
+                        </div>
 
 
+                        <div>
+
+                            <input id="suachuachung" name="suachuachung" value="suachuachung" ${suachuachung} type="checkbox"> Sửa chữa chung
+                        </div>
+
+                        <div>
+
+                            <input id="dongson" name="dongson" value="dongson" ${dongson} type="checkbox" > Đồng sơn
+                        </div>
+                        <div>
+
+                            <input id="suachuakhac" name="suachuakhac" value="suachuakhac" ${suachuakhac} type="checkbox" > Sửa chữa khác
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 ">
+                        <label class="header_label"><i class="circle_label">4</i><span>Thời gian</span></label><br>
+                        <label>Thời gian<span style="color: blue">*</span></label><br>
+
+                        <div class="col-md-6">
+
+                            <input  style="border-color: ${ngay_err}" id="ngay" name="ngay" value="${ngay}" type="date" placeholder="ngày" min="<%=java.time.LocalDate.now()%>">
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <input  style="border-color: ${gio_err}" id="gio" name="gio" value="${gio}" type="time">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="btn_xacnhanyeucau">
+                    <button id="btn_thuexe" class="btn_thuexe" onmouseenter ="mySubmit()" >Gửi yêu cầu</button>
+                </div>
+
+
+            </div>              
+
+        </form>
 
 
         <div class="row footer">
@@ -210,7 +214,7 @@
             </div>
         </div>     
         <script>
-            
+
         </script>
     </body>
 </html>

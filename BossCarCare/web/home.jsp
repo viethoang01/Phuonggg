@@ -174,8 +174,8 @@
                     </div>
 
                 </div>
-                <form action="ruabaoduongxe" method="get" >
-                            <button class="" id="btn_thuexe" value="" name="getcar_id">rửa bảo dưỡng xe</button>
+                <form action="baoduong" method="get" >
+                            <button class="" id="btn_thuexe" value="" name="">bảo dưỡng xe</button>
                 </form>
             </div>
             

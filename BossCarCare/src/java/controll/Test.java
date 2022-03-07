@@ -20,26 +20,9 @@ import java.util.logging.Logger;
 public class Test {
 
     public static void main(String[] args) {
-        try {
-            //        try {
-//
-//            LocalDate date = java.time.LocalDate.now();
-//            Date startday1 = new SimpleDateFormat("dd/MM/yyyy").parse("12/2/2022");
-//
-//        } catch (ParseException ex) {
-//            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        LocalDate date = java.time.LocalDate.now();
-//        String startday = java.time.LocalDate.parse("05--02").format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-//        System.out.println(startday);
-            
-            Date startday1 = new SimpleDateFormat("MM/dd/yyyy").parse("03/05/2022");
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-            String strDate = formatter.format(startday1);
-            System.out.println("Date Format with MM/dd/yyyy : " + strDate);
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+        String s = "123456789";
+        if(!s.matches("[a-zA-Z | 0-9]{1,9}")){
+            System.out.println("chuan");
         }
     }
 }

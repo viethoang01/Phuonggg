@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Bill;
+import model.BookingBill;
 import model.Car;
 import model.CarRentalInvoice;
 
@@ -89,7 +90,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("email_err1", "block");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-        if(pass.trim().equals("")){
+        if (pass.trim().equals("")) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         ArrayList<Account> list = dao.ListAcc();
@@ -97,17 +98,16 @@ public class LoginServlet extends HttpServlet {
         Account acc = null;
         for (Account account : list) {
             if (account.getName().equals(email)) {
-               
+
                 if (account.getPassword().equals(pass)) {
                     valiablePass = true;
                     acc = account;
-                     
+
                 }
                 break;
             }
         }
-        
-        
+
         if (!valiablePass) {
             request.setAttribute("acc_err", "block");
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -118,9 +118,9 @@ public class LoginServlet extends HttpServlet {
             response.addCookie(c_email);
 
             c_email.setMaxAge(60);
-            
-        } 
-            
+
+        }
+
 //        request.setAttribute("style_circle", "display: block");  // hiển thị circle 
 //        char HeaderOfEmail = 0;                                 //  lấy ký tự là chữ đầu tiên cho vào circle
 //        for (int i = 0; i < email.toCharArray().length; i++) {
@@ -133,24 +133,41 @@ public class LoginServlet extends HttpServlet {
 //        request.setAttribute("HeaderOfEmail", HeaderOfEmail);
         HttpSession session = request.getSession();
         session.setAttribute("user", acc);
-        Object objLogin = session.getAttribute("loginReturn");
-        if(objLogin != null){
-            if(((String) objLogin).equals("1")){
 
-               Object obj =  session.getAttribute("bill");
-               if(obj != null){
-                    Bill bill =(Bill) obj;
+        Object accessBB = session.getAttribute("loginandbb");       // xac nhan booking
+        if (accessBB != null) {
+            Object bookingbillobj = session.getAttribute("bookingbill");
+            if (bookingbillobj != null) {
+//                BookingBill bookingBill = (BookingBill) bookingbillobj;
+//                bookingBill.setAccId(String.valueOf(acc.getId()));
+//                session.setAttribute("bookingbill", bookingBill);
+//                response.sendRedirect("xacnhanBookingBill");
+response.getWriter().print("loiiiiii");
+            }
+        }
+     
+
+        Object objLogin = session.getAttribute("loginReturn");    // xac nhan thuexe
+        if (objLogin != null) {
+            if (((String) objLogin).equals("1")) {
+
+                Object obj = session.getAttribute("bill");
+                if (obj != null) {
+                    Bill bill = (Bill) obj;
                     bill.setAccId(String.valueOf(acc.getId()));         // set account id 
                     session.setAttribute("bill", bill);
                     response.sendRedirect("xacnhan");
-               }else{
-                   response.getWriter().print("bill null");
-               }
+                } else {
+                    response.getWriter().print("bill null");
+                }
 
             }
-        }else{
-            response.sendRedirect("home"); 
+
         }
+        
+        
+        
+        response.sendRedirect("home");
 
     }
 

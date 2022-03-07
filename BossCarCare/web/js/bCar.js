@@ -112,6 +112,15 @@ function enterNumber() {
     var input = document.getElementById('enterNumber').value;
     if (isNaN(input) || input.length > 11) {
         document.getElementById('enterNumber').value = input.substring(input.length-1,0);
+        
+    } 
+    
+}
+function enterNumber2() {
+    var input = document.getElementById('enterNumber2').value;
+    if (isNaN(input) || input.length > 11) {
+        document.getElementById('enterNumber2').value = input.substring(input.length-1,0);
+        
     } 
     
 }
@@ -129,3 +138,49 @@ function  enterText(){
     }
     
 }
+
+function enterEmail(){
+    var enterEmail = document.getElementById('enterEmail').value;
+    if(enterEmail.length === 0){
+        document.getElementById('enterEmail').style.borderColor = 'red';
+    }else{
+        document.getElementById('enterEmail').style.borderColor = '#f1f1f1';
+    }
+    if((enterEmail)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )){
+        document.getElementById('enterEmail').style.borderColor = '#f1f1f1';
+    }else{
+        document.getElementById('enterEmail').style.borderColor = 'red';
+    }
+}
+function mySubmit(){
+    var name = document.getElementById('enterText').value;
+    var phone = document.getElementById('enterNumber').value;
+    var email = document.getElementById('enterEmail').value;
+    var mauxe = document.getElementById('mauxe').value;
+    var km = document.getElementById('enterNumber2').value;
+    var biensoxe = document.getElementById('enterBiensoxe').value;
+    var baoduong = document.getElementById('baoduong').checked;
+    var suachuachung = document.getElementById('suachuachung').checked;
+    var dongson = document.getElementById('dongson').checked;
+    var gio = document.getElementById('gio').value;
+    var ngay = document.getElementById('ngay').value;
+    var suachuakhac = document.getElementById('suachuakhac').checked;
+    
+    var btn = document.getElementById('btn_thuexe');
+    
+    
+}
+function enterBiensoxe(){
+    var input = document.getElementById('enterBiensoxe').value;
+    document.getElementById('enterBiensoxe').value = input.toUpperCase();
+    if(input.length > 8){
+        document.getElementById('enterBiensoxe').value = input.substring(input.length-1,0);
+    }else{
+        
+    }
+}
+

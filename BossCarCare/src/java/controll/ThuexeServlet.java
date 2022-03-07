@@ -214,13 +214,14 @@ public class ThuexeServlet extends HttpServlet {
         } else {
 
             boolean checkName = false, checkB = false, checkC = false, checkD = false, checkE = false, checkF = false, checkG = false, checkH = false, checkI = false;
-            for (int i = 0; i < name_customer.toCharArray().length - 1; i++) {       // check name
-                if (Character.isDigit(name_customer.toCharArray()[i])) {
+            char[] namechar = name_customer.toCharArray();
+            for (int i = 0; i < namechar.length - 1; i++) {       // check name
+                if (Character.isDigit(namechar[i])) {
                     checkB = true;
                     request.setAttribute("nameblock", "block");
                     break;
                 }
-                if (Character.isLetter(name_customer.toCharArray()[i]) && name_customer.toCharArray()[i + 1] == ' ') {
+                if (Character.isLetter(namechar[i]) && namechar[i + 1] == ' ') {
                     checkName = true;
 
                 }
@@ -230,33 +231,35 @@ public class ThuexeServlet extends HttpServlet {
                 request.setAttribute("nameblock", "block");
                 checkB = true;
             }
-            if (Character.isDigit(name_customer.toCharArray()[name_customer.toCharArray().length - 1])) { // check ký tự cuối cùng của string name vì (*) đã không xét ký tự cuối cùng
+            if (Character.isDigit(namechar[namechar.length - 1])) { // check ký tự cuối cùng của string name vì (*) đã không xét ký tự cuối cùng
                 request.setAttribute("nameblock", "block");
                 checkB = true;
             }
 
-            if (CMND_customer.toCharArray().length != 9) {    // check CMND
-                if (CMND_customer.toCharArray().length != 12) {
+            char[] CMNDchar = CMND_customer.toCharArray();
+            if (CMNDchar.length != 9) {    // check CMND
+                if (CMNDchar.length != 12) {
                     checkC = true;
                     request.setAttribute("CMNDblock", "block");
                 }
             }
-            for (int i = 0; i < CMND_customer.toCharArray().length; i++) {
-                if (Character.isLetter(CMND_customer.toCharArray()[i])) {
+            for (int i = 0; i < CMNDchar.length; i++) {
+                if (Character.isLetter(CMNDchar[i])) {
                     checkD = true;
                     request.setAttribute("CMNDblock", "block");
                     break;
                 }
             }
 
-            if (phone_customer.toCharArray().length != 10) {    // check phone
-                if (phone_customer.toCharArray().length != 11) {
+            char[] phonechar = phone_customer.toCharArray();
+            if (phonechar.length != 10) {    // check phone
+                if (phonechar.length != 11) {
                     checkE = true;
                     request.setAttribute("phoneblock", "block");
                 }
             }
-            for (int i = 0; i < phone_customer.toCharArray().length; i++) {
-                if (Character.isLetter(phone_customer.toCharArray()[i])) {
+            for (int i = 0; i < phonechar.length; i++) {
+                if (Character.isLetter(phonechar[i])) {
                     request.setAttribute("phoneblock", "block");
                     checkF = true;
                     break;
@@ -298,7 +301,7 @@ public class ThuexeServlet extends HttpServlet {
                                 acc = dao.getAcc(cookie1.getValue());    //get account by email
                                 request.setAttribute("Accid", acc.getId()); // set id Account 
                                 bill.setAccId(String.valueOf(acc.getId()));  // set id account into phiếu thuê xe
-                                session.setAttribute("bill", bill);              //set CRI into session để đẩy vào xác nhận
+//                                session.setAttribute("bill", bill);              //set CRI into session để đẩy vào xác nhận
                             }
 
                         }

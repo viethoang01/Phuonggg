@@ -153,6 +153,31 @@ public class CarDAO extends BaseDAO<Car>{
         }
     }
     
+    public void InsertBooking(String Accid, String namecustomer,  String phone, String email,String mauxe,String km, String biensoxe, String dichvu, String ngay, String gio){
+        try{
+            String sql = "insert into BookingInvoice (Accid,namecustomer,phone,email,carname,km,bienso,dichvu,date_maintenance,gio) values\n" +
+"                           (?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, Accid);
+            statement.setString(2, namecustomer);
+            statement.setString(3, phone);
+            statement.setString(4, email);
+            statement.setString(5, mauxe);
+           
+            statement.setString(6, km);
+            statement.setString(7, biensoxe);
+            statement.setString(8, dichvu);
+            statement.setString(9, ngay);
+            statement.setString(10, gio);
+            
+            statement.executeUpdate();
+        }catch(SQLException ex){
+            
+        }
+    }
+    
+    
+    
     
     
 }
