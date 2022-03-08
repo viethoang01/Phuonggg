@@ -237,14 +237,18 @@ public class baoduongxe extends HttpServlet {
             request.getRequestDispatcher("baoduongxe.jsp").forward(request, response);
             } else {
                 ngay = java.time.LocalDate.parse(ngay).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-                BookingBill bookingbill = new BookingBill("", namecustomer, email, phone, mauxe, km, biensoxe, dichvu, ngay, gio);
+                BookingBill bookingbill = new BookingBill("", namecustomer,email,phone, mauxe, km, biensoxe, dichvu, ngay, gio);
 
                 int Accid = 0;
                 Account acc = null;
+                 CarDAO dao = new CarDAO();
                 HttpSession session = request.getSession();
                 Object objacc = session.getAttribute("user");
-                acc = (Account) objacc;   // get account từ session
-                CarDAO dao = new CarDAO();
+                if(objacc != null){
+                    acc = (Account) objacc;   // get account từ session
+                    bookingbill.setAccId(String.valueOf(acc.getId()));
+                }
+               
                 if (acc == null) {
                     Cookie[] cookie = request.getCookies();
                     if (cookie != null) {
@@ -253,12 +257,14 @@ public class baoduongxe extends HttpServlet {
                                 acc = dao.getAcc(cookie1.getValue());    //get account by email
                                 request.setAttribute("Accid", acc.getId()); // set id Account 
                                 bookingbill.setAccId(String.valueOf(acc.getId()));  // set id account into phiếu thuê xe
+//                                session.setAttribute("bookingbill", bookingbill);
                             }
 
                         }
 
                     }
                 }
+//                Object bookingbillobj = session.getAttribute("bookingbill");
                 session.setAttribute("bookingbill", bookingbill);              //set CRI into session để đẩy vào xác nhận
                 if (acc == null) {
                     session.setAttribute("loginandbb", "access");

@@ -120,7 +120,7 @@ public class XacnhanBookingBill extends HttpServlet {
             BookingBill bill = (BookingBill) obj;
             BookingInvoice BB = new BookingInvoice();
             BB.addBill(bill.getAccId(), bill);     // 1 acc có thể có nhiều bill
-            
+//            response.getWriter().print(bill.getAccId());
             CarDAO dao = new CarDAO();
             dao.InsertBooking
             (bill.getAccId(), bill.getNameCustomer(), bill.getPhone(), bill.getEmail(), bill.getCarName(), bill.getKm(), bill.getBienso(), bill.getDichvu(), bill.getNgay(), bill.getGio());

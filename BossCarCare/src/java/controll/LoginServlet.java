@@ -133,42 +133,35 @@ public class LoginServlet extends HttpServlet {
 //        request.setAttribute("HeaderOfEmail", HeaderOfEmail);
         HttpSession session = request.getSession();
         session.setAttribute("user", acc);
+        Object objthuexe = session.getAttribute("loginReturn");
+        Object objbaoduong = session.getAttribute("loginandbb");
+        if(objthuexe != null){
+           Object obj =  session.getAttribute("bill");
+           if(obj != null){
+                Bill bill =(Bill) obj;
+                bill.setAccId(String.valueOf(acc.getId()));         // set account id 
+                session.setAttribute("bill", bill);
+                response.sendRedirect("xacnhan");
+           }else{
+               response.getWriter().print("bill null");
+           }
 
-        Object accessBB = session.getAttribute("loginandbb");       // xac nhan booking
-        if (accessBB != null) {
+        }else if(objbaoduong != null){
             Object bookingbillobj = session.getAttribute("bookingbill");
-            if (bookingbillobj != null) {
-//                BookingBill bookingBill = (BookingBill) bookingbillobj;
-//                bookingBill.setAccId(String.valueOf(acc.getId()));
-//                session.setAttribute("bookingbill", bookingBill);
-//                response.sendRedirect("xacnhanBookingBill");
-response.getWriter().print("loiiiiii");
-            }
-        }
-     
+                response.getWriter().print(bookingbillobj != null);
+                if (bookingbillobj != null) {
+                    BookingBill bookingBill = (BookingBill) bookingbillobj;
+                    bookingBill.setAccId(String.valueOf(acc.getId()));
+                    session.setAttribute("bookingbill", bookingBill);
+                    response.sendRedirect("xacnhanBookingBill");
 
-        Object objLogin = session.getAttribute("loginReturn");    // xac nhan thuexe
-        if (objLogin != null) {
-            if (((String) objLogin).equals("1")) {
-
-                Object obj = session.getAttribute("bill");
-                if (obj != null) {
-                    Bill bill = (Bill) obj;
-                    bill.setAccId(String.valueOf(acc.getId()));         // set account id 
-                    session.setAttribute("bill", bill);
-                    response.sendRedirect("xacnhan");
                 } else {
                     response.getWriter().print("bill null");
                 }
-
-            }
-
         }
-        
-        
-        
-        response.sendRedirect("home");
-
+        else{
+            response.sendRedirect("home"); 
+        }
     }
 
     /**

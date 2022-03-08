@@ -291,8 +291,11 @@ public class ThuexeServlet extends HttpServlet {
                 int Accid = 0;
                 Account acc = null;
                 HttpSession session = request.getSession();
-                acc =(Account) session.getAttribute("user");   // get account từ session
-                
+                Object objacc = session.getAttribute("user");   // get account từ session
+                if(objacc != null){
+                    acc =(Account) objacc;
+                    bill.setAccId(String.valueOf(acc.getId())); 
+                }
                 if(acc == null){
                     Cookie[] cookie = request.getCookies();
                     if (cookie != null) {
