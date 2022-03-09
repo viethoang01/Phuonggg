@@ -17,6 +17,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
+    <style>
+        
+        tr th,tr td{
+            padding: 2px 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+        h2{
+            margin-bottom: 20px;
+        }
+    </style>
     <body>
         <nav class="navbar  header_top row" style="padding-left: 0;padding-right: 0;margin-left: 0;margin-right: 0;border-radius: 0">
             <div class="container-fluid" style="padding-left: 0;padding-right: 0;box-sizing: border-box">

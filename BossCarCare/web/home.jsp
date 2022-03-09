@@ -41,8 +41,8 @@
                         <button style="background-color: white;color: black;border: none" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"> ${email_user}</span>
                         </button>
                         <ul class="dropdown-menu" >
-                            <li style="padding: 10px 2px;"><a  href="#">Hóa đơn đã xác nhận</a></li>
-                            <li style="padding: 10px 2px;"><a href="#">Hóa đơn chưa xác nhận</a></li>
+                            <li style="padding: 10px 2px;"><a  href="totalthuexebill">Hóa đơn đã xác nhận</a></li>
+                            <li style="padding: 10px 2px;"><a href="xacnhan">Hóa đơn chưa xác nhận</a></li>
                             <li style="padding: 10px 2px;"><a href="logout">Đăng xuất</a></li>
                         </ul>
                     </div>
@@ -52,7 +52,7 @@
             </div>
 
         </nav>
-                 
+
 
         <!--edit-->
         <!--
@@ -175,11 +175,11 @@
 
                 </div>
                 <form action="baoduong" method="get" >
-                            <button class="" id="btn_thuexe" value="" name="">bảo dưỡng xe</button>
+                    <button class="" id="btn_thuexe" value="" name="">bảo dưỡng xe</button>
                 </form>
             </div>
-            
-   
+
+
         </div>
         <!--thue xe-->
         <div  class="container" id="congcu"><h2 class="header">Thuê xe đa năng</h2></div>
@@ -199,6 +199,13 @@
                     case "7 cho":
                         infoCar = "7 Chỗ";
                         break;
+                    case "sendan":
+                        infoCar = "SENDAN";
+                        break;
+                    case "SUV":
+                        infoCar = "SUV";
+                        break;
+
                 }
             %>
             <div class="mySlides1 row" style="height: 300px;">
@@ -217,11 +224,11 @@
                             <h4><%=car.getPrice()%> vnd</h4>
                         </div>
                         <div class="col-md-3"></div>
-                        
+
                     </div>
-                        <form action="thuexe" method="get">
-                            <button class="" id="btn_thuexe" value="<%= car.getId()%>" name="getcar_id">THUÊ XE</button>
-                        </form>
+                    <form action="thuexe" method="get">
+                        <button class="" id="btn_thuexe" value="<%= car.getId()%>" name="getcar_id">THUÊ XE</button>
+                    </form>
                 </div>
 
             </div>
@@ -229,16 +236,16 @@
             <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
             <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
         </div>
-            <div class="container">
-                <p><strong><span class="glyphicon glyphicon-earphone" ></span>
-                        Đặt thuê ngay: </strong>09888903540
+        <div class="container">
+            <p><strong><span class="glyphicon glyphicon-earphone" ></span>
+                    Đặt thuê ngay: </strong>09888903540
 
-                </p>
-            </div>
-            
-             <!-- end thue xe-->
-             
-             
+            </p>
+        </div>
+
+        <!-- end thue xe-->
+
+
         <div class="container" style="clear: both" id="tintuc">
             <h2 class="header">Tin Tức</h2>
 
@@ -292,34 +299,34 @@
                 </ul>
             </div>
         </div>
-<!--Chat-->
-<div class="call" style="background-color: blue;"><script src="https://uhchat.net/code.php?f=92b878"></script></div>
-<!--chat end-->
+        <!--Chat-->
+        <div class="call" style="background-color: blue;"><script src="https://uhchat.net/code.php?f=92b878"></script></div>
+        <!--chat end-->
 
         <script>
-            var slideIndex = [1, 1];
-            var slideId = ["mySlides1", "mySlides2"]
-            showSlides(1, 0);
-            showSlides(1, 1);
+                var slideIndex = [1, 1];
+                var slideId = ["mySlides1", "mySlides2"]
+                showSlides(1, 0);
+                showSlides(1, 1);
 
-            function plusSlides(n, no) {
-                showSlides(slideIndex[no] += n, no);
-            }
+                function plusSlides(n, no) {
+                    showSlides(slideIndex[no] += n, no);
+                }
 
-            function showSlides(n, no) {
-                var i;
-                var x = document.getElementsByClassName(slideId[no]);
-                if (n > x.length) {
-                    slideIndex[no] = 1
+                function showSlides(n, no) {
+                    var i;
+                    var x = document.getElementsByClassName(slideId[no]);
+                    if (n > x.length) {
+                        slideIndex[no] = 1
+                    }
+                    if (n < 1) {
+                        slideIndex[no] = x.length
+                    }
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.display = "none";
+                    }
+                    x[slideIndex[no] - 1].style.display = "block";
                 }
-                if (n < 1) {
-                    slideIndex[no] = x.length
-                }
-                for (i = 0; i < x.length; i++) {
-                    x[i].style.display = "none";
-                }
-                x[slideIndex[no] - 1].style.display = "block";
-            }
         </script>
     </body>
 </html>

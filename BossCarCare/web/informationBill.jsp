@@ -1,34 +1,32 @@
 <%-- 
-    Document   : xacnhanBookingBill
-    Created on : Mar 7, 2022, 12:56:15 PM
+    Document   : informationBill
+    Created on : Mar 8, 2022, 9:45:26 PM
     Author     : Administrator
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Bill"%>
+<%@page import="DAL.CarDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Information Bill</title>
         <link href="css/bCar.css" rel="stylesheet" type="text/css" />
         <script src="js/bCar.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Be Vietnam Pro' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            th,td{
+                padding: 1px 2px;
+                text-align: center;
+            }
+        </style>
     </head>
-    <style>
-        
-        tr th,tr td{
-            padding: 2px 15px;
-            text-align: center;
-            font-size: 18px;
-        }
-        h2{
-            margin-bottom: 20px;
-        }
-    </style>
-    <body>
+    <body >
         <nav class="navbar  header_top row" style="padding-left: 0;padding-right: 0;margin-left: 0;margin-right: 0;border-radius: 0">
             <div class="container-fluid" style="padding-left: 0;padding-right: 0;box-sizing: border-box">
                 <div class="nav_left col-md-9 row">
@@ -60,49 +58,55 @@
 
         </nav>
 
+        <div style="padding: 0 10px;text-align: center">
+            <h3 style="text-transform: uppercase">Hóa đơn sử dụng dịch vụ thuê xe</h3>
+            <table border="1" cellspacing="1" cellpadding="1">
+                <thead >
+                    <tr>
+                        <th>Đơn vị</th>
+                        <th>Khách hàng</th>
+                        <th>CMND/CCCD</th>
+
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Mã code giới thiệu</th>
+                        <th>Tên xe đã thuê</th>
+                        <th>Ngày đặt xe</th>
+                        <th>Ngày nhận thuê</th>
+                        <th>Ngày trả xe</th>
+                        <th>Số ngày thuê</th>
+                        <th>Giá xe/ngày</th>                    
+                        <th>Tổng tiền</th>            
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <%ArrayList<Bill> list = (ArrayList<Bill>) request.getAttribute("list");%>
+                    <%for (Bill bill : list) {%>
+                    <tr>
 
 
-        <div class="container">
-            <h2>Thông tin hóa đơn sử dụng dịch vụ </h2>
-            <form action="xacnhanBookingBill" method="post">
-                
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Tên khách hàng</th>
-                            <th>Số điện thoại</th>
-                            <th>Email</th>
-                            <th>Loại xe</th>
-                            <th>Số km</th>
-                            <th>Biển số xe</th>
-                            <th>Dịch vụ yêu cầu</th>
-                            <th>Ngày bảo dưỡng</th>
-                            <th>Thời gian</th>
+                        <td><%=bill.getDonvi()%></td>
+                        <td><%=bill.getNameCustomer()%></td>
+                        <td><%=bill.getCMND()%></td>
+                        <td><%=bill.getEmail()%></td>
+                        <td><%=bill.getPhone()%></td>
+                        <td><%=bill.getCode_inv()%></td>
+                        <td><%=bill.getCarname()%></td>
+                        <td><%=bill.getDaybill()%></td>
+                        <td><%=bill.getStartday()%></td>
+                        <td><%=bill.getEndday()%></td>
+                        <td><%=bill.getThoiluong()%></td>
+                        <td><%=bill.getPrice()%></td>
+                        <td><%=bill.getTotal()%></td>
+
+                    </tr>
+                    <%}%>
 
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>${name_customer}</td>
-                            <td>${phone_customer}</td>
-                            <td>${email_customer}</td>
-                            <td>${mauxe}</td>
-                            <td>${km}</td>
-                            <td>${bienso}</td>
-                            <td>${dichvu}</td>
-                            <td>${ngay}</td>
-                            <td>${gio}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-                <button class="btn_thuexe" id="btn_thuexe">Xác nhận</button>
-                <a href="baoduong?xacnhan=0">Kiểm tra lại thông tin</a>
-            </form>
-
+                </tbody>
+            </table>
         </div>
-
 
 
         <div class="row footer">

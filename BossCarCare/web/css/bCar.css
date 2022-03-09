@@ -228,10 +228,10 @@ col-md-3 a:hover{
 
 .mySlides1 a img{
     transition: ease 0.1s;
-    width: 90%;
+    width: 80%;
 }
 .mySlides1 a img:hover{
-    width: 100%;
+    width: 85%;
 }
 
 /* Slideshow container */
@@ -240,7 +240,7 @@ col-md-3 a:hover{
     position: relative;
     margin: auto;
     margin-bottom: 50px;
-    border-bottom: 1px dotted gray; 
+ 
 }
 
 /* Next & previous buttons */
@@ -297,12 +297,12 @@ col-md-3 a:hover{
 
 }
 .img_xethue{
-    width: 90%;
+    width: 80%;
 
     transition: ease 0.3s;
 }
 .img_xethue:hover{
-    width: 100%;
+    width: 85%;
 
 }
 .choosecar{

@@ -39,8 +39,8 @@
                         <button style="background-color: white;color: black;border: none" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"> ${email_user}</span>
                         </button>
                         <ul class="dropdown-menu" >
-                            <li style="padding: 10px 2px;"><a  href="#">Hóa đơn đã xác nhận</a></li>
-                            <li style="padding: 10px 2px;"><a href="#">Hóa đơn chưa xác nhận</a></li>
+                            <li style="padding: 10px 2px;"><a  href="totalthuexebill">Hóa đơn đã xác nhận</a></li>
+                            <li style="padding: 10px 2px;"><a href="xacnhan">Hóa đơn chưa xác nhận</a></li>
                             <li style="padding: 10px 2px;"><a href="logout">Đăng xuất</a></li>
                         </ul>
                     </div>
@@ -83,9 +83,9 @@
             <%for (int idx = 0; idx < listcar.size(); idx++){int count = 0;%>
             <div class="mySlides1 row">
                 <%for (int idx2 = idx3; idx2 < listcar.size(); idx2++){%>
-                <div class="col-md-3" style="height: 300px;">
+                <div class="col-md-3" >
                     <a  href="thuexe?getcar_id=<%=listcar.get(idx2).getId()%>" >
-                    <img src="<%=listcar.get(idx2).getImg()%>"></a>
+                        <img src="<%=listcar.get(idx2).getImg()%>" title="<%=listcar.get(idx2).getNameCat()%> <%=listcar.get(idx2).getName()%>"></a>
                 </div>
                 <%count++;%>    
                 <%if(idx2==listcar.size()-1)idx2=-1;%>  <!--cuoi list hiển thị lại -->

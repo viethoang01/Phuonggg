@@ -10,13 +10,14 @@ package model;
  * @author Administrator
  */
 public class BookingBill {
-    private String accId,nameCustomer,email,phone,carName,km,bienso,dichvu,ngay,gio;
+    private String ngaybooking,id,accId,nameCustomer,email,phone,carName,km,bienso,dichvu,ngay,gio;
 
     public BookingBill() {
     }
 
-    public BookingBill(String accId, String nameCustomer, String email, String phone, String carName, String km, String bienso, String dichvu, String ngay, String gio) {
+    public BookingBill(String id,String accId, String nameCustomer, String email, String phone, String carName, String km, String bienso, String dichvu,String ngaybooking, String ngay, String gio) {
         this.accId = accId;
+        this.id = id;
         this.nameCustomer = nameCustomer;
         this.email = email;
         this.phone = phone;
@@ -24,8 +25,25 @@ public class BookingBill {
         this.km = km;
         this.bienso = bienso;
         this.dichvu = dichvu;
+        this.ngaybooking = ngaybooking;
         this.ngay = ngay;
         this.gio = gio;
+    }
+
+    public String getNgaybooking() {
+        return ngaybooking;
+    }
+
+    public void setNgaybooking(String ngaybooking) {
+        this.ngaybooking = ngaybooking;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAccId() {

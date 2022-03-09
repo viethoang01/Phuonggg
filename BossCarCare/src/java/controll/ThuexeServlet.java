@@ -287,7 +287,7 @@ public class ThuexeServlet extends HttpServlet {
                 startday = java.time.LocalDate.parse(startday).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
                 String carPriceString = String.valueOf(car.getPrice());
                 
-                Bill bill = new Bill("", Carid, thoiluongthue, customer_type, name_customer, CMND_customer, email_customer, phone_customer, gioithieu_code_customer, startday, endday, carPriceString, totalmoney);
+                Bill bill = new Bill("","", Carid,car.getName(), thoiluongthue, customer_type, name_customer, CMND_customer, email_customer, phone_customer, gioithieu_code_customer,"", startday, endday, carPriceString, totalmoney);
                 int Accid = 0;
                 Account acc = null;
                 HttpSession session = request.getSession();

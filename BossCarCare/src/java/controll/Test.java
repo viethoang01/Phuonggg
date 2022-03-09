@@ -5,13 +5,17 @@
  */
 package controll;
 
+import DAL.CarDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Bill;
+import model.BookingBill;
 
 /**
  *
@@ -20,9 +24,10 @@ import java.util.logging.Logger;
 public class Test {
 
     public static void main(String[] args) {
-        String s = "123456789";
-        if(!s.matches("[a-zA-Z | 0-9]{1,9}")){
-            System.out.println("chuan");
-        }
+        CarDAO dao = new CarDAO();
+        ArrayList<Bill> list = dao.getCRI("1");
+        ArrayList<BookingBill> list1 = dao.getBookingPage(1, 2);
+        ArrayList<BookingBill> list3 = dao.getBB("1");
+        System.out.println(list1 == null);
     }
 }

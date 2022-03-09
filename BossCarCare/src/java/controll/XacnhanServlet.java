@@ -55,6 +55,7 @@ public class XacnhanServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.getWriter().print("doget");
         HttpSession session = request.getSession();
+        
         Object objUser = session.getAttribute("user");
         if(objUser !=null){
             Account acc = (Account) objUser;

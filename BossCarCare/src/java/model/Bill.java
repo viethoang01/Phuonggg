@@ -10,13 +10,14 @@ package model;
  * @author Administrator
  */
 public class Bill {
-    private String accId,carId,thoiluong,donvi,nameCustomer,CMND,email,phone,code_inv,startday,endday,price,total;
+    private String id,accId,carId,carname,thoiluong,donvi,nameCustomer,CMND,email,phone,code_inv,daybill,startday,endday,price,total;
 
     public Bill() {
     }
 
-    public Bill(String accId, String carId, String thoiluong, String donvi, String nameCustomer, String CMND, String email, String phone, String code_inv, String startday, String endday, String price, String total) {
+    public Bill(String id,String accId, String carId,String carname,String thoiluong, String donvi, String nameCustomer, String CMND, String email, String phone,String daybill, String code_inv, String startday, String endday, String price, String total) {
         this.accId = accId;
+        this.id = id;
         this.carId = carId;
         this.thoiluong = thoiluong;
         this.donvi = donvi;
@@ -29,6 +30,31 @@ public class Bill {
         this.endday = endday;
         this.price = price;
         this.total = total;
+        this.carname = carname;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDaybill() {
+        return daybill;
+    }
+
+    public void setDaybill(String daybill) {
+        this.daybill = daybill;
+    }
+
+    public String getCarname() {
+        return carname;
+    }
+
+    public void setCarname(String carname) {
+        this.carname = carname;
     }
 
     public String getAccId() {

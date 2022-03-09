@@ -237,7 +237,7 @@ public class baoduongxe extends HttpServlet {
             request.getRequestDispatcher("baoduongxe.jsp").forward(request, response);
             } else {
                 ngay = java.time.LocalDate.parse(ngay).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-                BookingBill bookingbill = new BookingBill("", namecustomer,email,phone, mauxe, km, biensoxe, dichvu, ngay, gio);
+                BookingBill bookingbill = new BookingBill("","", namecustomer,email,phone, mauxe, km, biensoxe, dichvu,"", ngay, gio);
 
                 int Accid = 0;
                 Account acc = null;
