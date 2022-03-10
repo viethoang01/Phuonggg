@@ -152,8 +152,8 @@
                         <td><%=bill.getThoiluong()%></td>
                         <td><%=bill.getPrice()%></td>
                         <td><%=bill.getTotal()%></td>
-                        <td><a href="edit?id<%=bill.getId()%>">Edit</a></td>
-                        <td><a href="delete?thuexeid<%=bill.getId()%>">Delete</a></td>
+                        <td><a href="edit?type=thuexebill&thuexeid=<%=bill.getId()%>">Edit</a></td>
+                        <td><a href="delete?type=thuexebill&thuexeid=<%=bill.getId()%>">Delete</a></td>
                     </tr>
                     <%}%>
                 </tbody>
@@ -200,8 +200,8 @@
                         <td><%=bill.getNgaybooking()%></td>
                         <td><%=bill.getNgay()%></td>
                         <td><%=bill.getGio()%></td>  
-                        <td><a href="edit?id<%=bill.getId()%>">Edit</a></td>
-                        <td><a href="delete?dichvuid<%=bill.getId()%>">Delete</a></td>
+                        <td><a href="edit?type=dichvubill&dichvuid=<%=bill.getId()%>">Edit</a></td>
+                        <td><a href="delete?type=dichvubill&dichvuid=<%=bill.getId()%>">Delete</a></td>
                     </tr>
                     <%}%>
                 </tbody>

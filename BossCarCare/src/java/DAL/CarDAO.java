@@ -358,7 +358,8 @@ public class CarDAO extends BaseDAO<Car> {
             while (rs.next()) {
 
                 Bill bill = new Bill();
-                bill.setId(rs.getString("hoadonid"));
+                
+                bill.setId(rs.getString("id"));
                 bill.setAccId(rs.getString("Accid"));
                 bill.setDonvi(rs.getString("donvi"));
                 bill.setNameCustomer(rs.getString("namecustomer"));
@@ -372,8 +373,9 @@ public class CarDAO extends BaseDAO<Car> {
                 bill.setThoiluong(rs.getString("songaythue"));
                 bill.setTotal(rs.getString("totalmoney"));
                 bill.setCarId(rs.getString("carid"));
-                bill.setCarname(rs.getString("carname"));
-                bill.setPrice(rs.getString("price"));
+                
+                
+        
                 list.add(bill);
             }
             return list;

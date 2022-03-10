@@ -40,11 +40,12 @@
                     <div class="dropdown" style="display: none;${nav_user}">
                         <button style="background-color: white;color: black;border: none" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"> ${email_user}</span>
                         </button>
-                        <ul class="dropdown-menu" >
+                        <ul class="dropdown-menu" >                              
                             <li style="padding: 10px 2px;"><a  href="totalthuexebill">Hóa đơn đã xác nhận</a></li>
                             <li style="padding: 10px 2px;"><a href="xacnhan">Hóa đơn chưa xác nhận</a></li>
                             <li style="padding: 10px 2px;"><a href="logout">Đăng xuất</a></li>
                         </ul>
+                        
                     </div>
 
                 </div>

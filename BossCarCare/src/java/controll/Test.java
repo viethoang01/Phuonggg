@@ -25,9 +25,9 @@ public class Test {
 
     public static void main(String[] args) {
         CarDAO dao = new CarDAO();
-        ArrayList<Bill> list = dao.getCRI("1");
-        ArrayList<BookingBill> list1 = dao.getBookingPage(1, 2);
-        ArrayList<BookingBill> list3 = dao.getBB("1");
-        System.out.println(list1 == null);
+        ArrayList<BookingBill> list = dao.getAllBookingBill();
+        for (BookingBill bill : list) {
+            System.out.println(bill.getGio());
+        }
     }
 }

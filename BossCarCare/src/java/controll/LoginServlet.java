@@ -82,35 +82,57 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CarDAO dao = new CarDAO();
+        Account acc = null;
         String email = request.getParameter("email_login").trim();
         String pass = request.getParameter("pass_login").trim();
-        boolean checkEmail = email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-        request.setAttribute("email_login_value", email);
-        if (!checkEmail) {
-            request.setAttribute("email_err1", "block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-        if (pass.trim().equals("")) {
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-        ArrayList<Account> list = dao.ListAcc();
-        boolean valiablePass = false;
-        Account acc = null;
-        for (Account account : list) {
-            if (account.getName().equals(email)) {
+        if (email.equals("Admin") && pass.equals("Admin")) {
+             ArrayList<Account> list = dao.ListAcc();
+            
+            
+            for (Account account : list) {
+                if (account.getName().equals(email)) {
 
-                if (account.getPassword().equals(pass)) {
-                    valiablePass = true;
-                    acc = account;
-
+                    if (account.getPassword().equals(pass)) {
+                        
+                        acc = account;
+                        break;
+                    }
+                    
                 }
-                break;
             }
-        }
+            request.setAttribute("manage", "block");
+            HttpSession session = request.getSession();
+            session.setAttribute("user", acc);
+            response.sendRedirect("home");
+        } else {
+            boolean checkEmail = email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+            request.setAttribute("email_login_value", email);
+            if (!checkEmail) {
+                request.setAttribute("email_err1", "block");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
+            if (pass.trim().equals("")) {
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
+            ArrayList<Account> list = dao.ListAcc();
+            boolean valiablePass = false;
+            
+            for (Account account : list) {
+                if (account.getName().equals(email)) {
 
-        if (!valiablePass) {
-            request.setAttribute("acc_err", "block");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+                    if (account.getPassword().equals(pass)) {
+                        valiablePass = true;
+                        acc = account;
+
+                    }
+                    break;
+                }
+            }
+
+            if (!valiablePass) {
+                request.setAttribute("acc_err", "block");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
         }
         String remember = request.getParameter("remember");
         if (remember != null) {
@@ -135,32 +157,31 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("user", acc);
         Object objthuexe = session.getAttribute("loginReturn");
         Object objbaoduong = session.getAttribute("loginandbb");
-        if(objthuexe != null){
-           Object obj =  session.getAttribute("bill");
-           if(obj != null){
-                Bill bill =(Bill) obj;
+        if (objthuexe != null) {
+            Object obj = session.getAttribute("bill");
+            if (obj != null) {
+                Bill bill = (Bill) obj;
                 bill.setAccId(String.valueOf(acc.getId()));         // set account id 
                 session.setAttribute("bill", bill);
                 response.sendRedirect("xacnhan");
-           }else{
-               response.getWriter().print("bill null");
-           }
+            } else {
+                response.getWriter().print("bill null");
+            }
 
-        }else if(objbaoduong != null){
+        } else if (objbaoduong != null) {
             Object bookingbillobj = session.getAttribute("bookingbill");
-                response.getWriter().print(bookingbillobj != null);
-                if (bookingbillobj != null) {
-                    BookingBill bookingBill = (BookingBill) bookingbillobj;
-                    bookingBill.setAccId(String.valueOf(acc.getId()));
-                    session.setAttribute("bookingbill", bookingBill);
-                    response.sendRedirect("xacnhanBookingBill");
+            response.getWriter().print(bookingbillobj != null);
+            if (bookingbillobj != null) {
+                BookingBill bookingBill = (BookingBill) bookingbillobj;
+                bookingBill.setAccId(String.valueOf(acc.getId()));
+                session.setAttribute("bookingbill", bookingBill);
+                response.sendRedirect("xacnhanBookingBill");
 
-                } else {
-                    response.getWriter().print("bill null");
-                }
-        }
-        else{
-            response.sendRedirect("home"); 
+            } else {
+                response.getWriter().print("bill null");
+            }
+        } else {
+            response.sendRedirect("home");
         }
     }
 
