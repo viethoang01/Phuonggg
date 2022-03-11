@@ -82,15 +82,15 @@ public class baoduongxe extends HttpServlet {
                 request.setAttribute("mauxe", bookingbill.getCarName());
                 request.setAttribute("km", bookingbill.getKm());
                 request.setAttribute("biensoxe", bookingbill.getBienso());
-                
+
                 request.setAttribute("gio", bookingbill.getGio());
-                Date startdayDate=null;
+                Date startdayDate = null;
                 try {
                     startdayDate = new SimpleDateFormat("MM/dd/yyyy").parse(bookingbill.getNgay());
-                    
+
                 } catch (ParseException ex) {
                     Logger.getLogger(ThuexeServlet.class.getName()).log(Level.SEVERE, null, ex);
-                } 
+                }
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String startday = formatter.format(startdayDate);
                 request.setAttribute("ngay", startday);
@@ -109,6 +109,26 @@ public class baoduongxe extends HttpServlet {
 
             } else {
                 request.getRequestDispatcher("EmptyPage.html").forward(request, response);
+            }
+        }
+        HttpSession session = request.getSession();
+        Object objacc = session.getAttribute("user");
+        if (objacc != null) {
+            Account acc = (Account) objacc;
+            String email = acc.getName();
+            if (!email.equals("") && !email.equals("Admin")) {
+                request.setAttribute("nav_user", "display: block");  // hiển thị nav user
+                request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
+
+                request.setAttribute("email_user", email);
+                
+            }
+            if (email.equals("Admin")) {
+                request.setAttribute("manage", "display: block");
+                request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
+
+                request.setAttribute("email_user", email);
+                
             }
         }
         request.getRequestDispatcher("baoduongxe.jsp").forward(request, response);
@@ -217,38 +237,37 @@ public class baoduongxe extends HttpServlet {
                 checkD = true;
             }
             char[] kmchar = km.toCharArray();
-            
-                for (int i = 0; i < kmchar.length; i++) {
-                    if (Character.isLetter(kmchar[i])) {
-                        request.setAttribute("km_err", "red");
-                        checkE = true;
-                        break;
-                    }
+
+            for (int i = 0; i < kmchar.length; i++) {
+                if (Character.isLetter(kmchar[i])) {
+                    request.setAttribute("km_err", "red");
+                    checkE = true;
+                    break;
                 }
-            
-            if(!biensoxe.trim().matches("[a-zA-Z | 0-9]{1,9}")){
+            }
+
+            if (!biensoxe.trim().matches("[a-zA-Z | 0-9]{1,9}")) {
                 request.setAttribute("enterBiensoxe_err", "red");
                 checkF = true;
             }
-            
 
             if (checkB || checkC || checkD || checkE || checkF) {
 //                response.getWriter().print(checkB+""+checkC+""+checkD+""+checkE+""+checkF);
-            request.getRequestDispatcher("baoduongxe.jsp").forward(request, response);
+                request.getRequestDispatcher("baoduongxe.jsp").forward(request, response);
             } else {
                 ngay = java.time.LocalDate.parse(ngay).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-                BookingBill bookingbill = new BookingBill("","", namecustomer,email,phone, mauxe, km, biensoxe, dichvu,"", ngay, gio);
+                BookingBill bookingbill = new BookingBill("", "", namecustomer, email, phone, mauxe, km, biensoxe, dichvu, "", ngay, gio);
 
                 int Accid = 0;
                 Account acc = null;
-                 CarDAO dao = new CarDAO();
+                CarDAO dao = new CarDAO();
                 HttpSession session = request.getSession();
                 Object objacc = session.getAttribute("user");
-                if(objacc != null){
+                if (objacc != null) {
                     acc = (Account) objacc;   // get account từ session
                     bookingbill.setAccId(String.valueOf(acc.getId()));
                 }
-               
+
                 if (acc == null) {
                     Cookie[] cookie = request.getCookies();
                     if (cookie != null) {
@@ -269,7 +288,7 @@ public class baoduongxe extends HttpServlet {
                 if (acc == null) {
                     session.setAttribute("loginandbb", "access");
                     response.sendRedirect("login.jsp");
-                }else{
+                } else {
                     response.sendRedirect("xacnhanBookingBill");
                 }
             }

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Bill;
+import model.BookingBill;
 
 /**
  *
@@ -39,23 +40,42 @@ public class totalThueXeBill extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Object objUser = session.getAttribute("user");
-        if(objUser !=null){
+        if (objUser != null) {
             Account acc = (Account) objUser;
             request.setAttribute("nav_user", "display: block");  // hiển thị nav user
             request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe   
             request.setAttribute("email_user", acc.getName());
         }
         Object objacc = session.getAttribute("user");
+        
         if (objacc != null) {
+            response.getWriter().print("hello");
             Account acc = new Account();
             acc = (Account) objacc;
             CarDAO dao = new CarDAO();
-            ArrayList<Bill> list = null;
-            list = dao.getCRI(String.valueOf(acc.getId()));
-            if(list != null){
-                request.setAttribute("list", list);
-                request.getRequestDispatcher("informationBill.jsp").forward(request, response);
+            String type = request.getParameter("type");
+            response.getWriter().print(acc.getName());
+
+            if (type.equals("thuexe")) {
+                ArrayList<Bill> list = null;
+                list = dao.getCRI(String.valueOf(acc.getId()));
+                if (list != null) {
+                    request.setAttribute("list", list);
+                    request.getRequestDispatcher("informationBill.jsp").forward(request, response);
+                }
+            } else {
+                ArrayList<BookingBill> list2 = null;
+                list2 = dao.getBB(String.valueOf(acc.getId()));
+                for (BookingBill bill : list2) {
+                    response.getWriter().print(bill.getNameCustomer());
+                }
+                if (list2 != null) {
+                    request.setAttribute("list2", list2);
+                    request.getRequestDispatcher("informationBill.jsp").forward(request, response);
+                }
             }
+        }else{
+            response.sendRedirect("EmptyPage.html");
         }
 
     }

@@ -4,6 +4,7 @@
     Author     : Administrator
 --%>
 
+<%@page import="model.BookingBill"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Bill"%>
 <%@page import="DAL.CarDAO"%>
@@ -23,6 +24,14 @@
             th,td{
                 padding: 1px 2px;
                 text-align: center;
+            }
+            .dropdown{
+                width: 50%;
+                text-align: center;
+                margin: auto;
+            }
+            .container{
+                margin-top: 20px;
             }
         </style>
     </head>
@@ -57,12 +66,25 @@
             </div>
 
         </nav>
+        <%ArrayList<Bill> list = (ArrayList<Bill>) request.getAttribute("list");%>
+        <%ArrayList<BookingBill> list2 = (ArrayList<BookingBill>) request.getAttribute("list2");%>
+        <%if (list != null) {%>
+        <div class="container" style="padding: 0 10px;text-align: center">
+            
+            <div class="dropdown" >  <!--for USER-->
+                        <button style="background-color: white;color: black;border: none" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class=""><h3 style="text-transform: uppercase">Hóa đơn sử dụng dịch vụ thuê xe</h3></span>
+                        </button>
+                        <ul class="dropdown-menu" >                              
+                            <li style="padding: 10px 2px;"><a  href="#">Hóa đơn thuê xe</a></li>
+                            <li style="padding: 10px 2px;"><a href="totalthuexebill?type=dichvu">Hóa đơn bảo dưỡng xe</a></li>
+                            
+                        </ul>
 
-        <div style="padding: 0 10px;text-align: center">
-            <h3 style="text-transform: uppercase">Hóa đơn sử dụng dịch vụ thuê xe</h3>
+                    </div>
             <table border="1" cellspacing="1" cellpadding="1">
                 <thead >
                     <tr>
+                        <th>STT</th>
                         <th>Đơn vị</th>
                         <th>Khách hàng</th>
                         <th>CMND/CCCD</th>
@@ -81,11 +103,11 @@
                 </thead>
                 <tbody>
 
-                    <%ArrayList<Bill> list = (ArrayList<Bill>) request.getAttribute("list");%>
+                    <%int count = 1;%>
                     <%for (Bill bill : list) {%>
                     <tr>
-
-
+                        
+                        <td><%=count++%></td>
                         <td><%=bill.getDonvi()%></td>
                         <td><%=bill.getNameCustomer()%></td>
                         <td><%=bill.getCMND()%></td>
@@ -107,7 +129,60 @@
                 </tbody>
             </table>
         </div>
+        <%}else{%>
+            <div class="container" style="padding: 0 10px;text-align: center">
+            <div class="dropdown">  <!--for USER-->
+                        <button style="background-color: white;color: black;border: none" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class=""><h3 style="text-transform: uppercase">Hóa đơn sử dụng dịch vụ bảo dưỡng xe</h3></span>
+                        </button>
+                        <ul class="dropdown-menu" >                              
+                            <li style="padding: 10px 2px;"><a  href="totalthuexebill?type=thuexe">Hóa đơn thuê xe</a></li>
+                            <li style="padding: 10px 2px;"><a href="#">Hóa đơn bảo dưỡng xe</a></li>
+                            
+                        </ul>
 
+                    </div>
+            <table border="1" cellspacing="1" cellpadding="1">
+                <thead >
+                    <tr>
+                        <th>STT</th>
+                        <th>Khách hàng</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                       
+                        <th>Tên xe bảo dưỡng</th>
+                        <th>Km</th>
+                        <th>Biển số xe</th>
+                        <th>Dịch vụ sử dụng</th>
+                        <th>Ngày đặt lịch</th>
+                        <th>Ngày sử dụng</th>
+                        <th>Thời điểm sử dụng</th>                               
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <%int count = 1;%>
+                    <%for (BookingBill bill : list2) {%>
+                    <tr>
+
+                        <td><%=count++%></td>
+                        <td><%=bill.getNameCustomer()%></td>
+                        <td><%=bill.getEmail()%></td>
+                        <td><%=bill.getPhone()%></td>
+                        <td><%=bill.getCarName()%></td>
+                        <td><%=bill.getKm()%></td>
+                        <td><%=bill.getBienso()%></td>
+                        <td><%=bill.getDichvu()%></td>
+                        <td><%=bill.getNgaybooking()%></td>
+                        <td><%=bill.getNgay()%></td>
+                        <td><%=bill.getGio()%></td>
+                    </tr>
+                    <%}%>
+
+
+                </tbody>
+            </table>
+        </div>
+        <%}%>
 
         <div class="row footer">
             <div class="row">

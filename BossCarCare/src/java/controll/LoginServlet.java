@@ -86,21 +86,20 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email_login").trim();
         String pass = request.getParameter("pass_login").trim();
         if (email.equals("Admin") && pass.equals("Admin")) {
-             ArrayList<Account> list = dao.ListAcc();
-            
-            
+            ArrayList<Account> list = dao.ListAcc();
+
             for (Account account : list) {
                 if (account.getName().equals(email)) {
 
                     if (account.getPassword().equals(pass)) {
-                        
+
                         acc = account;
                         break;
                     }
-                    
+
                 }
             }
-            request.setAttribute("manage", "block");
+            response.getWriter().print("hello");
             HttpSession session = request.getSession();
             session.setAttribute("user", acc);
             response.sendRedirect("home");
@@ -116,7 +115,7 @@ public class LoginServlet extends HttpServlet {
             }
             ArrayList<Account> list = dao.ListAcc();
             boolean valiablePass = false;
-            
+
             for (Account account : list) {
                 if (account.getName().equals(email)) {
 
@@ -133,56 +132,47 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("acc_err", "block");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-        }
-        String remember = request.getParameter("remember");
-        if (remember != null) {
-            Cookie c_email = new Cookie("email", email);
-            response.addCookie(c_email);
+            String remember = request.getParameter("remember");
+            if (remember != null) {
+                Cookie c_email = new Cookie("email", email);
+                response.addCookie(c_email);
 
-            c_email.setMaxAge(60);
+                c_email.setMaxAge(60);
 
-        }
-
-//        request.setAttribute("style_circle", "display: block");  // hiển thị circle 
-//        char HeaderOfEmail = 0;                                 //  lấy ký tự là chữ đầu tiên cho vào circle
-//        for (int i = 0; i < email.toCharArray().length; i++) {
-//            if (Character.isLetter(email.toCharArray()[i])) {
-//                HeaderOfEmail = email.toCharArray()[i];
-//                break;
-//            }
-//
-//        }
-//        request.setAttribute("HeaderOfEmail", HeaderOfEmail);
-        HttpSession session = request.getSession();
-        session.setAttribute("user", acc);
-        Object objthuexe = session.getAttribute("loginReturn");
-        Object objbaoduong = session.getAttribute("loginandbb");
-        if (objthuexe != null) {
-            Object obj = session.getAttribute("bill");
-            if (obj != null) {
-                Bill bill = (Bill) obj;
-                bill.setAccId(String.valueOf(acc.getId()));         // set account id 
-                session.setAttribute("bill", bill);
-                response.sendRedirect("xacnhan");
-            } else {
-                response.getWriter().print("bill null");
             }
 
-        } else if (objbaoduong != null) {
-            Object bookingbillobj = session.getAttribute("bookingbill");
-            response.getWriter().print(bookingbillobj != null);
-            if (bookingbillobj != null) {
-                BookingBill bookingBill = (BookingBill) bookingbillobj;
-                bookingBill.setAccId(String.valueOf(acc.getId()));
-                session.setAttribute("bookingbill", bookingBill);
-                response.sendRedirect("xacnhanBookingBill");
+            HttpSession session = request.getSession();
+            session.setAttribute("user", acc);
+            Object objthuexe = session.getAttribute("loginReturn");
+            Object objbaoduong = session.getAttribute("loginandbb");
+            if (objthuexe != null) {
+                Object obj = session.getAttribute("bill");
+                if (obj != null) {
+                    Bill bill = (Bill) obj;
+                    bill.setAccId(String.valueOf(acc.getId()));         // set account id 
+                    session.setAttribute("bill", bill);
+                    response.sendRedirect("xacnhan");
+                } else {
+                    response.getWriter().print("bill null");
+                }
 
+            } else if (objbaoduong != null) {
+                Object bookingbillobj = session.getAttribute("bookingbill");
+                response.getWriter().print(bookingbillobj != null);
+                if (bookingbillobj != null) {
+                    BookingBill bookingBill = (BookingBill) bookingbillobj;
+                    bookingBill.setAccId(String.valueOf(acc.getId()));
+                    session.setAttribute("bookingbill", bookingBill);
+                    response.sendRedirect("xacnhanBookingBill");
+
+                } else {
+                    response.getWriter().print("bill null");
+                }
             } else {
-                response.getWriter().print("bill null");
+                response.sendRedirect("home");
             }
-        } else {
-            response.sendRedirect("home");
         }
+
     }
 
     /**

@@ -293,9 +293,9 @@ public class CarDAO extends BaseDAO<Car> {
         return null;
     }
 
-    public int getTotalNumberRow() {
+    public int getTotalNumberRow(String table) {
         try {
-            String sql = "select COUNT(*)as maxrownum from CarRentalInvoice";
+            String sql = "select COUNT(*)as maxrownum from "+table;
             PreparedStatement statement = connection.prepareStatement(sql);
 
             ResultSet rs = statement.executeQuery();
@@ -346,19 +346,20 @@ public class CarDAO extends BaseDAO<Car> {
         }
         return null;
     }
+
     public ArrayList<Bill> getAllThuexeBill() {
         ArrayList<Bill> list = new ArrayList<>();
         try {
             String sql = "select * from CarRentalInvoice";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            
+
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
 
                 Bill bill = new Bill();
-                
+
                 bill.setId(rs.getString("id"));
                 bill.setAccId(rs.getString("Accid"));
                 bill.setDonvi(rs.getString("donvi"));
@@ -373,9 +374,7 @@ public class CarDAO extends BaseDAO<Car> {
                 bill.setThoiluong(rs.getString("songaythue"));
                 bill.setTotal(rs.getString("totalmoney"));
                 bill.setCarId(rs.getString("carid"));
-                
-                
-        
+
                 list.add(bill);
             }
             return list;
@@ -384,7 +383,7 @@ public class CarDAO extends BaseDAO<Car> {
         }
         return null;
     }
-    
+
     public ArrayList<BookingBill> getAllBookingBill() {
         ArrayList<BookingBill> list = new ArrayList<>();
         try {
@@ -414,70 +413,140 @@ public class CarDAO extends BaseDAO<Car> {
         }
         return null;
     }
+
+    public void delete(String table, String id) {
+        try {
+            String sql = "delete from " + table + " where id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, id);
+            statement.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void editThuexe(String id, String accId, String carId, String carname, String thoiluong, String donvi, String nameCustomer, String CMND, String email, String phone, String code_inv, String daybill, String startday, String endday, String total) {
+        try {
+            String sql = "update CarRentalInvoice set carid = ?,Accid = ?,"
+                    + "songaythue= ?,donvi = ?,namecustomer = ?,CMND = ?,phone = ?,"
+                    + "email = ?,code_gioithieu = ?,date_of_hire = ?,start_date_of_hire = ?, "
+                    + "end_date_of_hire = ?,totalmoney = ? where id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, carId);
+            statement.setString(2, accId);
+            statement.setString(3, thoiluong);
+            statement.setString(4, donvi);
+            statement.setString(5, nameCustomer);
+            statement.setString(6, CMND);
+            statement.setString(7, phone);
+            statement.setString(8, email);
+            statement.setString(9, code_inv);
+            statement.setString(10, daybill);
+            statement.setString(11, startday);
+            statement.setString(12, endday);
+            statement.setString(13, total);
+            statement.setString(14, id);
+            statement.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void editDichvu(String id, String accId, String nameCustomer, String email, String phone, String carName, String km, String bienso, String dichvu, String ngaybooking, String ngay, String gio) {
+        try {
+            String sql = "UPDATE BookingInvoice set Accid = ?,namecustomer = ?,phone = ?,"
+                    + "email = ?,date_of_booking = ?,date_maintenance = ?,carname = ?,km = ?,"
+                    + "bienso = ?,dichvu = ?,gio = ? where id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, accId);
+            statement.setString(2, nameCustomer);
+            statement.setString(3, phone);
+            statement.setString(4, email);
+            statement.setString(5, ngaybooking);
+            statement.setString(6, ngay);
+            statement.setString(7, carName);
+            statement.setString(8, km);
+            statement.setString(9, bienso);
+            statement.setString(10, dichvu);
+            statement.setString(11, gio);
+            statement.setString(12, id);
+
+            statement.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void InsertCar(String name, String info, String img, String price, String current, String color, String catid) {
+        try {
+            String sql = "insert into Cars(name,info,img,price,[current],color,categoryid) values\n"
+                    + "(?,?,?,?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setString(2, info);
+            statement.setString(3, img);
+            statement.setString(4, price);
+            statement.setString(5, current);
+            statement.setString(6, color);
+            statement.setString(7, catid);
+
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+
+        }
+    }
+
+    public void UpdateCar(String id, String name, String info, String img, String price, String current, String color) {
+        try {
+            String sql = "UPDATE Cars set name = ? ,info = ?,img = ?,price = ?,[current] = ?,color = ? where id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setString(2, info);
+            statement.setString(3, img);
+            statement.setString(4, price);
+            statement.setString(5, current);
+            statement.setString(6, color);
+           
+            statement.setString(7, id);
+
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+
+        }
+    }
+
+    public ArrayList<Car> getCarPage(int pageindex, int gap) {
+        ArrayList<Car> list = new ArrayList<>();
+        try {
+            String sql = "select c.*,rs.cateName from Cars c inner join\n"
+                    + "(select ROW_NUMBER() over (order by car.id asc) as rownum,car.id,cat.name as cateName  from Cars car inner join Categories cat on cat.id = car.categoryid) as rs\n"
+                    + "on c.id = rs.id where rs.rownum >= ((?-1) * ?) + 1 AND rownum <=  ?* ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, (pageindex));
+            statement.setInt(2, (gap));
+            statement.setInt(3, (pageindex));
+            statement.setInt(4, (gap));
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Car s = new Car();
+                s.setId(rs.getInt("id"));
+                s.setName(rs.getString("name"));
+                s.setInfo(rs.getString("info"));
+                s.setImg(rs.getString("img"));
+                s.setPrice(rs.getDouble("price"));
+                s.setCurrent(!rs.getString("current").equals('0'));// chưa thuê 0 = false
+                s.setColor(rs.getString("color"));
+                s.setNameCat(rs.getString("cateName"));
+                list.add(s);
+            }
+            return list;
+        } catch (SQLException ex) {
+
+        }
+        return null;
+    }
     
-    public void delete(String  table,String id){
-       try {
-           String sql = "delete from ? where Id = ?";
-           PreparedStatement statement = connection.prepareStatement(sql);
-           statement.setString(1, table);
-           statement.setString(2, id);
-           statement.executeUpdate();
-       } catch (Exception e) {
-       }
-   }
-    
-    public void editThuexe(String id,String accId,String carId,String carname,String thoiluong,String donvi,String nameCustomer,String CMND,String email,String phone,String code_inv,String daybill,String startday,String endday,String total){
-       try {
-           String sql ="update CarRentalInvoice set carid = ?,Accid = ?,"
-                   + "songaythue= ?,donvi = ?,namecustomer = ?,CMND = ?,phone = ?,"
-                   + "email = ?,code_gioithieu = ?,date_of_hire = ?,start_date_of_hire = ?, "
-                   + "end_date_of_hire = ?,totalmoney = ? where id = ?";
-           
-           
-           PreparedStatement statement = connection.prepareStatement(sql);
-           statement.setString(1, carId);
-           statement.setString(2, accId);
-           statement.setString(3, thoiluong);
-           statement.setString(4, donvi);
-           statement.setString(5, nameCustomer);
-           statement.setString(6, CMND);
-           statement.setString(7, phone);
-           statement.setString(8, email);
-           statement.setString(9, code_inv);
-           statement.setString(10, daybill);
-           statement.setString(11, startday);
-           statement.setString(12, endday);
-           statement.setString(13, total);
-           statement.setString(14, id);
-           statement.executeUpdate();
-       } catch (Exception e) {
-       }
-   }
     
     
-    public void editDichvu(String id,String accId, String nameCustomer, String email, String phone, String carName, String km, String bienso, String dichvu,String ngaybooking, String ngay, String gio){
-       try {
-           String sql ="UPDATE BookingInvoice set Accid = ?,namecustomer = ?,phone = ?,"
-                   + "email = ?,date_of_booking = ?,date_maintenance = ?,carname = ?,km = ?,"
-                   + "bienso = ?,dichvu = ?,gio = ? where id = ?";
-           
-           
-           PreparedStatement statement = connection.prepareStatement(sql);
-           statement.setString(1, accId);
-           statement.setString(2, nameCustomer);
-           statement.setString(3, phone);
-           statement.setString(4, email);
-           statement.setString(5, ngaybooking);
-           statement.setString(6, ngay);
-           statement.setString(7, carName);
-           statement.setString(8, km);
-           statement.setString(9, bienso);
-           statement.setString(10, dichvu);
-           statement.setString(11, gio);
-           statement.setString(12, id);
-           
-           statement.executeUpdate();
-       } catch (Exception e) {
-       }
-   }
 }

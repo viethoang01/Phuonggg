@@ -41,7 +41,7 @@ public class HtmlHelper {
             if (pageindex + gap < totalpage) {
                 result += hyperlink("Last", "?page=" + totalpage+"&typepage="+typepage);
             }
-        } else {
+        } else if(typepage.equals(0)){
             if (pageindex - gap > 1) {
                 result += hyperlink("First", "?page=1");
             }
@@ -64,6 +64,30 @@ public class HtmlHelper {
 
             if (pageindex + gap < totalpage) {
                 result += hyperlink("Last", "?page=" + totalpage);
+            }
+        }else{
+            if (pageindex - gap > 1) {
+                result += hyperlink("First", "?page=1&typepage="+typepage);
+            }
+
+            for (int i = gap; i > 0; i--) {
+                int page = pageindex - i;
+                if (page > 0) {
+                    result += hyperlink("" + page, "?page=" + page+"&typepage="+typepage);
+                }
+            }
+
+            result += label(pageindex + "");
+
+            for (int i = 1; i <= gap; i++) {
+                int page = pageindex + i;
+                if (page <= totalpage) {
+                    result += hyperlink("" + page, "?page=" + page+"&typepage="+typepage);
+                }
+            }
+
+            if (pageindex + gap < totalpage) {
+                result += hyperlink("Last", "?page=" + totalpage+"&typepage="+typepage);
             }
         }
         return result;

@@ -16,18 +16,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Bill;
 import model.BookingBill;
+import model.Car;
 
 /**
  *
  * @author Administrator
  */
 public class Test {
-
+    
     public static void main(String[] args) {
         CarDAO dao = new CarDAO();
-        ArrayList<BookingBill> list = dao.getAllBookingBill();
-        for (BookingBill bill : list) {
-            System.out.println(bill.getGio());
+        ArrayList<Car> list = null;
+        list = dao.getCarPage(1, 5);
+        for (Car car : list) {
+            System.out.println(car.getName());
         }
+        System.out.println(dao.getTotalNumberRow("Cars"));
     }
 }

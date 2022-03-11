@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Bill;
 import model.BookingBill;
+import model.Car;
 
 /**
  *
@@ -88,7 +89,7 @@ public class EditServlet extends HttpServlet {
                     break;
                 }
             }
-            if(bookingbill == null ){
+            if (bookingbill == null) {
                 request.getRequestDispatcher("EmptyPage.html").forward(request, response);
             }
             request.setAttribute("dichvuid", bookingbill.getId());
@@ -115,6 +116,20 @@ public class EditServlet extends HttpServlet {
             }
             request.getRequestDispatcher("editdichvu.jsp").forward(request, response);
         }
+        if (type.equals("tainguyen")) {
+            String tainguyenid = request.getParameter("tainguyenid");
+            Car car = dao.getCar(tainguyenid);
+            request.setAttribute("id", car.getId());
+            request.setAttribute("img", car.getImg());
+            request.setAttribute("name", car.getName());
+            request.setAttribute("info", car.getInfo());
+            request.setAttribute("price", car.getPrice());
+            request.setAttribute("current", car.getCurrent());
+            request.setAttribute("color", car.getColor());
+            request.setAttribute("type", type);
+            request.getRequestDispatcher("edittainguyen.jsp").forward(request, response);
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -143,25 +158,41 @@ public class EditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String carid = (String) request.getParameter("carid");
-        String accid = (String) request.getParameter("accid");
-        String carname = (String) request.getParameter("carname");
-        String thoiluong = (String) request.getParameter("thoiluong");
-        String donvi = (String) request.getParameter("donvi");
-        String nameCustomer = (String) request.getParameter("nameCustomer");
-        String CMND = (String) request.getParameter("CMND");
-        String email = (String) request.getParameter("email");
-        String phone = (String) request.getParameter("phone");
-        String code_inv = (String) request.getParameter("code_inv");
-        String daybill = (String) request.getParameter("daybill");
-        String startday = (String) request.getParameter("startday");
-        String endday = (String) request.getParameter("endday");
-        String total = (String) request.getParameter("total");
-        String id = (String) request.getParameter("thuexeid");
-
         CarDAO dao = new CarDAO();
-        dao.editThuexe(id, accid, carid, carname, thoiluong, donvi, nameCustomer, CMND, email, phone, code_inv, daybill, startday, endday, total);
-        response.sendRedirect("");
+        String type = request.getParameter("type");
+        if (type.equals("thuexe")) {
+            String carid = (String) request.getParameter("carid");
+            String accid = (String) request.getParameter("accid");
+            String carname = (String) request.getParameter("carname");
+            String thoiluong = (String) request.getParameter("thoiluong");
+            String donvi = (String) request.getParameter("donvi");
+            String nameCustomer = (String) request.getParameter("nameCustomer");
+            String CMND = (String) request.getParameter("CMND");
+            String email = (String) request.getParameter("email");
+            String phone = (String) request.getParameter("phone");
+            String code_inv = (String) request.getParameter("code_inv");
+            String daybill = (String) request.getParameter("daybill");
+            String startday = (String) request.getParameter("startday");
+            String endday = (String) request.getParameter("endday");
+            String total = (String) request.getParameter("total");
+            String id = (String) request.getParameter("thuexeid");
+
+            
+            dao.editThuexe(id, accid, carid, carname, thoiluong, donvi, nameCustomer, CMND, email, phone, code_inv, daybill, startday, endday, total);
+            response.sendRedirect("manage");
+        }
+        if(type.equals("tainguyen")){
+            String id = request.getParameter("id");
+            String img =request.getParameter("img");
+            String name =request.getParameter("name");
+            String info =request.getParameter("info");
+            String price =request.getParameter("price");
+            String current =request.getParameter("current")!= null ? "1":"0";
+            String color =request.getParameter("color");
+            
+            dao.UpdateCar(id, name, info, img, price, current, color);
+            response.sendRedirect("manage?type=tainguyen");
+        }
     }
 
     /**

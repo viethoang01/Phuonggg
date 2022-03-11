@@ -45,37 +45,43 @@ public class HomeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Object objAcc = session.getAttribute("user");
         Account acc = null;
-        if(objAcc != null){
+        if (objAcc != null) {
             acc = (Account) objAcc;
-          
-                email = acc.getName();
- 
+
+            email = acc.getName();
+
         }
-        if(email.equals("")){
+        if (email.equals("")) {
             Cookie[] cookie = request.getCookies();
             if (cookie != null) {
                 for (Cookie cookie1 : cookie) {
                     if (cookie1.getName().equals("email")) {
 
-                            email = cookie1.getValue();
-                            
-                            Account accountgetbycookie = cd.getAcc(email);
-                            session.setAttribute("user",accountgetbycookie);
+                        email = cookie1.getValue();
+
+                        Account accountgetbycookie = cd.getAcc(email);
+                        session.setAttribute("user", accountgetbycookie);
                     }
 
                 }
 
             }
         }
-        if(email.equals("") && acc == null){                       //  mặc định
+        if (email.equals("") && acc == null) {                       //  mặc định
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
-       
-        if(!email.equals("")){
+
+        if (!email.equals("") && !email.equals("Admin")) {
             request.setAttribute("nav_user", "display: block");  // hiển thị nav user
             request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
-                
-            
+
+            request.setAttribute("email_user", email);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
+        }
+        if (email.equals("Admin")) {
+            request.setAttribute("manage", "display: block");
+            request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
+
             request.setAttribute("email_user", email);
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
