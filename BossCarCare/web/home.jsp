@@ -4,6 +4,7 @@
     Author     : Administrator
 --%>
 
+<%@page import="model.Message"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Car"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -314,9 +315,96 @@
             </div>
         </div>
         <!--Chat-->
-        <div class="call" style="background-color: blue;"><script src="https://uhchat.net/code.php?f=92b878"></script></div>
+        <%ArrayList<Message> MYR = (ArrayList<Message>) request.getAttribute("MYR");%>
+        <%ArrayList<Message> MYS = (ArrayList<Message>) request.getAttribute("MYS");%>
+        <div id="mess2" class="message2">
+            <span onclick="showMessage()" class="glyphicon glyphicon-chevron-up"></span>           
+        </div>
+        <div id="mess" class="message" style="display: ${admin};display: block">
+            <div class="header_message row">
+                <div class="col-md-10">
+                    <img src="images/logoBossCarCare2.png" width="30%"> 
+                    
+                    <h4><b>Hỗ trợ khách hàng</b></h4>  <!-- default and user -->
+                    
+                </div>
+                <div class="col-md-2" >
+                    <span onclick="hideMessage()" class="glyphicon glyphicon-chevron-down"></span>
+                </div>
+            </div>
+            <div class="content_message" style="display: block;display: ${messageadmin}">
+                
+                <img src="images/logoBossCarCare2.png" width="70%">
+                <h6>Trao cơ hội tạo - Tạo niềm tin</h6>
+                <%if(MYR != null && MYS != null){%><!--1-->
+                <%int MYRidx = 0, MYSidx = 0, MYRid = 0, MYSid = 0, MYRidOLD = 0, MYSidOLD = 0;%>
+                    <%for (int idx = 0; idx < MYS.size()+MYR.size(); idx++) {%><!--2-->
+                    <% MYRid = Integer.parseInt(MYR.get(MYRidx).getId());%>
+                    <% MYSid = Integer.parseInt(MYS.get(MYSidx).getId());%>
+                    <%if(MYRid > MYSid){%><!--3-->
+                    <%if (MYRidOLD == MYRid && MYSidOLD == MYSid){%>
+                        <div class="MYR"><p><%=MYR.get(MYRidx).getContent()%></p></div>
+                    <%}else{%>
+                    
+                        <div class="MYS"><p><%=MYS.get(MYSidx).getContent()%></p></div>
+                    
+                    <%  MYRidOLD = MYRid;
+                        MYSidOLD = MYSid;
+                    %>
+                    
+                    <%if (MYSidx + 1 < MYS.size()) {
+                        MYSidx++;
+                    }%>
+                    <%}%>
+                    
+                    <%}%><!--3-->
+                    
+                    <%if(MYRid < MYSid){%><!--4-->
+                    
+                    <%if (MYRidOLD == MYRid && MYSidOLD == MYSid){%>                    
+                    <div class="MYS"><p><%=MYS.get(MYSidx).getContent()%></p></div>                 
+                    <%}else{%>
+                   
+                    <div class="MYR"><p><%=MYR.get(MYRidx).getContent()%></p></div>
+                    
+                    <%MYRidOLD = MYRid;
+                    MYSidOLD = MYSid;%>
+                    <%if (MYRidx + 1 < MYR.size()) {
+                        MYRidx++;
+                    }%>
+                    <%}%>
+                    
+                    <%}%><!--4-->
+                    
+                <%}%><!--2-->
+                <%}%><!--1-->
+            </div>
+            <div id="menumess" class="menu_message">
+                <form action="message" method="post">
+                    <input name="contentsend" type="text" placeholder="Viết gì đó...">
+                <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
         <!--chat end-->
-
+        
+        <div class="messageAdmin" style="display: none;display: ${messageAdmin}">
+            <h2>Message</h2>
+            <%for (Message mess : MYR) {%>
+            
+            <div class="messcustomer" onclick="checkInbox(<%=mess.getId()%>)">
+                <div>
+                    <h4><%=mess.getFrom()%></h4>
+                </div>
+                <div>
+                    <p><b><%=mess.getContent()%></b></p><span style="font-size: 5px;color: grey"><%=mess.getTime()%></span>
+                </div>
+            </div>
+            
+            <%}%>
+        
+        
+        </div>
         <script>
                 var slideIndex = [1, 1];
                 var slideId = ["mySlides1", "mySlides2"]
@@ -341,6 +429,22 @@
                     }
                     x[slideIndex[no] - 1].style.display = "block";
                 }
+                function hideMessage(){
+    document.getElementById('mess').style.height = 0;
+    document.getElementById('menumess').style.display = 'none';
+    document.getElementById('mess2').style.height = '25px';
+}
+function showMessage(){
+    document.getElementById('menumess').style.display = 'block';
+    document.getElementById('mess').style.height = '400px';
+    document.getElementById('mess2').style.height = 0;
+}
+
+function checkInbox(id){
+    window.location.href = 'home?Customerid=' + id;
+}
         </script>
     </body>
 </html>
+
+

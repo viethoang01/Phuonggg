@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Car;
+import model.Message;
 
 /**
  *
@@ -69,9 +70,18 @@ public class HomeServlet extends HttpServlet {
         }
         if (email.equals("") && acc == null) {                       //  mặc định
             request.getRequestDispatcher("home.jsp").forward(request, response);
+        } else {
+
         }
 
         if (!email.equals("") && !email.equals("Admin")) {
+
+            CarDAO dao = new CarDAO();
+            ArrayList<Message> MessageYouReceive = dao.getAllMessageofUser(String.valueOf(acc.getId()), "45");     /// list message
+            ArrayList<Message> MessageYouSend = dao.getAllMessageofUser("45", String.valueOf(acc.getId()));
+            request.setAttribute("MYR", MessageYouReceive);
+            request.setAttribute("MYS", MessageYouSend);
+
             request.setAttribute("nav_user", "display: block");  // hiển thị nav user
             request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
 
@@ -79,6 +89,17 @@ public class HomeServlet extends HttpServlet {
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
         if (email.equals("Admin")) {
+            String Customerid = request.getParameter("Customerid");
+            if (Customerid.equals("")) {
+                request.setAttribute("messageAdmin", "block");
+                request.setAttribute("messageadmin", "none");
+            } else {
+                CarDAO dao = new CarDAO();
+                ArrayList<Message> MessageYouSend = dao.getAllMessageofUser(Customerid, "45");     /// list message
+                ArrayList<Message>  MessageYouReceive = dao.getAllMessageofUser("45", Customerid);
+                request.setAttribute("MYR", MessageYouReceive);
+                request.setAttribute("MYS", MessageYouSend);
+            }
             request.setAttribute("manage", "display: block");
             request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
 

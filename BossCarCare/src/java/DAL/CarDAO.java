@@ -18,13 +18,51 @@ import model.Account;
 import model.Bill;
 import model.BookingBill;
 import model.Car;
+import model.CategoryCar;
+import model.Message;
 
 /**
  *
  * @author Administrator
  */
 public class CarDAO extends BaseDAO<Car> {
-
+   
+    public  void addMessage(String fromid,String toid,String content) {
+        try {
+            String sql ="insert into [Messages] (fromid,toid,content) values\n" +
+                    "(?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, fromid);
+            statement.setString(2, toid);
+            statement.setString(3, content);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public ArrayList<Message> getAllMessageofUser(String toid,String fromid) {
+        ArrayList<Message> list = new ArrayList<>();
+        try {
+            String sql = "select m.id,acc.name as usersend,toid,[time],content,isread from [Messages] m inner join Account acc on acc.id = m.fromid where toid = ? and fromid = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, toid);
+            statement.setString(2, fromid);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Message s = new Message();
+                s.setId(rs.getString("id"));
+                s.setFrom(rs.getString("usersend"));
+                s.setTo(rs.getString("toid"));
+                s.setContent(rs.getString("content"));
+                s.setTime(rs.getString("time"));
+                s.setIsread(rs.getString("isread"));
+                list.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
     @Override
     public ArrayList<Car> getAll() {
         ArrayList<Car> list = new ArrayList<>();
@@ -44,6 +82,25 @@ public class CarDAO extends BaseDAO<Car> {
                 s.setCurrent(!rs.getString("current").equals('0'));// chưa thuê 0 = false
                 s.setColor(rs.getString("color"));
                 s.setNameCat(rs.getString("cateName"));
+                list.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    
+    public ArrayList<CategoryCar> getAllCat() {
+        ArrayList<CategoryCar> list = new ArrayList<>();
+        try {
+            String sql = "select * from Categories";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                CategoryCar s = new CategoryCar();
+                s.setId(rs.getString("id"));
+                s.setName(rs.getString("name"));               
                 list.add(s);
             }
         } catch (SQLException ex) {

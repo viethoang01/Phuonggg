@@ -193,6 +193,7 @@ public class EditServlet extends HttpServlet {
             dao.UpdateCar(id, name, info, img, price, current, color);
             response.sendRedirect("manage?type=tainguyen");
         }
+        
     }
 
     /**

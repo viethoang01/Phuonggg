@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="manage" method="post">
+        <form action="edit" method="post">
             <table>
                 <tr>
                     <td>Car ID</td>
@@ -56,11 +56,11 @@
                         <input name="current" type="checkbox" value="${current}">
                     </td>
                 </tr>
-                
-                
-                
+
+
+
             </table>
-                        <button name="type" type="submit" value="${type}">Xác nhận</button>
+            <button name="type" type="submit" value="${type}">Xác nhận</button>
         </form>
     </body>
 </html>

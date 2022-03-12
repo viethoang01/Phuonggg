@@ -2,6 +2,97 @@ body{
 
     width: 100%;height: auto;
     font-family: 'Be Vietnam Pro'!important;
+    z-index: 0;
+}
+.glyphicon-chevron-down ,.glyphicon-chevron-up{
+    cursor:pointer;
+}
+
+.message, .messageAdmin ,.message2{
+    width: 330px;
+    height: 400px;
+    background-color: white;
+    box-shadow: 0 0 5px #c4cacc;
+    border-top-left-radius : 15px;
+   border-top-right-radius : 15px;
+    z-index: 1;
+    position: fixed;
+    bottom: 0;
+    right: 5%;
+    transition: ease-in 0.3s;
+    
+}
+.message2{   
+    height: 0;   
+}
+.messageAdmin{
+    overflow: auto;
+    padding: 5px;
+}
+.messageAdmin .messcustomer{
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+.messageAdmin .messcustomer:hover{
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+.message .row{
+    border-bottom: 1px solid #c4cacc;
+    margin: 0;
+    padding: 10px 0;
+   
+}
+.message .row img{
+    float: left;
+    margin-right: 5px;
+}
+.message .row div:nth-child(2){
+   font-size: 20px;
+   color: #0c7857;
+}
+.message .content_message{
+    text-align: center;
+    width: 330px;
+    height: 300px;
+    overflow: auto;
+   
+}
+.message .content_message .MYS{
+    
+    padding: 7px 5px 1px 5px;
+    border-radius: 10px;
+    background-color: #04bd7c;
+    color: white;
+    margin-bottom: 20px;
+    width: fit-content;
+block-size: fit-content
+ 
+}
+.message .content_message .MYR{
+    
+    padding: 7px 5px 1px 5px;
+    border-radius: 10px;
+    background-color: #c0c4c1;
+    color: black;
+    margin-bottom: 20px; 
+    width: fit-content;
+block-size: fit-content;
+
+
+}
+
+
+.message .content_message h6{
+    margin-bottom: 50px;
+    margin-top: 10px;
+    color: gray;
+}
+.message .menu_message{
+    z-index: 2;
+    position: fixed;
+    bottom: 0;
+    
 }
 .circle {
   width: 30px;

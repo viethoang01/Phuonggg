@@ -4,6 +4,7 @@
     Author     : Administrator
 --%>
 
+<%@page import="model.CategoryCar"%>
 <%@page import="model.Car"%>
 <%@page import="model.BookingBill"%>
 <%@page import="model.Bill"%>
@@ -57,6 +58,11 @@
             .link_page{
                 text-align: center;
             }
+            .table_addxe tr{
+                text-align: left;
+                margin-bottom: 20px;
+
+            }
 
         </style>
     </head>
@@ -75,15 +81,15 @@
                     </div>
                 </div>
                 <div class="nav_right col-md-3">
-                    
-                    
+
+
                     <div class="dropdown" style="display: none;${manage}">   <!--for ADMIN-->
                         <button style="background-color: white;color: black;border: none" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"> ${email_user}</span>
                         </button>
 
                         <ul class="dropdown-menu" >                              
                             <li style="padding: 10px 2px;"><a  href="manage">Quản lý hóa đơn</a></li>
-                            <li style="padding: 10px 2px;"><a href="xacnhan">Quản lý tài nguyên</a></li>
+                            <li style="padding: 10px 2px;"><a href="manage?typepage=tainguyen">Quản lý tài nguyên</a></li>
                             <li style="padding: 10px 2px;"><a href="logout">Đăng xuất</a></li>
                         </ul>
 
@@ -98,16 +104,109 @@
         <%ArrayList<Bill> listthuexe = (ArrayList<Bill>) request.getAttribute("listthuexe");%>
         <%ArrayList<BookingBill> listdichvu = (ArrayList<BookingBill>) request.getAttribute("listdichvu");%>
         <%ArrayList<Car> listcar = (ArrayList<Car>) request.getAttribute("listcar");%>
+        <%ArrayList<CategoryCar> listcat = (ArrayList<CategoryCar>) request.getAttribute("listcat");%>
         <%String typepage = (String) request.getAttribute("typepage");%>
-        <%if(listcar != null){%>
+        <%if (typepage.contains("tainguyen")) {%>
+        <div class="">
+            <form action="manage" method="get">
+                <select name="typepage" class="hoadon_type">
+                    <option value="addtainguyen" <%=request.getAttribute("typepage_addtainguyen_Selected")%>>Thêm Xe</option>
+                    <option value="tainguyen" <%=request.getAttribute("typepage_tainguyen_Selected")%>>Các dòng xe hiện có</option>
+                </select>  
+                <button id="btn_thuexe" style="padding: 5px 15px">OK</button>
+            </form>  
+        </div>  
+        <%if (typepage.equals("addtainguyen")) {%>
+        <div class="row">
+            <div class="col-md-6">
+                <form action="manage" method="post">
+            <table class="table_addxe">
+
+                <tr>
+                    <td>URL mẫu xe</td>
+                    <td>
+                        <input name="img" type="file" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Car Name</td>
+                    <td>
+                        <input name="name" type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dòng xe</td>
+                    <td>
+                        <input name="info" type="text" value="" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>Color</td>
+                    <td>
+                        <input name="color" type="text" value="" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>Giá thuê/ngày</td>
+                    <td>
+                        <input name="price" type="text" value="" >
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Category ID</td>
+                    <td>
+                        <input name="catid" type="text" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Hiện trạng</td>
+                    <td>
+                        <input name="current" type="checkbox" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button  name="typepage" type="submit" value="${typepage}">Xác nhận</button>
+                    </td>
+                </tr>
+
+
+            </table>
+
+        </form>
+            </div>
+                    <div class="col-md-6">
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th>Category ID</th>
+                                    <th>Category Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for (CategoryCar cat : listcat) {%>
+                                <tr>
+                                    <td><%=cat.getId()%></td>
+                                    <td><%=cat.getName()%></td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+
+                    </div>
+        </div>
+        <%}%>
+        <%if (typepage.equals("tainguyen")) {%>
         <%
-            String type = "tainguyen";
+
             int pageindex = (int) request.getAttribute("pageindex");
             int totalNumberPage = (int) request.getAttribute("totalNumberPage");
         %>
         <table border="1">
             <thead>
-                <tr>>
+                <tr>
                     <th>STT</th>
                     <th>Car ID</th>
                     <th>Hình mẫu</th>
@@ -116,33 +215,34 @@
                     <th>Hiện trạng</th>
                     <th>Màu sắc</th>
                     <th>Giá thuê</th>
-                    
-                   
+
+
                 </tr>
             </thead>
             <tbody>
                 <%int count = 1;%>
                 <%for (Car car : listcar) {%>
-                
+
                 <tr>
                     <td><%=count++%></td>
                     <td><%=car.getId()%></td>
                     <td><img src="<%=car.getImg()%>" width="10%"></td>
                     <td><%=car.getNameCat()%> <%=car.getName()%></td>
                     <td><%=car.getInfo()%></td>
-                    <td><%=car.getCurrent()?"ON":"OFF"%></td>
+                    <td><%=car.getCurrent() ? "ON" : "OFF"%></td>
                     <td><%=car.getColor()%></td>
                     <td><%=car.getPrice()%></td>
-                    
+
                     <td><a href="edit?type=tainguyen&tainguyenid=<%=car.getId()%>">Edit</a></td>
                     <td><a href="#" onclick="deleteBill3(<%=car.getId()%>)">Delete</a></td>
-                    
+
                 </tr>
                 <%}%>
             </tbody>
         </table>
-            <div class="link_page"><%=HtmlHelper.pager(5, pageindex, totalNumberPage, typepage)%></div>
-        <%}else{%>
+        <div class="link_page"><%=HtmlHelper.pager(5, pageindex, totalNumberPage, typepage)%></div>
+        <%}%>
+        <%} else {%>
         <div class="">
             <form action="manage" method="get">
                 <select name="typepage" class="hoadon_type">
@@ -153,7 +253,7 @@
             </form>  
         </div>   
         <%String type = "";
-                    String billid = "";%>
+            String billid = "";%>
         <%if (listthuexe != null) {%>
         <%
             type = "thuexe";
@@ -263,6 +363,7 @@
         <div class="link_page"><%=HtmlHelper.pager(5, pageindex, totalNumberPage, typepage)%></div>
         <%}%>
         <%}%>
+
         <script>
             function deleteBill(id) {
                 var option = confirm("Bạn có chắc chắn muốn xóa không ?" + id);

@@ -13,13 +13,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "DeleteServlet", urlPatterns = {"/delete"})
-public class DeleteServlet extends HttpServlet {
+@WebServlet(name = "MessageServlet", urlPatterns = {"/message"})
+public class MessageServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +40,10 @@ public class DeleteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteServlet</title>");
+            out.println("<title>Servlet MessageServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MessageServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,25 +61,7 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String type = request.getParameter("type");
-        CarDAO dao = new CarDAO();
-        if (type.equals("dichvu")) {
-            String dichvuid = request.getParameter("dichvuid");
-            response.getWriter().print(dichvuid);
-            dao.delete("BookingInvoice", dichvuid);
-            response.sendRedirect("manage?typepage=dichvu");
-        }
-        if (type.equals("thuexe")) {
-            String thuexeid = request.getParameter("thuexeid");
-            dao.delete("CarRentalInvoice", thuexeid);
-            
-            response.sendRedirect("manage?typepage=thuexe");
-        }
-        if (type.equals("tainguyen")) {
-            String tainguyenid = request.getParameter("tainguyenid");
-            dao.delete("Cars", tainguyenid);
-            response.sendRedirect("manage?typepage=tainguyen");
-        }
+        
     }
 
     /**
@@ -91,7 +75,18 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        String content = request.getParameter("contentsend");
+        HttpSession session = request.getSession();
+        Object objacc = session.getAttribute("user");
+        if(objacc != null){
+            Account acc = (Account) objacc;
+            CarDAO dao = new CarDAO();
+            dao.addMessage(String.valueOf(acc.getId()),"45", content);
+            response.sendRedirect("home");
+        }else{
+            response.sendRedirect("login.jsp");
+        }
     }
 
     /**
@@ -104,4 +99,14 @@ public class DeleteServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

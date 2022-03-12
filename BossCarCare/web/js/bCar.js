@@ -184,5 +184,16 @@ function enterBiensoxe(){
     }
 }
 
+function hideMessage(){
+    document.getElementById('mess').style.height = 0;
+    document.getElementById('menumess').style.display = 'none';
+    document.getElementById('mess2').style.height = '25px';
+}
+function showMessage(){
+    document.getElementById('menumess').style.display = 'block';
+    document.getElementById('mess').style.height = '400px';
+    document.getElementById('mess2').style.height = 0;
+}
+
 
 

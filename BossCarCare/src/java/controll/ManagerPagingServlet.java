@@ -19,6 +19,7 @@ import model.Account;
 import model.Bill;
 import model.BookingBill;
 import model.Car;
+import model.CategoryCar;
 
 /**
  *
@@ -113,7 +114,13 @@ public class ManagerPagingServlet extends HttpServlet {
                     
                     request.setAttribute("totalNumberPage", totalNumberPage);
                     request.setAttribute("typepage", typepage);
-                    
+                    request.setAttribute("typepage_tainguyen_Selected", "selected");
+                    request.getRequestDispatcher("manager.jsp").forward(request, response);
+                }else if(typepage.equals("addtainguyen")){
+                    ArrayList<CategoryCar> listcat = dao.getAllCat();
+                    request.setAttribute("listcat", listcat); 
+                    request.setAttribute("typepage", typepage);     
+                    request.setAttribute("typepage_addtainguyen_Selected", "selected");
                     request.getRequestDispatcher("manager.jsp").forward(request, response);
                 }
                 
@@ -151,7 +158,22 @@ public class ManagerPagingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String type = request.getParameter("typepage");
+        CarDAO dao = new CarDAO();
+        if(type.equals("addtainguyen")){
+            
+            String id = request.getParameter("id");
+            String img =request.getParameter("img");
+            String name =request.getParameter("name");
+            String info =request.getParameter("info");
+            String price =request.getParameter("price");
+            String current =request.getParameter("current")!= null ? "1":"0";
+            String color =request.getParameter("color");
+            
+            dao.InsertCar( name, info, img, price, current, color,id);
+            
+            response.sendRedirect("manage?typepage=addtainguyen");
+        }
     }
 
     /**
