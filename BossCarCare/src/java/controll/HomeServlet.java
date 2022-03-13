@@ -79,27 +79,39 @@ public class HomeServlet extends HttpServlet {
             CarDAO dao = new CarDAO();
             ArrayList<Message> MessageYouReceive = dao.getAllMessageofUser(String.valueOf(acc.getId()), "45");     /// list message
             ArrayList<Message> MessageYouSend = dao.getAllMessageofUser("45", String.valueOf(acc.getId()));
-            request.setAttribute("MYR", MessageYouReceive);
-            request.setAttribute("MYS", MessageYouSend);
-
+            if(!MessageYouReceive.isEmpty() && MessageYouSend.isEmpty()){
+                request.setAttribute("MYR", MessageYouReceive);
+                request.setAttribute("MYS", null);
+            }
+            if(MessageYouReceive.isEmpty() && !MessageYouSend.isEmpty()){
+                request.setAttribute("MYR", null);
+                request.setAttribute("MYS", MessageYouSend);
+                request.setAttribute("to", MessageYouSend.get(0).getTo());
+            }
+            if(!MessageYouReceive.isEmpty() && !MessageYouSend.isEmpty()){
+                request.setAttribute("MYR", MessageYouReceive);
+                request.setAttribute("MYS", MessageYouSend);
+                request.setAttribute("to", MessageYouSend.get(0).getTo());
+            }
+            if(MessageYouReceive.isEmpty() && MessageYouSend.isEmpty()){
+                request.setAttribute("MYR", null);
+                request.setAttribute("MYS", null);
+            }
+//            response.getWriter().print(MessageYouSend );
             request.setAttribute("nav_user", "display: block");  // hiển thị nav user
             request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
 
             request.setAttribute("email_user", email);
+            
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
         if (email.equals("Admin")) {
-            String Customerid = request.getParameter("Customerid");
-            if (Customerid.equals("")) {
-                request.setAttribute("messageAdmin", "block");
+            CarDAO dao = new CarDAO();
+                ArrayList<Message> Message1M = dao.getAllMessageofUser1M();  // get list customer message send 
+                request.setAttribute("Message1M", Message1M);
+
                 request.setAttribute("messageadmin", "none");
-            } else {
-                CarDAO dao = new CarDAO();
-                ArrayList<Message> MessageYouSend = dao.getAllMessageofUser(Customerid, "45");     /// list message
-                ArrayList<Message>  MessageYouReceive = dao.getAllMessageofUser("45", Customerid);
-                request.setAttribute("MYR", MessageYouReceive);
-                request.setAttribute("MYS", MessageYouSend);
-            }
+
             request.setAttribute("manage", "display: block");
             request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
 
@@ -134,7 +146,8 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        
     }
 
     /**

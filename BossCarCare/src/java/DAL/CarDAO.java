@@ -26,11 +26,11 @@ import model.Message;
  * @author Administrator
  */
 public class CarDAO extends BaseDAO<Car> {
-   
-    public  void addMessage(String fromid,String toid,String content) {
+
+    public void addMessage(String fromid, String toid, String content) {
         try {
-            String sql ="insert into [Messages] (fromid,toid,content) values\n" +
-                    "(?,?,?)";
+            String sql = "insert into [Messages] (fromid,toid,content) values\n"
+                    + "(?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, fromid);
             statement.setString(2, toid);
@@ -40,7 +40,35 @@ public class CarDAO extends BaseDAO<Car> {
             Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public ArrayList<Message> getAllMessageofUser(String toid,String fromid) {
+
+    public ArrayList<Message> getAllMessageofUser1M() {
+        ArrayList<Message> list = new ArrayList<>();
+        try {
+            String sql = "select AllMessUser.id, AllMessUser.content,AllMessUser.usersend,AllMessUser.[time],AllMessUser.toid,AllMessUser.isread  from\n"
+                    + "(select m.fromid, max([time]) as maxTime  from [Messages] m inner join Account acc on acc.id = m.fromid where toid = 45 group by m.fromid) as MessLastOfUser\n"
+                    + "INNER JOIN\n"
+                    + "(select m.id,acc.name as usersend,toid,[time],content,isread from [Messages] m inner join Account acc on acc.id = m.fromid where toid = 45) as AllMessUser \n"
+                    + "on AllMessUser.[time] = MessLastOfUser.maxTime where usersend != 'Admin'";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Message s = new Message();
+                s.setId(rs.getString("id"));
+                s.setFrom(rs.getString("usersend"));
+                s.setTo(rs.getString("toid"));
+                s.setContent(rs.getString("content"));
+                s.setTime(rs.getString("time"));
+                s.setIsread(rs.getString("isread"));
+                list.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CarDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public ArrayList<Message> getAllMessageofUser(String toid, String fromid) {
         ArrayList<Message> list = new ArrayList<>();
         try {
             String sql = "select m.id,acc.name as usersend,toid,[time],content,isread from [Messages] m inner join Account acc on acc.id = m.fromid where toid = ? and fromid = ?";
@@ -63,6 +91,7 @@ public class CarDAO extends BaseDAO<Car> {
         }
         return list;
     }
+
     @Override
     public ArrayList<Car> getAll() {
         ArrayList<Car> list = new ArrayList<>();
@@ -89,8 +118,7 @@ public class CarDAO extends BaseDAO<Car> {
         }
         return list;
     }
-    
-    
+
     public ArrayList<CategoryCar> getAllCat() {
         ArrayList<CategoryCar> list = new ArrayList<>();
         try {
@@ -100,7 +128,7 @@ public class CarDAO extends BaseDAO<Car> {
             while (rs.next()) {
                 CategoryCar s = new CategoryCar();
                 s.setId(rs.getString("id"));
-                s.setName(rs.getString("name"));               
+                s.setName(rs.getString("name"));
                 list.add(s);
             }
         } catch (SQLException ex) {
@@ -352,7 +380,7 @@ public class CarDAO extends BaseDAO<Car> {
 
     public int getTotalNumberRow(String table) {
         try {
-            String sql = "select COUNT(*)as maxrownum from "+table;
+            String sql = "select COUNT(*)as maxrownum from " + table;
             PreparedStatement statement = connection.prepareStatement(sql);
 
             ResultSet rs = statement.executeQuery();
@@ -563,7 +591,7 @@ public class CarDAO extends BaseDAO<Car> {
             statement.setString(4, price);
             statement.setString(5, current);
             statement.setString(6, color);
-           
+
             statement.setString(7, id);
 
             statement.executeUpdate();
@@ -603,7 +631,5 @@ public class CarDAO extends BaseDAO<Car> {
         }
         return null;
     }
-    
-    
-    
+
 }

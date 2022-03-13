@@ -8,6 +8,7 @@ package controll;
 import DAL.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
+import model.Car;
+import model.Message;
 
 /**
  *
@@ -40,7 +43,7 @@ public class MessageServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MessageServlet</title>");            
+            out.println("<title>Servlet MessageServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet MessageServlet at " + request.getContextPath() + "</h1>");
@@ -61,7 +64,56 @@ public class MessageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+
+        CarDAO dao = new CarDAO();
+        HttpSession session = request.getSession();
+        Object objAcc = session.getAttribute("user");
+        if (objAcc != null) {
+            Account acc = (Account) objAcc;
+            if (acc.getName().equals("Admin")) {
+                String fromid = request.getParameter("fromid");
+                if (!fromid.equals("")) {
+                    Account accCustomer = dao.getAcc(fromid);
+                    String Customerid = String.valueOf(accCustomer.getId());
+                    ArrayList<Car> list = dao.getAll();
+                    request.setAttribute("listcar", list); // get list car
+
+                    
+                    request.setAttribute("usersend", fromid);
+                    request.setAttribute("to", Customerid);
+//                    response.getWriter().print(Customerid);
+                    ArrayList<Message> MessageYouSend = dao.getAllMessageofUser(Customerid, "45");     /// list message
+                    ArrayList<Message> MessageYouReceive = dao.getAllMessageofUser("45", Customerid);
+
+                    if (!MessageYouReceive.isEmpty() && MessageYouSend.isEmpty()) {
+                        request.setAttribute("MYR", MessageYouReceive);
+                        request.setAttribute("MYS", null);
+                    }
+                    if (MessageYouReceive.isEmpty() && !MessageYouSend.isEmpty()) {
+                        request.setAttribute("MYR", null);
+                        request.setAttribute("MYS", MessageYouSend);
+                    }
+                    if (!MessageYouReceive.isEmpty() && !MessageYouSend.isEmpty()) {
+                        request.setAttribute("MYR", MessageYouReceive);
+                        request.setAttribute("MYS", MessageYouSend);
+                        request.setAttribute("messageAdmin", "none");
+                    }
+                    if (MessageYouReceive.isEmpty() && MessageYouSend.isEmpty()) {
+                        request.setAttribute("MYR", null);
+                        request.setAttribute("MYS", null);
+                    }
+
+                    request.setAttribute("manage", "display: block");
+                    request.setAttribute("nav_btn_taikhoan", "display: none");  // ẩn btn thue xe 
+
+                    request.setAttribute("email_user", "Admin");
+                    request.getRequestDispatcher("home.jsp").forward(request, response);
+                }
+            } else {
+                response.sendRedirect("EmptyPage.html");
+            }
+        }
     }
 
     /**
@@ -77,14 +129,16 @@ public class MessageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String content = request.getParameter("contentsend");
+        String to = request.getParameter("to");
         HttpSession session = request.getSession();
         Object objacc = session.getAttribute("user");
-        if(objacc != null){
+//        response.getWriter().print(to);
+        if (objacc != null) {
             Account acc = (Account) objacc;
             CarDAO dao = new CarDAO();
-            dao.addMessage(String.valueOf(acc.getId()),"45", content);
+            dao.addMessage(String.valueOf(acc.getId()), to, content);
             response.sendRedirect("home");
-        }else{
+        } else {
             response.sendRedirect("login.jsp");
         }
     }
@@ -99,14 +153,4 @@ public class MessageServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

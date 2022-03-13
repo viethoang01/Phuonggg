@@ -36,39 +36,47 @@ public class Test {
             MYRid = Integer.parseInt(MYR.get(MYRidx).getId());
             MYSid = Integer.parseInt(MYS.get(MYSidx).getId());
 
-         if (MYRid > MYSid) {
-//                if (MYRidOLD == MYRid && MYSidOLD == MYSid) {
-//                    System.out.println(MYR.get(MYRidx).getContent());
-//                    System.out.println(MYRid + "R");
-//                } else {
+            if (MYRid > MYSid) {
+                if (MYRidOLD == MYRid && MYSidOLD == MYSid && MYSidx == MYS.size()-1) {
+                    for (int j = 0; j <= MYR.size(); j++) {
+                        if(MYRidx == MYR.size()) break;
+                        System.out.println(MYR.get(MYRidx++).getContent());
+                        
+                    }
+                    break;
+                } else {
                     System.out.println(MYS.get(MYSidx).getContent());
-                    System.out.println(MYSid + "s");
-                    System.out.println(MYRid + ">" + MYSid);
+                    
                     MYRidOLD = MYRid;
                     MYSidOLD = MYSid;
-                    if (MYSidx + 1 < MYS.size()) {
+                    if (MYSidx + 1 != MYS.size()) {
                         MYSidx++;
                     }
-//                }
+                }
             } else {
-//                if (MYRidOLD == MYRid && MYSidOLD == MYSid) {
-//                    System.out.println(MYS.get(MYSidx).getContent());
-//                    System.out.println(MYRid + "R");
-//                } else {
+                if (MYRidOLD == MYRid && MYSidOLD == MYSid && MYRidx == MYR.size()-1) {
+                    for (int j = 0; j <= MYS.size(); j++) {
+                        if(MYSidx == MYS.size()) break;
+                        System.out.println(MYS.get(MYSidx++).getContent());
+                        
+
+                    }
+                    break;
+                } else {
                     System.out.println(MYR.get(MYRidx).getContent());
-                    System.out.println(MYRid + "R");
-                    System.out.println(MYRid + "<" + MYSid);
+                   
                     MYRidOLD = MYRid;
                     MYSidOLD = MYSid;
-                    if (MYRidx + 1 < MYR.size()) {
+                    if (MYRidx + 1 != MYR.size()) {
                         MYRidx++;
 
                     }
-//                }
+                }
 
             }
 
         }
 
     }
+
 }
