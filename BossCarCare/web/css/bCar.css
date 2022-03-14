@@ -6,6 +6,7 @@ body{
 }
 .glyphicon-chevron-down ,.glyphicon-chevron-up{
     cursor:pointer;
+    color: #0c7857;
 }
 
 .message, .messageAdmin ,.message2{
@@ -22,12 +23,17 @@ body{
     transition: ease-in 0.3s;
     
 }
-.message2{   
-    height: 0;   
+.message2, .message3{ 
+    width: 40px;
+    height: 0;  
+    text-align: center;
+    color: #0c7857;
+    font-size: 20px;
 }
 .messageAdmin{
     overflow: auto;
     padding: 5px;
+   
 }
 .messageAdmin .messcustomer{
     margin-bottom: 25px;
@@ -56,28 +62,39 @@ body{
     width: 330px;
     height: 300px;
     overflow: auto;
-   
+    
+}
+
+.divMYS{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.MYS_EMP{
+    width: 2%;
 }
 .message .content_message .MYS{
-    
+   
     padding: 7px 5px 1px 5px;
     border-radius: 10px;
     background-color: #04bd7c;
+    margin-bottom: 20px; 
     color: white;
-    margin-bottom: 20px;
     width: fit-content;
-block-size: fit-content
- 
+    max-width: 77%; 
+    text-align: left;
 }
+
 .message .content_message .MYR{
-    
+    margin-left: 2%;
     padding: 7px 5px 1px 5px;
     border-radius: 10px;
     background-color: #c0c4c1;
     color: black;
     margin-bottom: 20px; 
+    max-width: 77%; 
+    text-align: left;
     width: fit-content;
-block-size: fit-content;
+    
 
 
 }
@@ -92,8 +109,20 @@ block-size: fit-content;
     z-index: 2;
     position: fixed;
     bottom: 0;
-    
+    transition: ease-in 0.3s;
 }
+.message .menu_message input{
+    border: none;
+    width: 76%;
+}
+.messageAdmin .row .col-md-10{
+   color: #0c7857;
+}
+.messageAdmin .row .col-md-2{
+   font-size: 20px;
+   margin-top: 10px;
+}
+
 .circle {
   width: 30px;
   height: 30px;

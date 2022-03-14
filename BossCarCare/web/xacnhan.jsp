@@ -18,9 +18,11 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <style>
-        
+        form{
+            text-align: center;
+        }
         tr th,tr td{
-            padding: 2px 15px;
+            padding: 2px 10px;
             text-align: center;
             font-size: 18px;
         }
@@ -62,7 +64,7 @@
 
 
 
-        <div class="container">
+        <div class="container1">
             <form action="xacnhan" method="post">
                 <h2>Thông tin hóa đơn thuê xe</h2>
                 <table border="1">

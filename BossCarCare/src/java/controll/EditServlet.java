@@ -43,6 +43,7 @@ public class EditServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String type = request.getParameter("type");
+        String page = request.getParameter("page");
         CarDAO dao = new CarDAO();
         if (type.equals("thuexebill")) {
             String thuexeid = request.getParameter("thuexeid");
@@ -59,7 +60,7 @@ public class EditServlet extends HttpServlet {
                 }
             }
 //        id,accId,carId,carname,thoiluong,donvi,nameCustomer,CMND,email,phone,code_inv,daybill,startday,endday,price,total
-
+            request.setAttribute("page", page);
             request.setAttribute("thuexeid", billedit.getId());
             request.setAttribute("carid", billedit.getCarId());
             request.setAttribute("carname", billedit.getCarname());
@@ -81,6 +82,7 @@ public class EditServlet extends HttpServlet {
         }
         if (type.equals("dichvubill")) {
             String dichvuid = request.getParameter("dichvuid");
+            request.setAttribute("page", page);
             BookingBill bookingbill = null;
             ArrayList<BookingBill> listbill = dao.getAllBookingBill();
             for (BookingBill bookingBill : listbill) {
@@ -129,7 +131,7 @@ public class EditServlet extends HttpServlet {
             request.setAttribute("type", type);
             request.getRequestDispatcher("edittainguyen.jsp").forward(request, response);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -160,10 +162,12 @@ public class EditServlet extends HttpServlet {
             throws ServletException, IOException {
         CarDAO dao = new CarDAO();
         String type = request.getParameter("type");
-        if (type.equals("thuexe")) {
+        if (type.equals("thuexebill")) {
+//            response.getWriter().print("zo");
+            String page = (String) request.getParameter("page");
             String carid = (String) request.getParameter("carid");
             String accid = (String) request.getParameter("accid");
-            String carname = (String) request.getParameter("carname");
+
             String thoiluong = (String) request.getParameter("thoiluong");
             String donvi = (String) request.getParameter("donvi");
             String nameCustomer = (String) request.getParameter("nameCustomer");
@@ -176,24 +180,55 @@ public class EditServlet extends HttpServlet {
             String endday = (String) request.getParameter("endday");
             String total = (String) request.getParameter("total");
             String id = (String) request.getParameter("thuexeid");
+//            response.getWriter().print(id+""+CMND+""+accid+""+carid+""+code_inv+""+daybill+""+donvi+""+email+""+endday+""+nameCustomer+""+phone+""+startday+""+thoiluong+""+total);
 
-            
-            dao.editThuexe(id, accid, carid, carname, thoiluong, donvi, nameCustomer, CMND, email, phone, code_inv, daybill, startday, endday, total);
-            response.sendRedirect("manage");
+            dao.editThuexe(id, accid, carid, thoiluong, donvi, nameCustomer, CMND, email, phone, code_inv, daybill, startday, endday, total);
+            response.sendRedirect("manage?page="+page+"&typepage=0");
         }
-        if(type.equals("tainguyen")){
+        if (type.equals("dichvubill")) {
+            String page = (String) request.getParameter("page");
+            String id = request.getParameter("dichvuid");
+            String namecustomer = request.getParameter("namecustomer");
+            String phone = request.getParameter("phone");
+            String email = request.getParameter("email");
+            String mauxe = request.getParameter("mauxe");
+            String km = request.getParameter("km");
+            String bienso = request.getParameter("bienso");
+            String baoduong = request.getParameter("baoduong");
+            String suachuachung = request.getParameter("suachuachung");
+            String dongson = request.getParameter("dongson");
+            String suachuakhac = request.getParameter("suachuakhac");
+            String ngay = request.getParameter("ngay");
+            String gio = request.getParameter("gio");
+            String dichvu = "";
+            if (baoduong != null) {
+                dichvu += baoduong + ",";
+            }
+            if (suachuakhac != null) {
+                dichvu += suachuakhac + ",";
+            }
+            if (suachuachung != null) {
+                dichvu += suachuachung + ",";
+            }
+            if (dongson != null) {
+                dichvu += dongson + "";
+            }
+            dao.editDichvu(id, namecustomer, email, phone, mauxe, km, bienso, dichvu, ngay, gio);
+            response.sendRedirect("manage?page="+page+"&typepage=1");
+        }
+        if (type.equals("tainguyen")) {
             String id = request.getParameter("id");
-            String img =request.getParameter("img");
-            String name =request.getParameter("name");
-            String info =request.getParameter("info");
-            String price =request.getParameter("price");
-            String current =request.getParameter("current")!= null ? "1":"0";
-            String color =request.getParameter("color");
-            
+            String img = request.getParameter("img");
+            String name = request.getParameter("name");
+            String info = request.getParameter("info");
+            String price = request.getParameter("price");
+            String current = request.getParameter("current") != null ? "1" : "0";
+            String color = request.getParameter("color");
+
             dao.UpdateCar(id, name, info, img, price, current, color);
-            response.sendRedirect("manage?type=tainguyen");
+            response.sendRedirect("manage?typepage=tainguyen");
         }
-        
+
     }
 
     /**

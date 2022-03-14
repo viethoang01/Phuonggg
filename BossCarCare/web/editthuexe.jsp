@@ -14,6 +14,7 @@
     <body>
         <form action="edit" method="post">
             <table>
+                <td><input name="page" type="text" value="${page}" hidden=""></td>
                 <tr>
                     <td>Hóa đơn id:</td>
                     <td><input name="thuexeid" type="text" value="${thuexeid}" readonly></td>
@@ -73,7 +74,7 @@
                 </tr>
                 
             </table>
-                <button>Xác nhận</button>
+                <button type="submit" name="type" value="thuexebill">Xác nhận</button>
         </form>
     </body>
 </html>

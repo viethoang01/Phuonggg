@@ -14,6 +14,9 @@
     <body>
         <form action="edit" method="post">
             <table>
+                
+                <td><input name="page" type="text" value="${page}" hidden=""></td>
+                
                 <tr>
                     <td>Hóa đơn id:</td>
                     <td><input name="dichvuid" type="text" value="${dichvuid}" readonly></td>
@@ -53,7 +56,7 @@
                 </tr>
                 <tr>
                     <td>Ngày đặt lịch</td>
-                    <td><input name="daybill" type="date" value="${daybill}"></td>
+                    <td><input name="daybill" type="date" value="${daybill}" readonly></td>
                 </tr>
                 <tr>
                     <td>Ngày sử dụng dịch vụ:</td>
@@ -67,7 +70,7 @@
                 
 
             </table>
-            <button>Xác nhận</button>
+                <button type="submit" name="type" value="dichvubill">Xác nhận</button>
         </form>
     </body>
 </html>

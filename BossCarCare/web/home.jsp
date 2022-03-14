@@ -68,43 +68,6 @@
 
         </nav>
 
-
-        <!--edit-->
-        <!--
-        <div class="content_menu " id="dichvu_content">
-            <ul >
-                <li class="col-md-4"><a href="#">Rửa xe</a></li>
-                <li class="col-md-4"><a href="#">Bảo Dưỡng</a></li>
-                <li class="col-md-4"><a href="#">Sửa chữa</a></li>
-                <img src="images/carcare7.png" alt="">
-            </ul>
-        </div>
-        <div class="content_menu banggia_content">
-            <ul >
-                <li class="col-md-4"><a href="#">Bảng giá rửa xe</a></li>
-                <li class="col-md-4"><a href="#">Bảng giá bảo Dưỡng</a></li>
-                <li class="col-md-4"><a href="#">Bảng giá sửa chữa</a></li>
-                <img src="images/carcare8.png" alt="">
-            </ul>
-        </div>
-        <div class="content_menu congcu_content">
-            <ul>
-                <li class="col-md-4"><a href="#">Đặt lịch trước</a></li>
-                <li class="col-md-4"><a href="#">Trả góp</a></li>
-                <li class="col-md-4"><a href="#">So sánh phụ tùng</a></li>
-                <img src="images/carcare3.png" alt="">
-            </ul>
-        </div>
-        <div class="content_menu " id="tintuc_content">
-            <ul>
-                <li class="col-md-4"><a href="#">Chương trình khuyến mãi</a></li>
-                <li class="col-md-4"><a href="#">Tin tức</a></li>
-                <li class="col-md-4"><a href="#">Cải tiến</a></li>
-                <img src="images/carcare6.png" alt="">
-            </ul>
-        </div>
-        -->
-        <!--Nội dung Slider-->
         <div class="row" >
             <div class="col-md-12">
                 <!--Bắt đầu slider-->
@@ -317,22 +280,22 @@
         <!--Chat-->
         <%ArrayList<Message> MYR = (ArrayList<Message>) request.getAttribute("MYR");%>
         <%ArrayList<Message> MYS = (ArrayList<Message>) request.getAttribute("MYS");%>
-         
-         <p style="font-size: 50px;color: red">${to}</p>
+
+
         <div id="mess2" class="message2">
             <span onclick="showMessage()" class="glyphicon glyphicon-chevron-up"></span>           
         </div>
         <div id="mess" class="message" style="display: ${admin};display: block">
             <div class="header_message row">
                 <div class="col-md-10">
-                    
-                    <%if(MYR != null && MYR.get(0).getTo().equals("45")){%>
-                    
-                    <h4><b>${usersend}</b></h4>
-                    <a href="home"><img src="images/logoBossCarCare2.png" width="30%"> </a>
-                    <%}else{%>
+
+                    <%if (MYR != null && MYR.get(0).getTo().equals("45")) {%>
+
+
+                    <a href="home"><h4><b>${usersend}</b></h4></a>
+                                <%} else {%>
                     <img src="images/logoBossCarCare2.png" width="30%">
-                    <h4><b>Hỗ trợ khách hàng</b></h4>  <!-- default and user -->
+                    <h4><b>Hỗ trợ trực tuyến</b></h4>  <!-- default and user -->
                     <%}%>
                 </div>
                 <div class="col-md-2" >
@@ -340,146 +303,163 @@
                 </div>
             </div>
             <div class="content_message" style="display: block;display: ${messageadmin}">
-                
+
                 <img src="images/logoBossCarCare2.png" width="70%">
                 <h6>Trao cơ hội tạo - Tạo niềm tin</h6>
-                
-                <%if(MYR != null && MYS != null){%><!--1-->
-                
+
+                <%if (MYR != null && MYS != null) {%><!--1-->
+
                 <%int MYRidx = 0, MYSidx = 0, MYRid = 0, MYSid = 0, MYRidOLD = 0, MYSidOLD = 0;%>
-                    <%for (int idx = 0; idx < MYS.size()+MYR.size(); idx++) {%><!--2-->
-                    <% MYRid = Integer.parseInt(MYR.get(MYRidx).getId());%>
-                    <% MYSid = Integer.parseInt(MYS.get(MYSidx).getId());%>
-                    <%if(MYRid > MYSid){%><!--3-->
-                    <%if (MYRidOLD == MYRid && MYSidOLD == MYSid && MYSidx == MYS.size()-1){%>
-                        <%for (int j = 0; j <= MYR.size(); j++) {%>
-                        <%if(MYRidx == MYR.size()) break;%>
-                        <div class="MYR"><p><%=MYR.get(MYRidx++).getContent()%></p></div>
+                <%for (int idx = 0; idx < MYS.size() + MYR.size(); idx++) {%><!--2-->
+                <% MYRid = Integer.parseInt(MYR.get(MYRidx).getId());%>
+                <% MYSid = Integer.parseInt(MYS.get(MYSidx).getId());%>
+                <%if (MYRid > MYSid) {%><!--3-->
+                <%if (MYRidOLD == MYRid && MYSidOLD == MYSid && MYSidx == MYS.size() - 1) {%>
+                <%for (int j = 0; j <= MYR.size(); j++) {%>
+                <%if (MYRidx == MYR.size()) {
+                                break;
+                            }%>
+                <div class="MYR"><p><%=MYR.get(MYRidx++).getContent()%></p></div>
                         <%}%>
-                        
-                    <%break;}else{%>
-                    
-                        <div class="MYS"><p><%=MYS.get(MYSidx).getContent()%></p></div>
-                    
-                    <%  MYRidOLD = MYRid;
-                        MYSidOLD = MYSid;
-                    %>
-                    
-                    <%if (MYSidx + 1 != MYS.size()) {
-                        MYSidx++;
-                    }%>
-                    <%}%>
-                    
-                    <%}%><!--3-->
-                    
-                    <%if(MYRid < MYSid){%><!--4-->
-                    
-                    <%if (MYRidOLD == MYRid && MYSidOLD == MYSid && MYRidx == MYR.size()-1){%>  
-                    <%for (int j = 0; j <= MYS.size(); j++) {%>
-                    <%if(MYSidx == MYS.size()) break;%>
-                    <div class="MYS"><p><%=MYS.get(MYSidx++).getContent()%></p></div>   
-                    <% }%>
-                    
-                    <%break;}else{%>
-                   
-                    <div class="MYR"><p><%=MYR.get(MYRidx).getContent()%></p></div>
-                    
-                    <%MYRidOLD = MYRid;
-                    MYSidOLD = MYSid;%>
-                    <%if (MYRidx + 1 != MYR.size()) {
-                        MYRidx++;
-                    }%>
-                    <%}%>
-                    
-                    <%}%><!--4-->
-                    
+
+                <%break;
+                    } else {%>
+
+                <div class="divMYS">
+                    <div class="MYS_EMP"></div>
+                    <div class="MYS"><p><%=MYS.get(MYSidx).getContent()%></p></div></div>
+
+                <%  MYRidOLD = MYRid;
+                    MYSidOLD = MYSid;
+                %>
+
+                <%if (MYSidx + 1 != MYS.size()) {
+                            MYSidx++;
+                        }%>
+                <%}%>
+
+                <%}%><!--3-->
+
+                <%if (MYRid < MYSid) {%><!--4-->
+
+                <%if (MYRidOLD == MYRid && MYSidOLD == MYSid && MYRidx == MYR.size() - 1) {%>  
+                <%for (int j = 0; j <= MYS.size(); j++) {%>
+                <%if (MYSidx == MYS.size()) {
+                            break;
+                        }%>
+                <div class="divMYS">
+
+                    <div class="MYS"><p><%=MYS.get(MYSidx++).getContent()%></p></div> </div>  
+                            <% }%>
+
+                <%break;
+                    } else {%>
+
+                <div class="MYR"><p><%=MYR.get(MYRidx).getContent()%></p></div>
+
+                <%MYRidOLD = MYRid;
+                        MYSidOLD = MYSid;%>
+                <%if (MYRidx + 1 != MYR.size()) {
+                            MYRidx++;
+                        }%>
+                <%}%>
+
+                <%}%><!--4-->
+
                 <%}%><!--2-->
                 <%}%><!--1-->
-                <%if(MYS != null && MYR == null){%>         <!--trường hợp có mỗi table người dùng gửi tồn tại -->
-                
-                <%for (Message mess : MYS) { %>
-                    <div class="MYS"><p><%=mess.getContent()%></p></div>     
-                <%}%>
-                <%}%>    
-                    
-                    
-                    <%if(MYS == null && MYR != null){%>         <!--trường hợp có mỗi table Admin gửi tồn tại -->
-                <%for (Message mess : MYR) { %>
-                    <div class="MYR"><p><%=mess.getContent()%></p></div>     
-                <%}%>
-                <%}%>
-                    
+                <%if (MYS != null && MYR == null) {%>         <!--trường hợp có mỗi table người dùng gửi tồn tại -->
+
+                <%for (Message mess : MYS) {%>
+                <div class="MYS"><p><%=mess.getContent()%></p></div>     
+                        <%}%>
+                        <%}%>    
+
+
+                <%if (MYS == null && MYR != null) {%>         <!--trường hợp có mỗi table Admin gửi tồn tại -->
+                <%for (Message mess : MYR) {%>
+                <div class="MYR"><p><%=mess.getContent()%></p></div>     
+                        <%}%>
+                        <%}%>
+
             </div>
             <div id="menumess" class="menu_message">
                 <form action="message" method="post">
                     <input name="contentsend" type="text" placeholder="Viết gì đó...">
-                    
-                    
+
+
                     <button name="to" type="submit" value="${to}">Send</button>
                 </form>
             </div>
         </div>
         <!--chat end-->
-        <%ArrayList<Message> Message1M = (ArrayList<Message>) request.getAttribute("Message1M");%>
-        <%if(Message1M != null){%>
-        
+        <%ArrayList<Message> Message1M = (ArrayList<Message>) request.getAttribute("Message1M");%> <!--Admin only-->
+        <%if (Message1M != null) {%>
+        <div id="mess3" class="message3">
+            <span onclick="showMessage2()" class="glyphicon glyphicon-chevron-up"></span>           
+        </div>
         <div class="messageAdmin" style="display: ${messageAdmin}">
-            <h2>Message</h2>
-            <%for (Message mess : Message1M) {%>
-            
-            <div class="messcustomer" onclick="checkInbox(<%=mess.getFrom()%>)">
+            <div class="row">
+                <h2 class="col-md-10">Message</h2>
+            <div class="col-md-2" >
+                    <span onclick="hideMessage()" class="glyphicon glyphicon-chevron-down"></span>
+            </div>
+            </div>
+            <%for (int idx = Message1M.size()-1; idx >= 0 ; idx--) {%>
+
+            <div class="messcustomer" onclick="checkInbox(<%=Message1M.get(idx).getFrom()%>)">
                 <div>
-                    <h4><%=mess.getFrom()%></h4>
+                    <h4><%=Message1M.get(idx).getFrom()%></h4>
                 </div>
                 <div>
-                    <a href="message?fromid=<%=mess.getFrom()%>"><b><%=mess.getContent()%></b></a><p style="font-size: 8px;color: grey"><%=mess.getTime()%></p>
+                    <a href="message?fromid=<%=Message1M.get(idx).getFrom()%>"><b><%=Message1M.get(idx).getContent()%></b></a><p style="font-size: 8px;color: grey"><%=Message1M.get(idx).getTime()%></p>
                 </div>
             </div>
-            
+
             <%}%>
-        
-        
+
+
         </div>
-        
+
         <%}%>
         <script>
-                var slideIndex = [1, 1];
-                var slideId = ["mySlides1", "mySlides2"]
-                showSlides(1, 0);
-                showSlides(1, 1);
+            var slideIndex = [1, 1];
+            var slideId = ["mySlides1", "mySlides2"]
+            showSlides(1, 0);
+            showSlides(1, 1);
 
-                function plusSlides(n, no) {
-                    showSlides(slideIndex[no] += n, no);
+            function plusSlides(n, no) {
+                showSlides(slideIndex[no] += n, no);
+            }
+
+            function showSlides(n, no) {
+                var i;
+                var x = document.getElementsByClassName(slideId[no]);
+                if (n > x.length) {
+                    slideIndex[no] = 1
                 }
-
-                function showSlides(n, no) {
-                    var i;
-                    var x = document.getElementsByClassName(slideId[no]);
-                    if (n > x.length) {
-                        slideIndex[no] = 1
-                    }
-                    if (n < 1) {
-                        slideIndex[no] = x.length
-                    }
-                    for (i = 0; i < x.length; i++) {
-                        x[i].style.display = "none";
-                    }
-                    x[slideIndex[no] - 1].style.display = "block";
+                if (n < 1) {
+                    slideIndex[no] = x.length
                 }
-                function hideMessage(){
-    document.getElementById('mess').style.height = 0;
-    document.getElementById('menumess').style.display = 'none';
-    document.getElementById('mess2').style.height = '25px';
-}
-function showMessage(){
-    document.getElementById('menumess').style.display = 'block';
-    document.getElementById('mess').style.height = '400px';
-    document.getElementById('mess2').style.height = 0;
-}
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                x[slideIndex[no] - 1].style.display = "block";
+            }
+            function hideMessage() {
+                document.getElementById('mess').style.height = 0;
+                document.getElementById('menumess').style.display = 'none';
+                document.getElementById('mess2').style.height = '25px';
+            }
+            function showMessage() {
+                document.getElementById('menumess').style.display = 'block';
+                document.getElementById('mess').style.height = '400px';
+                document.getElementById('mess2').style.height = 0;
+            }
 
-function checkInbox(id){
-    window.location.href = 'message?fromid=' + id;
-}
+            function checkInbox(id) {
+                window.location.href = 'message?fromid=' + id;
+            }
         </script>
     </body>
 </html>

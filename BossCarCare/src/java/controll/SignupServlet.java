@@ -83,16 +83,7 @@ public class SignupServlet extends HttpServlet {
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
         ArrayList<Account> list = dao.ListAcc();
-        boolean valiableEmail = false;
-        for (Account account : list) {
-            if(account.getName().equals(email)){
-                valiableEmail = true;
-            }
-        }
-        if(valiableEmail){
-            request.setAttribute("email_err_block", "block");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
-        }
+        
         if(pass.length() < 8){
             request.setAttribute("pass_err", "block");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
@@ -124,10 +115,20 @@ public class SignupServlet extends HttpServlet {
             request.setAttribute("repass_err", "block");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
+        boolean valiableEmail = false;
+        for (Account account : list) {
+            if(account.getName().equals(email)){
+                valiableEmail = true;
+            }
+        }
+        if(valiableEmail){
+            request.setAttribute("email_err_block", "block");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
         dao.SignupAcc(email, pass);
         
         
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        response.sendRedirect("login.jsp");
     }
 
     /** 

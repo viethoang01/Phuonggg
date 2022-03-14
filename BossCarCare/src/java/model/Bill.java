@@ -15,7 +15,7 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(String id,String accId, String carId,String carname,String thoiluong, String donvi, String nameCustomer, String CMND, String email, String phone,String daybill, String code_inv, String startday, String endday, String price, String total) {
+    public Bill(String id,String accId, String carId,String carname,String thoiluong, String donvi, String nameCustomer, String CMND, String email, String phone, String code_inv,String daybill, String startday, String endday, String price, String total) {
         this.accId = accId;
         this.id = id;
         this.carId = carId;

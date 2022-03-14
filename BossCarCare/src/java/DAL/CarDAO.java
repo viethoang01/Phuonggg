@@ -510,7 +510,7 @@ public class CarDAO extends BaseDAO<Car> {
         }
     }
 
-    public void editThuexe(String id, String accId, String carId, String carname, String thoiluong, String donvi, String nameCustomer, String CMND, String email, String phone, String code_inv, String daybill, String startday, String endday, String total) {
+    public void editThuexe(String id, String accId, String carId, String thoiluong, String donvi, String nameCustomer, String CMND, String email, String phone, String code_inv, String daybill, String startday, String endday, String total) {
         try {
             String sql = "update CarRentalInvoice set carid = ?,Accid = ?,"
                     + "songaythue= ?,donvi = ?,namecustomer = ?,CMND = ?,phone = ?,"
@@ -537,25 +537,25 @@ public class CarDAO extends BaseDAO<Car> {
         }
     }
 
-    public void editDichvu(String id, String accId, String nameCustomer, String email, String phone, String carName, String km, String bienso, String dichvu, String ngaybooking, String ngay, String gio) {
+    public void editDichvu(String id, String nameCustomer, String email, String phone, String carName, String km, String bienso, String dichvu, String ngay, String gio) {
         try {
-            String sql = "UPDATE BookingInvoice set Accid = ?,namecustomer = ?,phone = ?,"
-                    + "email = ?,date_of_booking = ?,date_maintenance = ?,carname = ?,km = ?,"
+            String sql = "UPDATE BookingInvoice set namecustomer = ?,phone = ?,"
+                    + "email = ?,date_maintenance = ?,carname = ?,km = ?,"
                     + "bienso = ?,dichvu = ?,gio = ? where id = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, accId);
-            statement.setString(2, nameCustomer);
-            statement.setString(3, phone);
-            statement.setString(4, email);
-            statement.setString(5, ngaybooking);
-            statement.setString(6, ngay);
-            statement.setString(7, carName);
-            statement.setString(8, km);
-            statement.setString(9, bienso);
-            statement.setString(10, dichvu);
-            statement.setString(11, gio);
-            statement.setString(12, id);
+            
+            statement.setString(1, nameCustomer);
+            statement.setString(2, phone);
+            statement.setString(3, email);
+            
+            statement.setString(4, ngay);
+            statement.setString(5, carName);
+            statement.setString(6, km);
+            statement.setString(7, bienso);
+            statement.setString(8, dichvu);
+            statement.setString(9, gio);
+            statement.setString(10, id);
 
             statement.executeUpdate();
         } catch (Exception e) {

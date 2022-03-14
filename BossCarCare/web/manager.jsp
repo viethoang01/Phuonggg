@@ -296,7 +296,7 @@
                     <td><%=bill.getEmail()%></td>
                     <td><%=bill.getPhone()%></td>
                     <td><%=bill.getCode_inv()%></td>
-                    <td><%=bill.getAccId()%></td>
+                    <td><%=bill.getCarId()%></td>
                     <td><%=bill.getCarname()%></td>
                     <td><%=bill.getDaybill()%></td>
                     <td><%=bill.getStartday()%></td>
@@ -304,7 +304,7 @@
                     <td><%=bill.getThoiluong()%></td>
                     <td><%=bill.getPrice()%></td>
                     <td><%=bill.getTotal()%></td>
-                    <td><a href="edit?type=thuexebill&thuexeid=<%=bill.getId()%>">Edit</a></td>
+                    <td><a href="edit?page=<%=pageindex%>&type=thuexebill&thuexeid=<%=bill.getId()%>">Edit</a></td>
                     <%billid = bill.getId();%>
                     <td><a href="#" onclick="deleteBill(<%=bill.getId()%>)">Delete</a></td>
                 </tr>
@@ -354,7 +354,7 @@
                     <td><%=bill.getNgaybooking()%></td>
                     <td><%=bill.getNgay()%></td>
                     <td><%=bill.getGio()%></td>  
-                    <td><a href="edit?type=dichvubill&dichvuid=<%=bill.getId()%>">Edit</a></td>
+                    <td><a href="edit?page=<%=pageindex%>&type=dichvubill&dichvuid=<%=bill.getId()%>">Edit</a></td>
                     <td><a href="#" onclick="deleteBill2(<%=bill.getId()%>)">Delete</a></td>
                 </tr>
                 <%}%>

@@ -137,7 +137,18 @@ public class MessageServlet extends HttpServlet {
             Account acc = (Account) objacc;
             CarDAO dao = new CarDAO();
             dao.addMessage(String.valueOf(acc.getId()), to, content);
-            response.sendRedirect("home");
+            if(acc.getName().equals("Admin")){
+                ArrayList<Account> listacc = dao.ListAcc();
+            String emailCus = "";                              // return dung tin khach hang dang tro chuyen
+            for (Account account : listacc) {               
+                if(account.getId() == Integer.parseInt(to)){
+                    emailCus = account.getName();
+                }
+            }
+            response.sendRedirect("message?fromid="+emailCus);
+            }else{
+                response.sendRedirect("home");
+            }
         } else {
             response.sendRedirect("login.jsp");
         }

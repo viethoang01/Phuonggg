@@ -113,6 +113,7 @@ public class XacnhanServlet extends HttpServlet {
             dao.InsertRental
             (bill.getCarId(), bill.getAccId(), bill.getThoiluong(), bill.getDonvi(), bill.getNameCustomer(),bill.getCMND(), bill.getPhone(), bill.getEmail(), bill.getCode_inv(), bill.getStartday(), bill.getEndday(), bill.getTotal());
             session.removeAttribute("loginReturn");
+            session.removeAttribute("bill");
             response.sendRedirect("home");
         }else{
             request.getRequestDispatcher("EmptyPage.html").forward(request, response);

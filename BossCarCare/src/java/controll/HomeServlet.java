@@ -75,7 +75,7 @@ public class HomeServlet extends HttpServlet {
         }
 
         if (!email.equals("") && !email.equals("Admin")) {
-
+            request.setAttribute("to", "45");           // user gui toi 45-Admin 
             CarDAO dao = new CarDAO();
             ArrayList<Message> MessageYouReceive = dao.getAllMessageofUser(String.valueOf(acc.getId()), "45");     /// list message
             ArrayList<Message> MessageYouSend = dao.getAllMessageofUser("45", String.valueOf(acc.getId()));
@@ -86,12 +86,12 @@ public class HomeServlet extends HttpServlet {
             if(MessageYouReceive.isEmpty() && !MessageYouSend.isEmpty()){
                 request.setAttribute("MYR", null);
                 request.setAttribute("MYS", MessageYouSend);
-                request.setAttribute("to", MessageYouSend.get(0).getTo());
+                
             }
             if(!MessageYouReceive.isEmpty() && !MessageYouSend.isEmpty()){
                 request.setAttribute("MYR", MessageYouReceive);
                 request.setAttribute("MYS", MessageYouSend);
-                request.setAttribute("to", MessageYouSend.get(0).getTo());
+                
             }
             if(MessageYouReceive.isEmpty() && MessageYouSend.isEmpty()){
                 request.setAttribute("MYR", null);
