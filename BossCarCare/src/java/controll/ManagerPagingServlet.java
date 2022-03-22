@@ -162,7 +162,7 @@ public class ManagerPagingServlet extends HttpServlet {
         CarDAO dao = new CarDAO();
         if(type.equals("addtainguyen")){
             
-            String id = request.getParameter("id");
+            String id = request.getParameter("catid");
             String img =request.getParameter("img");
             String name =request.getParameter("name");
             String info =request.getParameter("info");

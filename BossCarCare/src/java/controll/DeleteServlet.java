@@ -65,13 +65,13 @@ public class DeleteServlet extends HttpServlet {
             String dichvuid = request.getParameter("dichvuid");
             response.getWriter().print(dichvuid);
             dao.delete("BookingInvoice", dichvuid);
-            response.sendRedirect("manage?typepage=dichvu");
+            response.sendRedirect("manage?typepage=1");
         }
         if (type.equals("thuexe")) {
             String thuexeid = request.getParameter("thuexeid");
             dao.delete("CarRentalInvoice", thuexeid);
             
-            response.sendRedirect("manage?typepage=thuexe");
+            response.sendRedirect("manage?typepage=0");
         }
         if (type.equals("tainguyen")) {
             String tainguyenid = request.getParameter("tainguyenid");
