@@ -1,0 +1,727 @@
+body{
+
+    width: 100%;height: auto;
+    font-family: 'Be Vietnam Pro'!important;
+    z-index: 0;
+}
+.glyphicon-chevron-down ,.glyphicon-chevron-up{
+    cursor:pointer;
+    color: #0c7857;
+}
+
+.message, .messageAdmin ,.message2{
+    width: 330px;
+    height: 400px;
+    background-color: white;
+    box-shadow: 0 0 5px #c4cacc;
+    border-top-left-radius : 15px;
+   border-top-right-radius : 15px;
+    z-index: 1;
+    position: fixed;
+    bottom: 0;
+    right: 5%;
+    transition: ease-in 0.3s;
+    
+}
+.message2, .message3{ 
+    width: 40px;
+    height: 0;  
+    text-align: center;
+    color: #0c7857;
+    font-size: 20px;
+}
+.messageAdmin{
+    overflow: auto;
+    padding: 5px;
+   
+}
+.messageAdmin .messcustomer{
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+.messageAdmin .messcustomer:hover{
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+.message .row{
+    border-bottom: 1px solid #c4cacc;
+    margin: 0;
+    padding: 10px 0;
+   
+}
+.message .row img{
+    float: left;
+    margin-right: 5px;
+}
+.message .row div:nth-child(2){
+   font-size: 20px;
+   color: #0c7857;
+}
+.message .content_message{
+    text-align: center;
+    width: 330px;
+    height: 300px;
+    overflow: auto;
+    
+}
+
+.divMYS{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.MYS_EMP{
+    width: 2%;
+}
+.message .content_message .MYS{
+   
+    padding: 7px 5px 1px 5px;
+    border-radius: 10px;
+    background-color: #04bd7c;
+    margin-bottom: 20px; 
+    color: white;
+    width: fit-content;
+    max-width: 77%; 
+    text-align: left;
+}
+
+.message .content_message .MYR{
+    margin-left: 2%;
+    padding: 7px 5px 1px 5px;
+    border-radius: 10px;
+    background-color: #c0c4c1;
+    color: black;
+    margin-bottom: 20px; 
+    max-width: 77%; 
+    text-align: left;
+    width: fit-content;
+    
+
+
+}
+
+
+.message .content_message h6{
+    margin-bottom: 50px;
+    margin-top: 10px;
+    color: gray;
+}
+.message .menu_message{
+    z-index: 2;
+    position: fixed;
+    bottom: 0;
+    transition: ease-in 0.3s;
+}
+.message .menu_message input{
+    border: none;
+    width: 76%;
+}
+.messageAdmin .row .col-md-10{
+   color: #0c7857;
+}
+.messageAdmin .row .col-md-2{
+   font-size: 20px;
+   margin-top: 10px;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  line-height: 500px;
+  border-radius: 50%;
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  background: darkblue;
+  float: right;
+  display: none;
+}
+*{font-family: muli,Mulish,source sans pro,sans-serif;}
+.circle h6{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+input{
+
+    outline: none;
+}
+
+h3{
+    text-transform: uppercase;
+}
+.class_btn{
+    margin-top: 10px;
+}
+#btn_spring{
+    background-color: blue;
+    letter-spacing: 2px;
+    color: white;
+    font-weight: bold;
+    padding: 15px 70px;
+    font-size: 12px;
+    transition: ease-in 0.3s;
+}
+#btn_spring:hover{
+    text-decoration: none;
+    box-shadow: inset 234px 0 0 white;
+    color: blue;
+}
+.row .col-md-3 a{
+    text-decoration: none;
+    font-size: 15px;
+    font-family: 'Be Vietnam Pro';
+}
+
+
+
+#btn_thuexe{
+    color: blue;
+    margin-top: 37px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid blue;
+    transition: ease 1s;
+    padding: 15px 120px;
+    margin-right: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+#btn_thuexe:hover{
+    background-color: blue;
+    color: white;
+}
+
+
+/*start nav*/
+.logo{
+    width: 70px;
+    margin-left:20px;
+}
+.nav_left .col-md-7,.nav_right{
+    padding: 5px 0;
+}
+.nav_left .col-md-7{
+    padding: 15px 0;
+}
+.col-md-3 a{
+    color: black;
+}
+col-md-3 a:hover{
+    color: red;
+    text-decoration: none;
+
+}
+
+/*end nav*/
+
+
+/*dropdown*/
+.dropdown-menu li a{
+    padding: 20px 2px;
+}
+.header_top {
+    position: sticky !important;
+    z-index: 1;
+    top: 0;
+    background-color: white;
+    padding: 10px;
+
+}
+.navbar{
+    margin-bottom: 0 !important;
+
+}
+
+/* end menu*/
+/*slide*/ 
+.col-md-12{
+    width:100% !important;
+}
+/*end slide*/
+.container {
+    text-align: center;
+    margin-top: 100px;
+}
+.container .header{
+    font-weight: bold;
+    margin: 150px 0;
+    display: inline-block;
+    padding :0 40px;
+    border-bottom: 1px solid rgb(141, 132, 132);
+    cursor: pointer;
+    color: gray;
+    font-family: 'Be Vietnam Pro';
+} 
+
+.container div{
+    font-size:18px;
+
+}
+.container div ul{
+    text-align: left;
+}
+.container #process{
+    color: #2C72C6;
+    border-bottom: 2px solid #2C72C6;
+} 
+
+#detailing-content{
+    display: none;
+}
+
+.name_car_h1{
+    margin-bottom: 50px;
+}
+.info_car_div .text_right{
+    text-align: right;
+}
+#process-content{
+    height: 600px;
+}
+
+
+.footer{
+    padding: 30px 50px;
+    border-top:2px solid #2C72C6;
+    margin-top: 100px;
+}
+.footer .col-md-7{
+    width: 200px;
+    margin-bottom: 50px;
+}
+.footer .content1{
+    margin-bottom: 100px;
+}
+.footer .content1 ul li{
+    list-style-type:none;
+    color: #2C72C6;
+    margin-bottom: 10px;
+    font-family: 'Be Vietnam Pro';
+}
+.content1 ul li a{
+    color: black;
+    text-decoration:none;
+    font-weight: 500;
+}
+.content1 ul li a:hover{
+    color: #2C72C6;
+}
+.footer .content2{
+    width: 80%;
+    border-top: 1px solid gray;
+    margin: auto;
+    padding-top: 50px;
+}
+.footer .content2 li{
+    list-style-type: none;
+}
+
+.col-md-2 img{
+    width: 150px;
+    height: 100px;
+    transition: ease 0.3s;
+}
+.col-md-2 p{
+    text-align: left;
+    font-size: 14px;
+}
+
+.col-md-2 img:hover{
+    width: 170px;
+    height: 120px;
+
+}
+
+/*thuexe.jsp*/
+/*slide*/
+* {box-sizing: border-box}
+.mySlides1 {
+    display: none;
+    height: 200px;
+
+}
+
+.mySlides1 {
+    padding-left: 50px;
+    margin-left: 50px;
+}
+
+.mySlides1 a img{
+    transition: ease 0.1s;
+    width: 80%;
+}
+.mySlides1 a img:hover{
+    width: 85%;
+}
+
+/* Slideshow container */
+.slideshow-container {
+    margin-top: 50px; 
+    position: relative;
+    margin: auto;
+    margin-bottom: 50px;
+ 
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a grey background color */
+.prev:hover, .next:hover {
+    background-color: #f1f1f1;
+    color: black;
+}
+/*slide end*/
+
+.table_info_customer{
+
+    margin-bottom: 100px;
+
+}
+.table_info_customer h3{
+    text-align: center;
+}
+.info_customer{
+    margin: auto;
+}
+.info_customer tr td select{
+    padding: 10px 750px 10px 0;
+}
+.info_customer tr td input{
+    padding: 10px 210px 10px 15px;
+}
+.info_customer tr .code_gioithieu input{
+    padding: 10px 683px 10px 15px;
+    margin-bottom: 20px;
+}
+.info_customer .thuexe_btn_thuexe{
+
+}
+.img_xethue{
+    width: 80%;
+
+    transition: ease 0.3s;
+}
+.img_xethue:hover{
+    width: 85%;
+
+}
+.choosecar{
+    height: 400px;
+}
+
+/*end thuexe.jsp*/
+/*login*/
+.table_info_customer form .login tr td input{
+    margin-bottom: 10px;
+    border: 1px solid #ced1e0;
+    border-radius: 5px;
+    
+}
+.table_info_customer form .login tr td .icon{
+    margin-bottom: 50px;
+}
+
+.table_info_customer form .login tr td h5{
+    font-weight: bold;
+}
+.table_info_customer form .login tr td h8{
+    font-size: 12px;
+}
+/*end login*/
+
+/*form login
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+::selection{
+  color: #fff;
+  background: #5372F0;
+}
+.wrapper{
+  width: 380px;
+  padding: 40px 30px 50px 30px;
+  background: #fff;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
+  
+  margin-top: 50px;
+}
+.wrapper header{
+  font-size: 35px;
+  font-weight: 600;
+}
+.wrapper form{
+  margin: 40px 0;
+}
+form .field{
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+form .field .input-area{
+  height: 50px;
+  width: 100%;
+  position: relative;
+}
+form input{
+  width: 100%;
+  height: 100%;
+  outline: none;
+  padding: 0 45px;
+  font-size: 18px;
+  background: none;
+  caret-color: #5372F0;
+  border-radius: 5px;
+  border: 1px solid #bfbfbf;
+  border-bottom-width: 2px;
+  transition: all 0.2s ease;
+}
+
+form .field input:focus,
+form .field.valid input{
+  border-color: #5372F0;
+}
+form .field.shake input,
+form .field.error input{
+  border-color: #dc3545;
+}
+.field .input-area i{
+  position: absolute;
+  top: 50%;
+  font-size: 18px;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+.input-area .icon{
+  left: 15px;
+  color: #bfbfbf;
+  transition: color 0.2s ease;
+}
+.input-area .error-icon{
+  right: 15px;
+  color: red;
+}
+form input:focus ~ .icon,
+form .field.valid .icon{
+  color: #5372F0;
+}
+form .field.shake input:focus ~ .icon,
+form .field.error input:focus ~ .icon{
+  color: #bfbfbf;
+}
+form input::placeholder{
+  color: #bfbfbf;
+  font-size: 17px;
+}
+form .field .error-txt{
+  color: #dc3545;
+  text-align: left;
+  margin-top: 5px;
+}
+form .field .error{
+  display: none;
+}
+form .field.shake .error,
+form .field.error .error{
+  display: block;
+}
+form .pass-txt {
+  left: 100px;
+  
+  
+}
+.wrapper a{
+  color: #5372F0;
+  text-decoration: none;
+}
+.wrapper a:hover{
+  text-decoration: underline;
+}
+form input[type="submit"]{
+  height: 50px;
+  margin-top: 30px;
+  color: #fff;
+  padding: 0;
+  border: none;
+  background: #5372F0;
+  cursor: pointer;
+  border-bottom: 2px solid rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+form input[type="submit"]:hover{
+  background: #2c52ed;
+}
+end from login*/
+
+/**form**/
+.form_login{
+    padding-top: 20px;
+}
+.form_login .col-md-4{
+    padding-top: 100px;
+    
+}
+.form_container .login{
+    width: 80%;
+}
+.login {
+   
+  color: white;
+   background: #136a8a;
+  background: 
+    -webkit-linear-gradient(to right, #267871, #136a8a);
+  background: 
+    linear-gradient(to right, #267871, #136a8a);
+  margin: auto;
+  box-shadow: 
+    0px 2px 10px rgba(0,0,0,0.2), 
+    0px 10px 20px rgba(0,0,0,0.3), 
+    0px 30px 60px 1px rgba(0,0,0,0.5);
+  border-radius: 8px;
+  padding: 50px;
+}
+.login .head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login .head .company {
+  font-size: 2.2em;
+}
+.login .msg {
+  text-align: center;
+}
+.login .form input[type=text].text {
+  border: none;
+  background: none;
+  box-shadow: 0px 2px 0px 0px white;
+  width: 100%;
+  color: white;
+  font-size: 1em;
+  outline: none;
+  margin-top: 20px;
+}
+.login .form .text::placeholder {
+  color: #D3D3D3;
+}
+.login .form input[type=password].password {
+  border: none;
+  background: none;
+  box-shadow: 0px 2px 0px 0px white;
+  width: 100%;
+  color: white;
+  font-size: 1em;
+  outline: none;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.login .form ul li{
+    font-size: 10px;
+    font-style: oblique;
+}
+.login .form .password::placeholder {
+  color: #D3D3D3;
+}
+.login .form .btn-login {
+  background: none;
+  text-decoration: none;
+  color: white;
+  box-shadow: 0px 0px 0px 2px white;
+  border-radius: 3px;
+  padding: 5px 2em;
+  transition: 0.5s;
+}
+.login .form .btn-login:hover {
+  background: white;
+  color: dimgray;
+  transition: 0.5s;
+}
+.login .forgot {
+  text-decoration: none;
+  color: white;
+  float: right;
+}
+footer {
+  position: absolute;
+  color: #136a8a;
+  bottom: 10px;
+  padding-left: 20px;
+}
+footer p {
+  display: inline;
+}
+footer a {
+  color: green;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+footer .heart {
+  color: #B22222;
+  font-size: 1.5em
+}
+/**end form**/
+/**baoduong*/
+.circle_label{
+    width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  font-size: 15px;
+  color: white;
+  text-align: center;
+  background: grey;
+  float: left;
+  font-style: normal;
+  margin-right: 20px;
+}
+.col-md-6 .header_label{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.containerNone h4{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.containerNone  .row .col-md-6 div{
+    padding: 10px 1px;
+}
+.containerNone  .row .col-md-6 div input[type=text],input[type=email],input[type=time],input[type=date]{
+    width: 100%;
+    padding: 7px 20px;
+    border: 1px solid #f1f1f1;
+    border-radius: 3px;
+    font-size: 17px;
+}
+
+.containerNone .btn_xacnhanyeucau{
+    margin-left: 33%;
+}
+/**end bao duong*/
+
